@@ -37,21 +37,25 @@ Primary risks:
 
 ## Current approval readiness score
 
-Score after the latest hub and methodology updates: 93 / 100
+Score after the latest guide and policy-page updates: 95 / 100
 
-- Content depth: 28 / 30
+- Content depth: 29 / 30
   - Every calculator page now has more than 2,000 visible article characters, topic-aware interpretation, FAQ, caution notes, and reference links.
+  - A dedicated calculator use guide now explains input checks, result interpretation, record keeping, and when to seek professional advice.
   - Remaining risk: imported calculator widgets still vary in visual and copy quality, so future work should polish the highest-traffic calculators manually.
-- Trust and YMYL safety: 24 / 25
+- Trust and YMYL safety: 25 / 25
   - Diagnostic-sounding wording was softened, methodology and editorial standards are visible, and official resources are linked without implying partnership.
+  - Privacy, disclaimer, contact, advertising, and editorial pages now explain operational scope, correction workflow, ad separation, and medical-safety limits in more detail.
   - Remaining risk: WELLBEEP is not a medical institution, so the site must keep avoiding diagnosis, treatment, prescription, or guaranteed outcome wording.
-- Navigation and site structure: 19 / 20
+- Navigation and site structure: 20 / 20
   - Topic hubs, related calculators, policy pages, and a public reference hub are linked from home, footer, and calculator pages.
+  - The calculator use guide is linked from the top navigation, footer, home page, source boxes, topic hubs, and policy pages.
   - Remaining risk: Search Console indexing can still take time after new hub pages are deployed.
 - Technical readiness: 20 / 20
   - AdSense script, google-adsense-account meta tag, ads.txt, sitemap, canonical links, and robots.txt are present.
-- Policy and ad safety: 2 / 5 buffer risk
-  - No ad-click encouragement was added, but final approval depends on Google review, traffic quality, and account/site history.
+- Policy and ad safety: 1 / 5 buffer risk
+  - Advertising policy now explicitly prohibits ad-click encouragement and confusing ad placement.
+  - Final approval still depends on Google review, traffic quality, and account/site history.
 
 ## Step-by-step execution plan
 
@@ -78,7 +82,12 @@ Score after the latest hub and methodology updates: 93 / 100
    - Add a calculator methodology page that explains formula selection, interpretation limits, source use, and correction workflow.
    - Status: complete.
 
-5. Technical verification
+5. Policy and guide depth
+   - Add a calculator use guide for input quality, result interpretation, record keeping, and professional-consultation triggers.
+   - Expand advertising, privacy, disclaimer, editorial, contact, and about pages with operational details.
+   - Status: complete.
+
+6. Technical verification
    - Confirm build success.
    - Confirm every calculator has AdSense script, AdSense account meta tag, FAQ, sources, and related links.
    - Confirm sitemap, canonical, robots, ads.txt, and policy pages are live after deployment.

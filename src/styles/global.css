@@ -290,6 +290,13 @@ main {
   max-width: 620px;
 }
 
+.section-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
 .category-tabs {
   display: flex;
   flex-wrap: wrap;
@@ -455,6 +462,27 @@ main {
   color: var(--muted);
   font-size: 14.5px;
   margin: 0;
+}
+
+.compact-link-list {
+  border-top: 1px solid var(--line);
+  margin: 14px 0 0;
+  padding: 12px 0 0 18px;
+}
+
+.compact-link-list li + li {
+  margin-top: 6px;
+}
+
+.compact-link-list a,
+.hub-card__more a {
+  font-weight: 800;
+}
+
+.hub-card__more {
+  border-top: 1px solid var(--line);
+  margin-top: 12px !important;
+  padding-top: 10px;
 }
 
 .resource-strip {

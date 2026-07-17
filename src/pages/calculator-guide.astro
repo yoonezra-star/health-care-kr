@@ -1,0 +1,177 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { SITE, categoryLabel } from "../data/site";
+import { categoryHubs, officialResources } from "../data/resourceLinks";
+import type { Post } from "../types";
+import postsJson from "../data/posts.json";
+
+const posts = postsJson as Post[];
+const canonical = `${SITE.url}/calculator-guide`;
+const title = `건강 계산기 사용 가이드 | ${SITE.name}`;
+const description =
+  "WELLBEEP 건강 계산기를 안전하게 쓰는 순서, 입력값 확인법, 결과 기록법, 상담이 필요한 상황을 정리한 이용 가이드입니다.";
+const featuredByCategory = categoryHubs.map((hub) => ({
+  ...hub,
+  posts: posts.filter((post) => post.category === hub.key).slice(0, 3)
+}));
+const guideJson = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "건강 계산기 사용 가이드",
+  description,
+  url: canonical,
+  inLanguage: "ko-KR",
+  isPartOf: {
+    "@type": "WebSite",
+    name: SITE.title,
+    url: SITE.url
+  },
+  about: ["건강 계산기", "건강 지표", "결과 해석", "자가 기록"]
+};
+---
+
+<BaseLayout title={title} description={description} canonical={canonical}>
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Calculator Use Guide</p>
+      <h1>건강 계산기 사용 가이드</h1>
+      <p>
+        계산기는 빠르게 결과를 보여주지만, 좋은 판단은 입력값의 정확도와 결과 해석의 맥락에서 나옵니다.
+        이 페이지는 WELLBEEP 계산기를 더 안전하고 효율적으로 쓰기 위한 공통 안내서입니다.
+      </p>
+      <div class="policy-meta" aria-label="사용 가이드 요약">
+        <span>{posts.length}개 계산기 적용</span>
+        <span>{categoryHubs.length}개 주제 허브 연결</span>
+        <span>진단·처방 목적 아님</span>
+      </div>
+    </div>
+  </section>
+
+  <article class="page-content page-content--wide">
+    <p class="lead">
+      WELLBEEP의 계산기는 체형, 영양, 혈압·혈당, 생활습관, 건강지표를 빠르게 확인하는 참고 도구입니다.
+      결과 자체보다 중요한 것은 같은 조건으로 기록하고, 관련 지표를 함께 보고, 위험 신호가 있으면 의료 전문가 상담으로 연결하는 것입니다.
+    </p>
+
+    <section class="resource-section">
+      <h2>1. 먼저 계산 목적을 정하세요</h2>
+      <div class="policy-grid">
+        <div class="policy-panel">
+          <h2>현재 상태 확인</h2>
+          <p>BMI, 허리둘레, 혈압, 혈당처럼 현재 위치를 파악하는 계산기는 측정 조건과 날짜를 함께 기록하면 이후 비교가 쉬워집니다.</p>
+        </div>
+        <div class="policy-panel">
+          <h2>목표 설정</h2>
+          <p>칼로리, 단백질, 체중 변화 계산기는 무리한 목표보다 지속 가능한 범위를 찾는 데 사용하세요.</p>
+        </div>
+        <div class="policy-panel">
+          <h2>검진 결과 이해</h2>
+          <p>콜레스테롤, 혈당, 혈압처럼 검진표와 연결되는 항목은 공복 여부, 검사 단위, 복용 약물을 함께 확인해야 합니다.</p>
+        </div>
+        <div class="policy-panel">
+          <h2>생활습관 기록</h2>
+          <p>수면, 운동, 흡연력, 카페인처럼 반복되는 습관은 하루 수치보다 1~2주 평균과 변화 방향을 보는 편이 현실적입니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="resource-section">
+      <h2>2. 입력값 확인 체크리스트</h2>
+      <ul class="policy-list">
+        <li>단위가 cm, kg, mg/dL, mmol/L, 시간, 회, 개비 등 어떤 기준인지 먼저 확인합니다.</li>
+        <li>혈압·혈당·체중처럼 변동이 큰 값은 측정 시간, 식사 여부, 운동 여부, 수면 상태를 함께 적습니다.</li>
+        <li>검진표의 값은 검사일, 공복 여부, 검사 기관의 참고 범위와 함께 보관합니다.</li>
+        <li>입력값이 평소와 크게 다르면 오타, 단위 착오, 측정기 오류 가능성을 먼저 확인합니다.</li>
+        <li>임신·수유, 성장기, 고령자, 만성질환, 복용 약물이 있다면 일반 기준과 다르게 해석될 수 있습니다.</li>
+      </ul>
+    </section>
+
+    <section class="resource-section">
+      <h2>3. 주제별로 함께 보면 좋은 계산 흐름</h2>
+      <div class="hub-card-grid">
+        {featuredByCategory.map((hub) => (
+          <div class="hub-card">
+            <span>{categoryLabel(hub.key)}</span>
+            <h3>{hub.title}</h3>
+            <p>{hub.summary}</p>
+            <ul class="compact-link-list">
+              {hub.posts.map((post) => (
+                <li><a href={`/${post.slug}`}>{post.title}</a></li>
+              ))}
+            </ul>
+            <p class="hub-card__more"><a href={`/calculators/${hub.key}`}>허브 전체 보기</a></p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="resource-section">
+      <h2>4. 결과를 해석할 때 피해야 할 실수</h2>
+      <ul class="policy-list">
+        <li>한 번의 결과만 보고 질환이 있다고 단정하지 않습니다.</li>
+        <li>정상 범위에 가까운 결과라도 증상이 있으면 계산기 결과만으로 안심하지 않습니다.</li>
+        <li>체중, 혈압, 혈당, 수면처럼 흔들리는 값은 단기 변화보다 반복 기록과 추세를 우선합니다.</li>
+        <li>온라인 계산 결과를 근거로 약물 복용, 중단, 용량 조절을 결정하지 않습니다.</li>
+        <li>광고나 외부 상품 정보를 계산 결과의 권위처럼 받아들이지 않습니다.</li>
+      </ul>
+    </section>
+
+    <section class="resource-section">
+      <h2>5. 의료 상담이 우선인 경우</h2>
+      <p>
+        계산기는 자기 점검의 출발점입니다. 아래 상황에서는 온라인 결과보다 의료기관 상담 또는 응급 진료가 우선입니다.
+      </p>
+      <ul class="policy-list">
+        <li>흉통, 호흡곤란, 의식 저하, 갑작스러운 마비, 극심한 통증, 심한 출혈 같은 응급 증상이 있는 경우</li>
+        <li>혈압, 혈당, 체중, 체온 등 수치가 평소와 크게 다르고 반복해서 지속되는 경우</li>
+        <li>임신, 소아, 고령자, 만성질환, 수술 전후, 약물 복용과 관련된 판단이 필요한 경우</li>
+        <li>검진 결과에서 재검, 정밀검사, 진료 상담을 권고받은 경우</li>
+      </ul>
+    </section>
+
+    <section class="resource-section">
+      <h2>6. 기록 템플릿</h2>
+      <p>
+        계산 결과를 다시 비교하려면 결과값만 적기보다 입력 조건을 함께 남기는 것이 좋습니다.
+        아래 항목을 메모앱이나 건강 기록장에 붙여 두면 다음 계산 때 비교가 쉬워집니다.
+      </p>
+      <dl class="info-list">
+        <div>
+          <dt>기본 정보</dt>
+          <dd>날짜, 시간, 사용한 계산기 이름, 페이지 주소</dd>
+        </div>
+        <div>
+          <dt>입력값</dt>
+          <dd>키, 체중, 허리둘레, 검사 수치, 수면 시간, 식사량 등 입력한 값과 단위</dd>
+        </div>
+        <div>
+          <dt>측정 조건</dt>
+          <dd>공복 여부, 운동 여부, 최근 식사, 복용 약물, 측정 자세, 측정 기기</dd>
+        </div>
+        <div>
+          <dt>다음 행동</dt>
+          <dd>반복 측정, 공식 자료 확인, 생활습관 조정, 의료 상담 예약 여부</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="resource-section">
+      <h2>7. 기준 문서와 참고 자료</h2>
+      <p>
+        계산식 자체의 선정과 검수 기준은 <a href="/calculator-methodology">계산기 산출 방식 및 검수 기준</a>에서,
+        외부 공공 자료는 <a href="/health-resources">참고 기관 및 공공 건강 자료</a>에서 확인할 수 있습니다.
+      </p>
+      <div class="resource-grid">
+        {officialResources.slice(0, 6).map((resource) => (
+          <a class="resource-card" href={resource.href} target="_blank" rel="noopener noreferrer">
+            <span>{resource.owner}</span>
+            <h3>{resource.name}</h3>
+            <p>{resource.scope}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  </article>
+
+  <script type="application/ld+json" set:html={JSON.stringify(guideJson)} />
+</BaseLayout>

@@ -10,6 +10,7 @@ const staticPages = [
   "/disclaimer",
   "/editorial-policy",
   "/advertising-policy",
+  "/calculator-guide",
   "/health-resources",
   "/calculator-methodology",
   "/calculators/body",

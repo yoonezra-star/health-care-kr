@@ -27,7 +27,8 @@ const cleanStaticPath = (pathname: string) => {
     "/privacy.html",
     "/disclaimer.html",
     "/editorial-policy.html",
-    "/advertising-policy.html"
+    "/advertising-policy.html",
+    "/calculator-guide.html"
   ]);
 
   return cleanPages.has(pathname) ? pathname.replace(/\.html$/, "") : pathname;
@@ -132,6 +133,7 @@ const websiteJson = {
         </div>
         <nav class="footer-links" aria-label="하단 메뉴">
           <a href="/about">소개</a>
+          <a href="/calculator-guide">사용법</a>
           <a href="/health-resources">참고 기관</a>
           <a href="/calculator-methodology">계산 기준</a>
           <a href="/contact">문의</a>
