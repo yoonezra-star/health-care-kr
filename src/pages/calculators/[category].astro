@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCalculatorGuide } from "../../data/calculatorGuides";
 import { SITE, categoryLabel } from "../../data/site";
 import {
   calculatorCategories,
@@ -20,6 +21,10 @@ const { category } = Astro.params;
 const key = category ?? "health";
 const hub = getCategoryHub(key);
 const categoryPosts = posts.filter((post) => post.category === key);
+const comparisonPosts = categoryPosts.slice(0, 8).map((post) => ({
+  post,
+  guide: getCalculatorGuide(post)
+}));
 const resources = getResourcesForTags(hub.resourceTags);
 const canonical = `${SITE.url}/calculators/${key}`;
 const title = `${hub.title} | ${SITE.name}`;
@@ -94,6 +99,33 @@ const collectionJson = {
             <li>질환 판단이 필요한 주제는 진단 표현을 피하고 상담이 필요한 상황을 명확히 적습니다.</li>
             <li>계산식 선정과 검수 흐름은 <a href="/calculator-methodology">계산기 산출 방식 및 검수 기준</a>에서 설명합니다.</li>
           </ul>
+        </section>
+
+        <section class="hub-panel">
+          <h2>{categoryLabel(key)} 계산기 비교표</h2>
+          <p>
+            같은 주제 안에서도 계산 목적과 입력값이 다릅니다. 먼저 필요한 상황을 고른 뒤 관련 계산기를 함께 비교해 보세요.
+          </p>
+          <div class="table-wrap visual-table-wrap">
+            <table class="comparison-table">
+              <thead>
+                <tr>
+                  <th scope="col">계산기</th>
+                  <th scope="col">쓰기 좋은 상황</th>
+                  <th scope="col">결과를 볼 때</th>
+                </tr>
+              </thead>
+              <tbody>
+                {comparisonPosts.map(({ post, guide }) => (
+                  <tr>
+                    <th scope="row"><a href={`/${post.slug}`}>{post.title}</a></th>
+                    <td>{guide.primaryUse}</td>
+                    <td>{guide.interpretation[0]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </section>
 
         <section class="hub-panel">

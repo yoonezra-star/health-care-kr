@@ -37,11 +37,12 @@ Primary risks:
 
 ## Current approval readiness score
 
-Score after the latest guide and policy-page updates: 95 / 100
+Score after the latest visual-guide and comparison-table updates: 96 / 100
 
-- Content depth: 29 / 30
+- Content depth: 30 / 30
   - Every calculator page now has more than 2,000 visible article characters, topic-aware interpretation, FAQ, caution notes, and reference links.
   - A dedicated calculator use guide now explains input checks, result interpretation, record keeping, and when to seek professional advice.
+  - Every calculator page now includes a category-specific visual guide, summary metric cards, interpretation table, and three-step result flow.
   - Remaining risk: imported calculator widgets still vary in visual and copy quality, so future work should polish the highest-traffic calculators manually.
 - Trust and YMYL safety: 25 / 25
   - Diagnostic-sounding wording was softened, methodology and editorial standards are visible, and official resources are linked without implying partnership.
@@ -50,6 +51,7 @@ Score after the latest guide and policy-page updates: 95 / 100
 - Navigation and site structure: 20 / 20
   - Topic hubs, related calculators, policy pages, and a public reference hub are linked from home, footer, and calculator pages.
   - The calculator use guide is linked from the top navigation, footer, home page, source boxes, topic hubs, and policy pages.
+  - Each topic hub now has a calculator comparison table so users can choose adjacent tools without returning to search.
   - Remaining risk: Search Console indexing can still take time after new hub pages are deployed.
 - Technical readiness: 20 / 20
   - AdSense script, google-adsense-account meta tag, ads.txt, sitemap, canonical links, and robots.txt are present.
@@ -87,9 +89,15 @@ Score after the latest guide and policy-page updates: 95 / 100
    - Expand advertising, privacy, disclaimer, editorial, contact, and about pages with operational details.
    - Status: complete.
 
-6. Technical verification
+6. Visual information layer
+   - Add category-specific visual guides, summary metric cards, interpretation tables, and three-step result flows to every calculator.
+   - Add calculator comparison tables to topic hub pages.
+   - Status: complete.
+
+7. Technical verification
    - Confirm build success.
    - Confirm every calculator has AdSense script, AdSense account meta tag, FAQ, sources, and related links.
+   - Confirm every calculator has visual guide blocks and every topic hub has a comparison table.
    - Confirm sitemap, canonical, robots, ads.txt, and policy pages are live after deployment.
    - Status: pending final live check.
 

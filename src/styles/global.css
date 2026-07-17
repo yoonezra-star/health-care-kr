@@ -875,6 +875,10 @@ main {
   margin: 0;
 }
 
+.guide-heading--compact {
+  margin-bottom: 14px;
+}
+
 .guide-heading p:last-child,
 .guide-panel p,
 .source-box p {
@@ -986,6 +990,122 @@ main {
   font-size: 14px;
   margin-top: 16px;
   padding-top: 12px;
+}
+
+.visual-aid {
+  background: linear-gradient(180deg, #ffffff, #f8fbfa);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: clamp(18px, 3vw, 24px);
+}
+
+.metric-strip {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 16px 0;
+}
+
+.metric-strip div {
+  background: #eef7f4;
+  border: 1px solid #d0e7e1;
+  border-radius: var(--radius);
+  padding: 14px;
+}
+
+.metric-strip span {
+  color: var(--teal-dark);
+  display: block;
+  font-size: 12px;
+  font-weight: 850;
+  margin-bottom: 5px;
+}
+
+.metric-strip strong {
+  color: var(--ink);
+  display: block;
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.metric-strip p {
+  color: var(--muted);
+  font-size: 13.5px;
+  margin: 6px 0 0;
+}
+
+.visual-table-wrap {
+  overflow-x: auto;
+}
+
+.comparison-table {
+  border-collapse: collapse;
+  min-width: 720px;
+  width: 100%;
+}
+
+.comparison-table th,
+.comparison-table td {
+  border-bottom: 1px solid var(--line);
+  color: #334349;
+  padding: 12px 14px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.comparison-table thead th {
+  background: #10282d;
+  color: white;
+  font-size: 13px;
+  letter-spacing: 0;
+}
+
+.comparison-table tbody th {
+  background: #f1f7f5;
+  color: var(--ink);
+  font-weight: 850;
+  width: 22%;
+}
+
+.comparison-table a {
+  font-weight: 850;
+}
+
+.flow-steps {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 16px;
+}
+
+.flow-step {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px;
+  position: relative;
+}
+
+.flow-step span {
+  background: var(--coral);
+  border-radius: 999px;
+  color: white;
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 900;
+  margin-bottom: 10px;
+  padding: 4px 9px;
+}
+
+.flow-step h3 {
+  font-size: 17px;
+  margin: 0 0 6px;
+}
+
+.flow-step p {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 0;
 }
 
 .page-content {
@@ -1233,6 +1353,8 @@ main {
 
   .policy-grid,
   .guide-grid,
+  .metric-strip,
+  .flow-steps,
   .info-list div {
     grid-template-columns: 1fr;
   }
