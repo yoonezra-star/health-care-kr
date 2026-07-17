@@ -1,0 +1,85 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { SITE } from "../data/site";
+import { calculatorCategories, categoryHubs, officialResources } from "../data/resourceLinks";
+
+const canonical = `${SITE.url}/health-resources`;
+const title = `참고 기관 및 공공 건강 자료 | ${SITE.name}`;
+const description =
+  "WELLBEEP 건강 계산기 결과를 이해할 때 함께 확인할 수 있는 공공기관, 전문기관, 건강·영양 자료 링크입니다.";
+const resourceJson = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "참고 기관 및 공공 건강 자료",
+  description,
+  url: canonical,
+  inLanguage: "ko-KR",
+  hasPart: officialResources.map((resource) => ({
+    "@type": "WebPage",
+    name: resource.name,
+    url: resource.href,
+    provider: resource.owner
+  }))
+};
+---
+
+<BaseLayout title={title} description={description} canonical={canonical}>
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Reference Hub</p>
+      <h1>참고 기관 및 공공 건강 자료</h1>
+      <p>
+        계산기 결과를 더 정확하게 이해하려면 공개 기준과 공공 자료를 함께 확인하는 것이 좋습니다.
+        이 페이지는 WELLBEEP 계산기와 함께 보기 좋은 공식 자료를 한곳에 모은 참고 허브입니다.
+      </p>
+      <div class="policy-meta" aria-label="자료 허브 요약">
+        <span>{officialResources.length}개 참고 링크</span>
+        <span>{calculatorCategories.length}개 계산기 허브</span>
+        <span>제휴 아님 · 참고 목적</span>
+      </div>
+    </div>
+  </section>
+
+  <article class="page-content page-content--wide">
+    <p class="lead">
+      아래 기관 링크는 WELLBEEP가 결과 해석을 돕기 위해 연결하는 공개 자료입니다.
+      특정 기관이 WELLBEEP를 인증하거나 보증한다는 의미가 아니며, 질환 진단과 치료 판단은 의료 전문가와 상담해야 합니다.
+    </p>
+
+    <section class="resource-section" aria-labelledby="resource-list-heading">
+      <h2 id="resource-list-heading">공공·전문 자료 링크</h2>
+      <div class="resource-grid">
+        {officialResources.map((resource) => (
+          <a class="resource-card" href={resource.href} target="_blank" rel="noopener noreferrer">
+            <span>{resource.owner}</span>
+            <h3>{resource.name}</h3>
+            <p>{resource.scope}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="resource-section" aria-labelledby="hub-list-heading">
+      <h2 id="hub-list-heading">주제별 계산기 허브</h2>
+      <div class="hub-card-grid">
+        {categoryHubs.map((hub) => (
+          <a class="hub-card" href={`/calculators/${hub.key}`}>
+            <h3>{hub.title}</h3>
+            <p>{hub.summary}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="resource-section">
+      <h2>자료를 읽을 때의 기준</h2>
+      <ul class="policy-list">
+        <li>공공 자료는 기준과 배경을 이해하는 데 도움을 주지만, 개인의 진단을 대신하지 않습니다.</li>
+        <li>검진 수치, 약물 복용, 임신·수유, 만성질환 여부에 따라 일반 기준과 다른 해석이 필요할 수 있습니다.</li>
+        <li>계산기 결과와 공식 자료가 다르게 느껴지면, 입력값과 단위를 다시 확인하고 의료 전문가와 상담하세요.</li>
+      </ul>
+    </section>
+  </article>
+
+  <script type="application/ld+json" set:html={JSON.stringify(resourceJson)} />
+</BaseLayout>

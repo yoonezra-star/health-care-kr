@@ -12,6 +12,7 @@ export const SITE = {
 export const navLinks = [
   { href: "/", label: "계산기" },
   { href: "/about", label: "소개" },
+  { href: "/health-resources", label: "참고자료" },
   { href: "/privacy", label: "개인정보" },
   { href: "/disclaimer", label: "면책" },
   { href: "/contact", label: "문의" }

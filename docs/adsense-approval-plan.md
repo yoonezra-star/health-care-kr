@@ -55,6 +55,8 @@ Primary risks:
 4. Internal linking and navigation strengthening
    - Add "related calculators" inside the article body, not only in the sidebar.
    - Keep policy pages discoverable from the footer and calculator side panel.
+   - Add topic hub pages for body, nutrition, vitals, lifestyle, and general health calculators.
+   - Add a public reference hub that links to official or professional resources without implying partnership.
    - Status: complete.
 
 5. Technical verification
@@ -73,4 +75,5 @@ Every new calculator should include:
 - At least three FAQs.
 - Credible public sources or criteria.
 - Related calculators for continued navigation.
+- A link back to its topic hub and relevant public reference resources.
 - No disease diagnosis, treatment promise, guaranteed lifespan, or urgent treatment language unless it is a general emergency warning.

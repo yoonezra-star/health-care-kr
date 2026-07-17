@@ -1,0 +1,123 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { SITE, categoryLabel } from "../../data/site";
+import {
+  calculatorCategories,
+  getCategoryHub,
+  getResourcesForTags
+} from "../../data/resourceLinks";
+import type { Post } from "../../types";
+import postsJson from "../../data/posts.json";
+
+export function getStaticPaths() {
+  return calculatorCategories.map((category) => ({
+    params: { category: category.key }
+  }));
+}
+
+const posts = postsJson as Post[];
+const { category } = Astro.params;
+const key = category ?? "health";
+const hub = getCategoryHub(key);
+const categoryPosts = posts.filter((post) => post.category === key);
+const resources = getResourcesForTags(hub.resourceTags);
+const canonical = `${SITE.url}/calculators/${key}`;
+const title = `${hub.title} | ${SITE.name}`;
+const description = `${hub.summary} WELLBEEP의 ${categoryLabel(key)} 계산기를 한곳에서 확인하세요.`;
+const collectionJson = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: hub.title,
+  description,
+  url: canonical,
+  inLanguage: "ko-KR",
+  isPartOf: {
+    "@type": "WebSite",
+    name: SITE.title,
+    url: SITE.url
+  },
+  hasPart: categoryPosts.map((post) => ({
+    "@type": "Article",
+    headline: post.title,
+    url: `${SITE.url}/${post.slug}`,
+    dateModified: post.modifiedAt
+  }))
+};
+---
+
+<BaseLayout title={title} description={description} canonical={canonical}>
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Calculator Hub</p>
+      <h1>{hub.title}</h1>
+      <p>{hub.summary}</p>
+      <div class="policy-meta" aria-label="허브 요약">
+        <span>{categoryPosts.length}개 계산기</span>
+        <span>{categoryLabel(key)} 주제</span>
+        <span>공공 자료 연결</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white">
+    <div class="wrap hub-layout">
+      <article class="hub-main">
+        <section class="hub-panel">
+          <h2>이 허브를 쓰기 좋은 상황</h2>
+          <ul class="policy-list">
+            {hub.useCases.map((item) => <li>{item}</li>)}
+          </ul>
+        </section>
+
+        <section class="hub-panel">
+          <h2>결과를 볼 때 확인할 점</h2>
+          <ul class="policy-list">
+            {hub.checkPoints.map((item) => <li>{item}</li>)}
+          </ul>
+        </section>
+
+        <section class="hub-panel">
+          <div class="section__head section__head--compact">
+            <div>
+              <h2>{categoryLabel(key)} 계산기 목록</h2>
+              <p>계산기마다 결과 해석, 주의사항, FAQ, 참고 기준을 함께 제공합니다.</p>
+            </div>
+          </div>
+          <div class="tool-grid tool-grid--compact">
+            {categoryPosts.map((post) => (
+              <a class="tool-card" href={`/${post.slug}`}>
+                <span class="tool-card__top">
+                  <span class="badge" data-category={post.category}>{categoryLabel(post.category)}</span>
+                </span>
+                <h3>{post.title}</h3>
+                <p>{post.description || post.excerpt}</p>
+                <time datetime={post.modifiedAt}>
+                  수정 {new Date(post.modifiedAt).toLocaleDateString("ko-KR")}
+                </time>
+              </a>
+            ))}
+          </div>
+        </section>
+      </article>
+
+      <aside class="hub-side" aria-label="공공 참고 자료">
+        <section class="side-panel">
+          <h2>참고 기관</h2>
+          <p class="side-panel__copy">
+            아래 링크는 계산 결과를 더 깊게 이해하기 위한 공공·전문 자료입니다.
+            WELLBEEP와의 제휴나 보증을 의미하지 않습니다.
+          </p>
+          {resources.slice(0, 5).map((resource) => (
+            <a href={resource.href} target="_blank" rel="noopener noreferrer">
+              {resource.name}
+              <small>{resource.owner}</small>
+            </a>
+          ))}
+          <a href="/health-resources">참고자료 전체 보기</a>
+        </section>
+      </aside>
+    </div>
+  </section>
+
+  <script type="application/ld+json" set:html={JSON.stringify(collectionJson)} />
+</BaseLayout>

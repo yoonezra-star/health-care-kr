@@ -261,12 +261,21 @@ main {
   border-block: 1px solid var(--line);
 }
 
+.section--soft {
+  background: #f1f7f5;
+  border-bottom: 1px solid var(--line);
+}
+
 .section__head {
   align-items: end;
   display: flex;
   gap: 18px;
   justify-content: space-between;
   margin-bottom: 22px;
+}
+
+.section__head--compact {
+  margin-bottom: 16px;
 }
 
 .section__head h2 {
@@ -313,6 +322,10 @@ main {
   display: grid;
   gap: 14px;
   grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+}
+
+.tool-grid--compact {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
 
 .tool-card {
@@ -394,6 +407,80 @@ main {
   color: #7c8a91;
   font-size: 13px;
   margin-top: auto;
+}
+
+.hub-card-grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.hub-card-grid--home {
+  margin-bottom: 24px;
+}
+
+.hub-card {
+  background: #fbfdfc;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  display: block;
+  padding: 18px;
+  text-decoration: none;
+}
+
+.hub-card:hover {
+  border-color: rgba(15, 139, 126, 0.5);
+}
+
+.hub-card span,
+.resource-card span,
+.resource-strip span {
+  color: var(--teal-dark);
+  display: block;
+  font-size: 13px;
+  font-weight: 850;
+  margin-bottom: 7px;
+}
+
+.hub-card h3,
+.resource-card h3 {
+  color: var(--ink);
+  font-size: 19px;
+  line-height: 1.28;
+  margin: 0 0 8px;
+}
+
+.hub-card p,
+.resource-card p {
+  color: var(--muted);
+  font-size: 14.5px;
+  margin: 0;
+}
+
+.resource-strip {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+}
+
+.resource-strip a {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px;
+  text-decoration: none;
+}
+
+.resource-strip strong {
+  color: var(--ink);
+  display: block;
+  line-height: 1.35;
+}
+
+.resource-note {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 16px 0 0;
 }
 
 .trust-band {
@@ -718,8 +805,23 @@ main {
   text-decoration: none;
 }
 
+.side-panel a small {
+  color: var(--muted);
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.35;
+  margin-top: 2px;
+}
+
 .side-panel a + a {
   border-top: 1px solid var(--line);
+}
+
+.side-panel__copy {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 0 0 8px;
 }
 
 .calculator-guide {
@@ -818,6 +920,12 @@ main {
   margin: 0 0 12px;
 }
 
+.guide-related-inline__more {
+  border-top: 1px solid var(--line);
+  margin-top: 12px !important;
+  padding-top: 12px;
+}
+
 .guide-related-inline a {
   font-weight: 850;
 }
@@ -859,6 +967,10 @@ main {
   margin: 34px auto 64px;
   max-width: 880px;
   padding: clamp(22px, 5vw, 42px);
+}
+
+.page-content--wide {
+  max-width: 1040px;
 }
 
 .page-content .lead {
@@ -968,6 +1080,62 @@ main {
   margin-top: 8px !important;
 }
 
+.hub-layout {
+  align-items: start;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(0, 1fr) 300px;
+}
+
+.hub-main {
+  display: grid;
+  gap: 18px;
+  min-width: 0;
+}
+
+.hub-side {
+  position: sticky;
+  top: 84px;
+}
+
+.hub-panel,
+.resource-section {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: clamp(18px, 3vw, 24px);
+}
+
+.hub-panel h2,
+.resource-section h2 {
+  font-size: 22px;
+  line-height: 1.25;
+  margin: 0 0 12px;
+}
+
+.resource-section + .resource-section {
+  margin-top: 18px;
+}
+
+.resource-grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+}
+
+.resource-card {
+  background: #fbfdfc;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  display: block;
+  padding: 18px;
+  text-decoration: none;
+}
+
+.resource-card:hover {
+  border-color: rgba(15, 139, 126, 0.5);
+}
+
 .site-footer {
   background: #0d2125;
   color: rgba(255, 255, 255, 0.76);
@@ -1022,11 +1190,16 @@ main {
   }
 
   .article-layout,
+  .hub-layout,
   .trust-grid {
     grid-template-columns: 1fr;
   }
 
   .article-side {
+    position: static;
+  }
+
+  .hub-side {
     position: static;
   }
 

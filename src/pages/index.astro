@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { categoryHubs, officialResources } from "../data/resourceLinks";
 import { SITE, categories, categoryLabel } from "../data/site";
 import type { Post } from "../types";
 import postsJson from "../data/posts.json";
@@ -49,7 +50,20 @@ const categoryCounts = categories
           <h2>건강 지표 계산기</h2>
           <p>자주 확인하는 수치를 주제별로 묶고, 각 페이지는 계산 결과와 해석 기준을 함께 제공합니다.</p>
         </div>
-        <a class="text-link" href="/about">운영 기준</a>
+        <a class="text-link" href="/health-resources">참고자료</a>
+      </div>
+
+      <div class="hub-card-grid hub-card-grid--home" aria-label="주제별 계산기 허브">
+        {categoryHubs.map((hub) => {
+          const count = posts.filter((post) => post.category === hub.key).length;
+          return (
+            <a class="hub-card" href={`/calculators/${hub.key}`}>
+              <span>{count}개 계산기</span>
+              <h3>{hub.title}</h3>
+              <p>{hub.summary}</p>
+            </a>
+          );
+        })}
       </div>
 
       <div class="category-tabs" aria-label="계산기 주제">
@@ -87,6 +101,32 @@ const categoryCounts = categories
     </div>
   </section>
 
+  <section class="section section--soft">
+    <div class="wrap">
+      <div class="section__head">
+        <div>
+          <h2>공공 자료와 함께 보는 건강 계산기</h2>
+          <p>
+            계산 결과는 출발점입니다. 질병관리청, 국민건강보험공단, 식품안전나라 같은 공개 자료와 함께 보면
+            수치의 의미를 더 안전하게 이해할 수 있습니다.
+          </p>
+        </div>
+        <a class="text-link" href="/health-resources">참고 기관 전체</a>
+      </div>
+      <div class="resource-strip" aria-label="주요 참고 기관">
+        {officialResources.slice(0, 4).map((resource) => (
+          <a href={resource.href} target="_blank" rel="noopener noreferrer">
+            <span>{resource.owner}</span>
+            <strong>{resource.name}</strong>
+          </a>
+        ))}
+      </div>
+      <p class="resource-note">
+        위 링크는 공식 자료 확인을 돕기 위한 참고 연결이며 WELLBEEP와 해당 기관의 제휴 또는 보증을 의미하지 않습니다.
+      </p>
+    </div>
+  </section>
+
   <section class="section trust-band">
     <div class="wrap trust-grid">
       <div class="trust-item">
@@ -94,12 +134,12 @@ const categoryCounts = categories
         <p>각 도구는 생활 건강 관리를 위한 일반 계산이며 진단을 대신하지 않습니다.</p>
       </div>
       <div class="trust-item">
-        <h3>명확한 탐색</h3>
-        <p>주제별 분류, 내부 연결, 정책 페이지를 정리해 사이트 신뢰도를 높였습니다.</p>
+        <h3>주제별 허브</h3>
+        <p>체형, 영양, 혈압·혈당, 생활습관, 건강지표 허브를 통해 관련 계산기를 함께 비교할 수 있습니다.</p>
       </div>
       <div class="trust-item">
-        <h3>광고 승인 준비</h3>
-        <p>애드센스 심사에 필요한 광고 코드, 정책 페이지, 사이트맵을 함께 정리했습니다.</p>
+        <h3>참고 기준 연결</h3>
+        <p>계산기 해설에는 주제에 맞는 공공·전문 자료와 수정 요청 경로를 함께 제공합니다.</p>
       </div>
     </div>
   </section>

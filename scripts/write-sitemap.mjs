@@ -9,7 +9,13 @@ const staticPages = [
   "/privacy",
   "/disclaimer",
   "/editorial-policy",
-  "/advertising-policy"
+  "/advertising-policy",
+  "/health-resources",
+  "/calculators/body",
+  "/calculators/nutrition",
+  "/calculators/vitals",
+  "/calculators/lifestyle",
+  "/calculators/health"
 ];
 const latest = posts[0]?.modifiedAt ?? new Date().toISOString();
 
