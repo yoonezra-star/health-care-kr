@@ -20,7 +20,7 @@ const {
 
 const canonicalUrl = canonical ?? new URL(Astro.url.pathname, SITE.url).toString();
 const imageUrl = new URL(image, SITE.url).toString();
-const adsenseClient = import.meta.env.PUBLIC_ADSENSE_CLIENT;
+const adsenseClient = import.meta.env.PUBLIC_ADSENSE_CLIENT || "ca-pub-1441018945572157";
 const currentPath = Astro.url.pathname;
 const orgJson = {
   "@context": "https://schema.org",
