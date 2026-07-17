@@ -18,7 +18,22 @@ const {
   type = "website"
 } = Astro.props;
 
-const canonicalUrl = canonical ?? new URL(Astro.url.pathname, SITE.url).toString();
+const cleanStaticPath = (pathname: string) => {
+  if (pathname === "/index.html") return "/";
+
+  const cleanPages = new Set([
+    "/about.html",
+    "/contact.html",
+    "/privacy.html",
+    "/disclaimer.html",
+    "/editorial-policy.html",
+    "/advertising-policy.html"
+  ]);
+
+  return cleanPages.has(pathname) ? pathname.replace(/\.html$/, "") : pathname;
+};
+
+const canonicalUrl = canonical ?? new URL(cleanStaticPath(Astro.url.pathname), SITE.url).toString();
 const imageUrl = new URL(image, SITE.url).toString();
 const adsenseClient = import.meta.env.PUBLIC_ADSENSE_CLIENT || "ca-pub-1441018945572157";
 const currentPath = Astro.url.pathname;
@@ -64,6 +79,7 @@ const websiteJson = {
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={imageUrl} />
     <meta name="theme-color" content="#f7f9f8" />
+    {adsenseClient ? <meta name="google-adsense-account" content={adsenseClient} /> : null}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     {
       adsenseClient ? (
@@ -119,6 +135,8 @@ const websiteJson = {
           <a href="/contact">문의</a>
           <a href="/privacy">개인정보처리방침</a>
           <a href="/disclaimer">면책사항</a>
+          <a href="/editorial-policy">편집 원칙</a>
+          <a href="/advertising-policy">광고 정책</a>
         </nav>
       </div>
     </footer>

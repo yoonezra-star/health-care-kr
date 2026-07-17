@@ -2,7 +2,15 @@ import { mkdir, writeFile } from "node:fs/promises";
 import posts from "../src/data/posts.json" with { type: "json" };
 
 const siteUrl = "https://www.wellbeep.com";
-const staticPages = ["/", "/about", "/contact", "/privacy", "/disclaimer"];
+const staticPages = [
+  "/",
+  "/about",
+  "/contact",
+  "/privacy",
+  "/disclaimer",
+  "/editorial-policy",
+  "/advertising-policy"
+];
 const latest = posts[0]?.modifiedAt ?? new Date().toISOString();
 
 function escapeXml(value) {

@@ -5,13 +5,15 @@ export const SITE = {
   description:
     "BMI, 기초대사량, 영양, 혈압, 수면 등 생활 건강 지표를 빠르게 확인하는 한국어 건강 계산기 허브입니다.",
   email: "replyleaders@naver.com",
-  startedAt: "2026-03-12"
+  startedAt: "2026-03-12",
+  lastPolicyUpdate: "2026-07-18"
 };
 
 export const navLinks = [
   { href: "/", label: "계산기" },
   { href: "/about", label: "소개" },
   { href: "/privacy", label: "개인정보" },
+  { href: "/disclaimer", label: "면책" },
   { href: "/contact", label: "문의" }
 ];
 
