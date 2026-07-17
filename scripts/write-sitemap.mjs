@@ -11,6 +11,7 @@ const staticPages = [
   "/editorial-policy",
   "/advertising-policy",
   "/health-resources",
+  "/calculator-methodology",
   "/calculators/body",
   "/calculators/nutrition",
   "/calculators/vitals",

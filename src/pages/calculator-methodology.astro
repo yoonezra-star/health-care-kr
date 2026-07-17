@@ -1,0 +1,133 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { SITE } from "../data/site";
+import { categoryHubs, officialResources } from "../data/resourceLinks";
+
+const canonical = `${SITE.url}/calculator-methodology`;
+const title = `계산기 산출 방식 및 검수 기준 | ${SITE.name}`;
+const description =
+  "WELLBEEP 건강 계산기의 계산식 선정, 결과 해석, 참고 기준, 업데이트와 정정 절차를 설명합니다.";
+const methodologyJson = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "계산기 산출 방식 및 검수 기준",
+  description,
+  url: canonical,
+  inLanguage: "ko-KR",
+  isPartOf: {
+    "@type": "WebSite",
+    name: SITE.title,
+    url: SITE.url
+  },
+  about: categoryHubs.map((hub) => hub.title)
+};
+---
+
+<BaseLayout title={title} description={description} canonical={canonical}>
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Calculator Methodology</p>
+      <h1>계산기 산출 방식 및 검수 기준</h1>
+      <p>
+        WELLBEEP 계산기는 생활 건강 지표를 빠르게 확인하되, 결과를 과대해석하지 않도록
+        산출 방식, 해석 한계, 참고 기준, 정정 절차를 함께 관리합니다.
+      </p>
+      <div class="policy-meta" aria-label="방법론 문서 요약">
+        <span>최종 수정일 {SITE.lastPolicyUpdate}</span>
+        <span>43개 계산기 공통 기준</span>
+        <span>진단·치료 판단 아님</span>
+      </div>
+    </div>
+  </section>
+
+  <article class="page-content page-content--wide">
+    <p class="lead">
+      이 문서는 계산기 결과가 어떤 전제로 만들어지는지 설명하기 위한 운영 문서입니다.
+      WELLBEEP는 계산 결과를 의료 판단처럼 제시하지 않고, 사용자가 자신의 수치를 더 안전하게 이해하도록 돕는 참고 도구로 제공합니다.
+    </p>
+
+    <section class="resource-section">
+      <h2>1. 계산식 선정 기준</h2>
+      <ul class="policy-list">
+        <li>널리 알려진 공식, 공공기관 자료, 전문기관 기준, 학술적으로 통용되는 산출 방식을 우선 사용합니다.</li>
+        <li>여러 공식이 존재하는 경우에는 사용 목적이 분명하고 일반 사용자가 입력값을 이해하기 쉬운 방식을 선택합니다.</li>
+        <li>질환 판단이 필요한 계산기는 “확정” 표현을 피하고, 검진 결과와 전문가 상담이 필요하다는 안내를 함께 둡니다.</li>
+        <li>계산식 자체보다 결과 해석이 중요한 주제는 FAQ와 주의사항을 별도로 추가합니다.</li>
+      </ul>
+    </section>
+
+    <section class="resource-section">
+      <h2>2. 결과 해석 원칙</h2>
+      <div class="policy-grid">
+        <div class="policy-panel">
+          <h2>입력값 확인</h2>
+          <p>단위, 측정 시간, 공복 여부, 최근 운동과 식사 상태처럼 결과에 영향을 주는 조건을 함께 확인하도록 안내합니다.</p>
+        </div>
+        <div class="policy-panel">
+          <h2>일반 기준과 개인 차이</h2>
+          <p>나이, 성별, 임신·수유, 질환, 복용 약물, 성장기와 고령자 여부에 따라 해석이 달라질 수 있음을 표시합니다.</p>
+        </div>
+        <div class="policy-panel">
+          <h2>반복 기록</h2>
+          <p>혈압, 혈당, 체중, 수면처럼 변동이 큰 수치는 하루 결과보다 변화 추세와 반복 기록을 보도록 권장합니다.</p>
+        </div>
+        <div class="policy-panel">
+          <h2>상담 연결</h2>
+          <p>위험 신호, 증상, 반복되는 이상 수치가 있으면 온라인 계산보다 의료 전문가 상담을 우선하도록 안내합니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="resource-section">
+      <h2>3. 검수와 업데이트 절차</h2>
+      <ol class="policy-list">
+        <li>새 계산기 공개 전 입력 항목, 단위, 결과 문구, 경고 문구, 모바일 표시를 확인합니다.</li>
+        <li>공식 기준이나 참고 자료가 바뀐 경우 관련 계산기와 허브 페이지의 문구를 다시 검토합니다.</li>
+        <li>독자 오류 제보가 들어오면 페이지 주소, 입력값, 예상 결과, 참고 자료를 기준으로 재현 여부를 확인합니다.</li>
+        <li>수정이 필요한 경우 계산식, 안내 문구, FAQ, 참고 링크를 함께 업데이트합니다.</li>
+      </ol>
+    </section>
+
+    <section class="resource-section">
+      <h2>4. 주제별 관리 기준</h2>
+      <div class="hub-card-grid">
+        {categoryHubs.map((hub) => (
+          <a class="hub-card" href={`/calculators/${hub.key}`}>
+            <span>계산기 허브</span>
+            <h3>{hub.title}</h3>
+            <p>{hub.summary}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="resource-section">
+      <h2>5. 참고 자료 사용 방식</h2>
+      <p>
+        WELLBEEP는 공공기관과 전문기관 자료를 계산 결과 해석을 돕는 참고 자료로 연결합니다.
+        이 연결은 해당 기관의 제휴, 인증, 보증을 의미하지 않습니다.
+      </p>
+      <div class="resource-grid">
+        {officialResources.slice(0, 6).map((resource) => (
+          <a class="resource-card" href={resource.href} target="_blank" rel="noopener noreferrer">
+            <span>{resource.owner}</span>
+            <h3>{resource.name}</h3>
+            <p>{resource.scope}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="resource-section">
+      <h2>6. 이 사이트가 하지 않는 것</h2>
+      <ul class="policy-list">
+        <li>특정 질환을 진단하거나 치료 여부를 결정하지 않습니다.</li>
+        <li>약물 복용, 중단, 용량 조절을 안내하지 않습니다.</li>
+        <li>응급 상황에서 온라인 계산을 우선하도록 안내하지 않습니다.</li>
+        <li>광고주나 외부 사이트의 이해관계에 따라 계산 결과를 바꾸지 않습니다.</li>
+      </ul>
+    </section>
+  </article>
+
+  <script type="application/ld+json" set:html={JSON.stringify(methodologyJson)} />
+</BaseLayout>
