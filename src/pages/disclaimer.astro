@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { SITE } from "../data/site";
+---
+
+<BaseLayout title={`면책사항 | ${SITE.name}`} description="WELLBEEP 건강 정보와 계산 결과에 대한 면책 안내입니다.">
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Disclaimer</p>
+      <h1>면책사항</h1>
+      <p>계산 결과는 일반적인 참고 자료이며 의학적 진단이나 치료 판단을 대신하지 않습니다.</p>
+    </div>
+  </section>
+  <article class="page-content">
+    <h2>건강 정보의 한계</h2>
+    <p>
+      WELLBEEP에서 제공하는 계산기와 설명은 생활 건강 관리를 돕기 위한 일반 정보입니다.
+      개인의 연령, 병력, 복용 약물, 검사 수치, 생활 습관에 따라 실제 해석은 달라질 수 있습니다.
+    </p>
+    <h2>의료 판단</h2>
+    <p>
+      불편 증상이 있거나 건강 이상이 의심되는 경우에는 의료기관을 방문해 검사를 받고,
+      정확한 진단과 치료 판단은 의사 등 의료 전문가와 상담해 확인해야 합니다.
+    </p>
+    <h2>외부 링크와 변경</h2>
+    <p>
+      사이트 내 정보는 더 나은 이해를 위해 수정될 수 있으며, 외부 기준이나 정책 변화에 따라
+      내용이 달라질 수 있습니다.
+    </p>
+  </article>
+</BaseLayout>

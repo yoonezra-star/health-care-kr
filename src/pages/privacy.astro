@@ -1,0 +1,37 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { SITE } from "../data/site";
+---
+
+<BaseLayout title={`개인정보처리방침 | ${SITE.name}`} description="WELLBEEP 개인정보처리방침입니다.">
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Privacy Policy</p>
+      <h1>개인정보처리방침</h1>
+      <p>계산기 입력값과 사이트 이용 과정에서의 개인정보 처리 기준을 안내합니다.</p>
+    </div>
+  </section>
+  <article class="page-content">
+    <h2>수집하는 정보</h2>
+    <p>
+      WELLBEEP의 계산기는 기본적으로 브라우저 안에서 동작하며, 사용자가 입력한 건강 수치를
+      서버에 저장하지 않습니다. 문의 메일을 보내는 경우 답변을 위해 이메일 주소와 문의 내용을
+      확인할 수 있습니다.
+    </p>
+    <h2>쿠키와 광고</h2>
+    <p>
+      AdSense 승인 및 광고 설정 이후에는 Google 등 광고 파트너가 쿠키를 사용할 수 있습니다.
+      광고 적용 전에는 승인에 필요한 콘텐츠와 정책 페이지를 우선 정비합니다.
+    </p>
+    <h2>보관 및 파기</h2>
+    <p>
+      문의 처리를 위해 받은 정보는 목적 달성 후 불필요하게 보관하지 않습니다. 법령상 보관이 필요한
+      경우에는 해당 기간 동안만 보관합니다.
+    </p>
+    <h2>문의</h2>
+    <p>
+      개인정보 관련 문의: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+    </p>
+    <p>시행일: {SITE.startedAt}</p>
+  </article>
+</BaseLayout>

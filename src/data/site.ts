@@ -1,0 +1,28 @@
+export const SITE = {
+  name: "WELLBEEP",
+  title: "WELLBEEP 건강 계산기",
+  url: "https://www.wellbeep.com",
+  description:
+    "BMI, 기초대사량, 영양, 혈압, 수면 등 생활 건강 지표를 빠르게 확인하는 한국어 건강 계산기 허브입니다.",
+  email: "replyleaders@naver.com",
+  startedAt: "2026-03-12"
+};
+
+export const navLinks = [
+  { href: "/", label: "계산기" },
+  { href: "/about", label: "소개" },
+  { href: "/privacy", label: "개인정보" },
+  { href: "/contact", label: "문의" }
+];
+
+export const categories = [
+  { key: "all", label: "전체", tone: "neutral" },
+  { key: "body", label: "체형", tone: "teal" },
+  { key: "nutrition", label: "영양", tone: "amber" },
+  { key: "vitals", label: "혈압·혈당", tone: "coral" },
+  { key: "lifestyle", label: "생활습관", tone: "violet" },
+  { key: "health", label: "건강지표", tone: "slate" }
+];
+
+export const categoryLabel = (key: string) =>
+  categories.find((category) => category.key === key)?.label ?? "건강지표";

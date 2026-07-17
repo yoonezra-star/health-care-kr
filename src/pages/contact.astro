@@ -1,0 +1,30 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { SITE } from "../data/site";
+---
+
+<BaseLayout title={`문의하기 | ${SITE.name}`} description="WELLBEEP 문의 및 정정 요청 안내입니다.">
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Contact</p>
+      <h1>문의하기</h1>
+      <p>오류 제보, 정정 요청, 사이트 운영 관련 문의는 이메일로 보내 주세요.</p>
+    </div>
+  </section>
+  <article class="page-content">
+    <h2>연락처</h2>
+    <p>
+      이메일: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+    </p>
+    <h2>정정 요청</h2>
+    <p>
+      계산식, 문구, 링크 오류를 제보할 때는 페이지 주소와 수정이 필요한 내용을 함께 적어 주세요.
+      확인 후 필요한 경우 반영합니다.
+    </p>
+    <h2>의료 상담 안내</h2>
+    <p>
+      WELLBEEP는 의료기관이 아니며 개인별 진료 상담을 제공하지 않습니다. 증상, 검사 수치,
+      복용 약물과 관련된 판단은 의사 등 의료 전문가와 상담해 주세요.
+    </p>
+  </article>
+</BaseLayout>

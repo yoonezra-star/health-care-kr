@@ -1,0 +1,88 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { SITE, categoryLabel } from "../data/site";
+import type { Post } from "../types";
+import postsJson from "../data/posts.json";
+
+export function getStaticPaths() {
+  return (postsJson as Post[]).map((post) => ({
+    params: { slug: post.slug.replace(/\.html$/, "") },
+    props: { post }
+  }));
+}
+
+const allPosts = postsJson as Post[];
+const { post } = Astro.props as { post: Post };
+const related = allPosts
+  .filter((item) => item.slug !== post.slug && item.category === post.category)
+  .slice(0, 5);
+const fallbackRelated = allPosts.filter((item) => item.slug !== post.slug).slice(0, 5);
+const relatedPosts = related.length >= 3 ? related : fallbackRelated;
+const canonical = new URL(`/${post.slug}`, SITE.url).toString();
+const articleJson = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: post.title,
+  description: post.description,
+  url: canonical,
+  datePublished: post.publishedAt,
+  dateModified: post.modifiedAt,
+  inLanguage: "ko-KR",
+  author: {
+    "@type": "Organization",
+    name: SITE.name
+  },
+  publisher: {
+    "@type": "Organization",
+    name: SITE.name
+  },
+  mainEntityOfPage: canonical
+};
+---
+
+<BaseLayout
+  title={`${post.title} | ${SITE.name}`}
+  description={post.description || post.excerpt}
+  canonical={canonical}
+  type="article"
+>
+  <section class="article-hero">
+    <div class="wrap">
+      <div class="article-hero__meta">
+        <span class="badge" data-category={post.category}>{categoryLabel(post.category)}</span>
+        <time datetime={post.modifiedAt}>수정 {new Date(post.modifiedAt).toLocaleString("ko-KR")}</time>
+      </div>
+      <h1>{post.title}</h1>
+      <p>{post.description || post.excerpt}</p>
+    </div>
+  </section>
+
+  <div class="wrap article-layout">
+    <article class="article-main">
+      <div class="notice">
+        이 페이지의 계산 결과는 건강 관리를 위한 참고 정보입니다. 질환 의심, 복용 중인 약물,
+        지속적인 이상 수치가 있다면 의료기관 상담을 우선하세요.
+      </div>
+      <div class="tool-body" set:html={post.html} />
+    </article>
+
+    <aside class="article-side" aria-label="관련 계산기">
+      <section class="side-panel">
+        <h2>같은 주제</h2>
+        {
+          relatedPosts.map((item) => (
+            <a href={`/${item.slug}`}>{item.title}</a>
+          ))
+        }
+      </section>
+      <section class="side-panel">
+        <h3>운영 정보</h3>
+        <a href="/about">사이트 소개</a>
+        <a href="/privacy">개인정보처리방침</a>
+        <a href="/disclaimer">면책사항</a>
+      </section>
+    </aside>
+  </div>
+
+  <script type="application/ld+json" set:html={JSON.stringify(articleJson)} />
+</BaseLayout>

@@ -1,0 +1,17 @@
+{
+  "name": "wellbeep-static",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev --host 127.0.0.1",
+    "build": "astro build && node scripts/write-sitemap.mjs",
+    "preview": "astro preview --host 127.0.0.1",
+    "import:blogger": "node scripts/import-blogger.mjs",
+    "verify": "npm run import:blogger && npm run build"
+  },
+  "dependencies": {
+    "astro": "^7.1.1",
+    "cheerio": "^1.1.2"
+  }
+}

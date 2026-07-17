@@ -1,0 +1,136 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { SITE, categories, categoryLabel } from "../data/site";
+import type { Post } from "../types";
+import postsJson from "../data/posts.json";
+
+const posts = postsJson as Post[];
+const latestModifiedAt = posts[0]?.modifiedAt;
+const title = `${SITE.title} | 생활 건강 지표 허브`;
+const description =
+  "BMI, 기초대사량, 칼로리, 영양, 혈압, 당뇨, 수면 등 건강 계산기를 한곳에서 확인하세요.";
+const categoryCounts = categories
+  .filter((category) => category.key !== "all")
+  .map((category) => ({
+    ...category,
+    count: posts.filter((post) => post.category === category.key).length
+  }));
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="home-hero" style="--hero-image: url('/assets/health-dashboard.png')">
+    <div class="wrap home-hero__content">
+      <p class="eyebrow">Korean health calculator archive</p>
+      <h1>WELLBEEP 건강 계산기</h1>
+      <p>
+        체형, 영양, 혈압과 혈당, 생활습관 지표를 한 화면에서 빠르게 찾고 결과를
+        차분하게 해석할 수 있도록 정리했습니다.
+      </p>
+      <label class="hero-search" for="tool-search">
+        <span class="hero-search__icon" aria-hidden="true">⌕</span>
+        <input id="tool-search" name="q" type="search" autocomplete="off" placeholder="BMI, 혈압, 수면, 칼로리" />
+      </label>
+      <div class="home-stats" aria-label="사이트 요약">
+        <span>{posts.length}개 계산기</span>
+        <span>{categoryCounts.filter((item) => item.count > 0).length}개 주제</span>
+        {
+          latestModifiedAt ? (
+            <span>최근 정리 {new Date(latestModifiedAt).toLocaleDateString("ko-KR")}</span>
+          ) : null
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white">
+    <div class="wrap">
+      <div class="section__head">
+        <div>
+          <h2>건강 지표 계산기</h2>
+          <p>자주 확인하는 수치를 주제별로 묶고, 각 페이지는 계산 결과와 해석 기준을 함께 제공합니다.</p>
+        </div>
+        <a class="text-link" href="/about">운영 기준</a>
+      </div>
+
+      <div class="category-tabs" aria-label="계산기 주제">
+        {
+          categories.map((category) => (
+            <button type="button" data-filter={category.key} aria-pressed={category.key === "all" ? "true" : "false"}>
+              {category.label}
+            </button>
+          ))
+        }
+      </div>
+
+      <div class="tool-grid" id="tool-grid">
+        {
+          posts.map((post) => (
+            <a
+              class="tool-card"
+              href={`/${post.slug}`}
+              data-card
+              data-category={post.category}
+              data-title={`${post.title} ${post.excerpt}`}
+            >
+              <span class="tool-card__top">
+                <span class="badge" data-category={post.category}>{categoryLabel(post.category)}</span>
+              </span>
+              <h3>{post.title}</h3>
+              <p>{post.description || post.excerpt}</p>
+              <time datetime={post.modifiedAt}>
+                수정 {new Date(post.modifiedAt).toLocaleDateString("ko-KR")}
+              </time>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section trust-band">
+    <div class="wrap trust-grid">
+      <div class="trust-item">
+        <h3>참고용 계산</h3>
+        <p>각 도구는 생활 건강 관리를 위한 일반 계산이며 진단을 대신하지 않습니다.</p>
+      </div>
+      <div class="trust-item">
+        <h3>명확한 탐색</h3>
+        <p>주제별 분류, 내부 연결, 정책 페이지를 정리해 사이트 신뢰도를 높였습니다.</p>
+      </div>
+      <div class="trust-item">
+        <h3>광고 승인 준비</h3>
+        <p>승인 전 광고 스크립트를 제거하고 콘텐츠와 운영 정보를 먼저 보강했습니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const searchInput = document.querySelector("#tool-search");
+    const cards = Array.from(document.querySelectorAll("[data-card]"));
+    const filterButtons = Array.from(document.querySelectorAll("[data-filter]"));
+    let activeCategory = "all";
+
+    function applyFilters() {
+      const query = (searchInput?.value || "").trim().toLowerCase();
+      cards.forEach((card) => {
+        const category = card.getAttribute("data-category");
+        const title = (card.getAttribute("data-title") || "").toLowerCase();
+        const categoryMatch = activeCategory === "all" || category === activeCategory;
+        const queryMatch = !query || title.includes(query);
+        card.toggleAttribute("hidden", !(categoryMatch && queryMatch));
+      });
+    }
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        activeCategory = button.getAttribute("data-filter") || "all";
+        filterButtons.forEach((item) => {
+          item.setAttribute("aria-pressed", String(item === button));
+        });
+        applyFilters();
+      });
+    });
+
+    searchInput?.addEventListener("input", applyFilters);
+  </script>
+</BaseLayout>
