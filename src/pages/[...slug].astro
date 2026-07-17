@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCalculatorGuide } from "../data/calculatorGuides";
+import { getCalculatorExample } from "../data/calculatorExamples";
+import { getCoreDeepDive } from "../data/coreDeepDives";
 import { getCategoryHub, getResourcesForTags } from "../data/resourceLinks";
 import { getVisualAid } from "../data/visualAids";
 import { SITE, categoryLabel } from "../data/site";
@@ -23,6 +25,8 @@ const fallbackRelated = allPosts.filter((item) => item.slug !== post.slug).slice
 const relatedPosts = related.length >= 3 ? related : fallbackRelated;
 const guideRelatedPosts = relatedPosts.slice(0, 3);
 const guide = getCalculatorGuide(post);
+const calculatorExample = getCalculatorExample(post);
+const coreDeepDive = getCoreDeepDive(post.slug);
 const visualAid = getVisualAid(post);
 const categoryHub = getCategoryHub(post.category);
 const categoryHubUrl = `/calculators/${post.category}`;
@@ -138,6 +142,85 @@ const faqJson = {
           </section>
         </div>
 
+        {
+          coreDeepDive ? (
+            <section class="deep-dive" aria-labelledby="deep-dive-heading">
+              <div class="guide-heading guide-heading--compact">
+                <p class="eyebrow">{coreDeepDive.badge}</p>
+                <h2 id="deep-dive-heading">{coreDeepDive.title}</h2>
+                <p>{coreDeepDive.intro}</p>
+              </div>
+              <div class="table-wrap visual-table-wrap">
+                <table class="comparison-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">기준</th>
+                      <th scope="col">내용</th>
+                      <th scope="col">해석 포인트</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {coreDeepDive.formulaRows.map((row) => (
+                      <tr>
+                        <th scope="row">{row.label}</th>
+                        <td>{row.value}</td>
+                        <td>{row.note}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <div class="example-card">
+                <h3>예시 계산</h3>
+                <dl>
+                  <div>
+                    <dt>입력</dt>
+                    <dd>{coreDeepDive.example.input}</dd>
+                  </div>
+                  <div>
+                    <dt>계산</dt>
+                    <dd>{coreDeepDive.example.calculation}</dd>
+                  </div>
+                  <div>
+                    <dt>결과</dt>
+                    <dd>{coreDeepDive.example.result}</dd>
+                  </div>
+                  <div>
+                    <dt>해석</dt>
+                    <dd>{coreDeepDive.example.interpretation}</dd>
+                  </div>
+                </dl>
+              </div>
+              <div class="deep-dive-grid">
+                <section>
+                  <h3>범위별로 볼 점</h3>
+                  <ul>
+                    {coreDeepDive.rangeRows.map((row) => (
+                      <li><strong>{row.range}</strong> {row.meaning} · {row.nextStep}</li>
+                    ))}
+                  </ul>
+                </section>
+                <section>
+                  <h3>흔한 오해</h3>
+                  <ul>
+                    {coreDeepDive.misconceptions.map((item) => <li>{item}</li>)}
+                  </ul>
+                </section>
+                <section>
+                  <h3>상담을 고려할 때</h3>
+                  <ul>
+                    {coreDeepDive.consultTriggers.map((item) => <li>{item}</li>)}
+                  </ul>
+                </section>
+              </div>
+              <p class="deep-dive__more">
+                관련 흐름은 <a href="/health-checkup-guide">건강검진 수치 해석 허브</a>와
+                <a href="/health-metric-glossary">건강 지표 용어집</a>에서도 이어서 확인할 수 있습니다.
+              </p>
+            </section>
+          ) : null
+        }
+
         <section class="visual-aid" aria-labelledby="visual-aid-heading">
           <div class="guide-heading guide-heading--compact">
             <p class="eyebrow">Quick visual guide</p>
@@ -184,6 +267,28 @@ const faqJson = {
               </div>
             ))}
           </div>
+        </section>
+
+        <section class="calculation-example" aria-labelledby="calculation-example-heading">
+          <h3 id="calculation-example-heading">{calculatorExample.title}</h3>
+          <dl>
+            <div>
+              <dt>입력값</dt>
+              <dd>{calculatorExample.input}</dd>
+            </div>
+            <div>
+              <dt>계산 과정</dt>
+              <dd>{calculatorExample.calculation}</dd>
+            </div>
+            <div>
+              <dt>예시 결과</dt>
+              <dd>{calculatorExample.result}</dd>
+            </div>
+            <div>
+              <dt>해석 포인트</dt>
+              <dd>{calculatorExample.takeaway}</dd>
+            </div>
+          </dl>
         </section>
 
         <section class="guide-panel guide-panel--wide">

@@ -999,6 +999,111 @@ main {
   padding: clamp(18px, 3vw, 24px);
 }
 
+.deep-dive,
+.calculation-example {
+  background: #fbfdfc;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: clamp(18px, 3vw, 24px);
+}
+
+.deep-dive {
+  border-color: #c8e4dd;
+  box-shadow: 0 16px 35px rgba(19, 41, 47, 0.08);
+}
+
+.deep-dive-grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 16px;
+}
+
+.deep-dive-grid section {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.deep-dive-grid h3,
+.calculation-example h3,
+.example-card h3 {
+  font-size: 18px;
+  margin: 0 0 10px;
+}
+
+.deep-dive-grid ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.deep-dive-grid li {
+  color: #334349;
+}
+
+.deep-dive-grid li + li {
+  margin-top: 8px;
+}
+
+.deep-dive__more {
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 14px;
+  margin: 16px 0 0;
+  padding-top: 12px;
+}
+
+.deep-dive__more a + a {
+  margin-left: 8px;
+}
+
+.example-card,
+.calculation-example {
+  margin-top: 16px;
+}
+
+.example-card dl,
+.calculation-example dl {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.example-card dl div,
+.calculation-example dl div {
+  display: grid;
+  grid-template-columns: 130px minmax(0, 1fr);
+}
+
+.example-card dl div + div,
+.calculation-example dl div + div {
+  border-top: 1px solid var(--line);
+}
+
+.example-card dt,
+.example-card dd,
+.calculation-example dt,
+.calculation-example dd {
+  margin: 0;
+  padding: 12px 14px;
+}
+
+.example-card dt,
+.calculation-example dt {
+  background: #eef7f4;
+  color: var(--slate);
+  font-weight: 850;
+}
+
+.example-card dd,
+.calculation-example dd {
+  color: #334349;
+}
+
 .metric-strip {
   display: grid;
   gap: 12px;
@@ -1284,6 +1389,104 @@ main {
   border-color: rgba(15, 139, 126, 0.5);
 }
 
+.glossary-grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+}
+
+.glossary-card {
+  background: #fbfdfc;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.glossary-card h3 {
+  color: var(--teal-dark);
+  font-size: 20px;
+  margin: 0 0 8px;
+}
+
+.glossary-card p {
+  color: #334349;
+  margin: 0 0 12px;
+}
+
+.glossary-card a {
+  font-weight: 850;
+}
+
+.timeline-list {
+  display: grid;
+  gap: 14px;
+}
+
+.timeline-item {
+  background: #fbfdfc;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--teal);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.timeline-item time {
+  color: var(--teal-dark);
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.timeline-item h3 {
+  font-size: 19px;
+  margin: 5px 0 8px;
+}
+
+.timeline-item p {
+  margin: 0 0 12px;
+}
+
+.timeline-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.timeline-links a {
+  background: #eef7f4;
+  border: 1px solid #d0e7e1;
+  border-radius: 999px;
+  color: var(--teal-dark);
+  font-size: 13px;
+  font-weight: 850;
+  padding: 6px 10px;
+  text-decoration: none;
+}
+
+.record-sheet {
+  overflow-x: auto;
+}
+
+.record-sheet table {
+  border-collapse: collapse;
+  min-width: 760px;
+  width: 100%;
+}
+
+.record-sheet th,
+.record-sheet td {
+  border: 1px solid var(--line);
+  color: #334349;
+  min-height: 44px;
+  padding: 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.record-sheet th {
+  background: #10282d;
+  color: white;
+}
+
 .site-footer {
   background: #0d2125;
   color: rgba(255, 255, 255, 0.76);
@@ -1355,6 +1558,9 @@ main {
   .guide-grid,
   .metric-strip,
   .flow-steps,
+  .deep-dive-grid,
+  .example-card dl div,
+  .calculation-example dl div,
   .info-list div {
     grid-template-columns: 1fr;
   }

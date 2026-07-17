@@ -28,7 +28,11 @@ const cleanStaticPath = (pathname: string) => {
     "/disclaimer.html",
     "/editorial-policy.html",
     "/advertising-policy.html",
-    "/calculator-guide.html"
+    "/calculator-guide.html",
+    "/health-checkup-guide.html",
+    "/health-metric-glossary.html",
+    "/standards-update-log.html",
+    "/health-record-template.html"
   ]);
 
   return cleanPages.has(pathname) ? pathname.replace(/\.html$/, "") : pathname;
@@ -134,8 +138,12 @@ const websiteJson = {
         <nav class="footer-links" aria-label="하단 메뉴">
           <a href="/about">소개</a>
           <a href="/calculator-guide">사용법</a>
+          <a href="/health-checkup-guide">검진 해석</a>
+          <a href="/health-metric-glossary">용어집</a>
+          <a href="/health-record-template">기록표</a>
           <a href="/health-resources">참고 기관</a>
           <a href="/calculator-methodology">계산 기준</a>
+          <a href="/standards-update-log">업데이트 로그</a>
           <a href="/contact">문의</a>
           <a href="/privacy">개인정보처리방침</a>
           <a href="/disclaimer">면책사항</a>

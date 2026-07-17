@@ -1,0 +1,87 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { SITE } from "../data/site";
+
+const canonical = `${SITE.url}/health-metric-glossary`;
+const title = `건강 지표 용어집 | ${SITE.name}`;
+const description =
+  "BMI, BMR, TDEE, LDL, HDL, A1C, WHtR, Pack-year 등 건강 계산기에서 자주 쓰는 용어를 정리했습니다.";
+const terms = [
+  ["BMI", "체중(kg)을 키(m)의 제곱으로 나눈 체형 지표입니다. 근육량과 체지방 분포는 직접 반영하지 못합니다.", "/2026/03/blog-post.html"],
+  ["BMR", "기초대사량입니다. 쉬고 있을 때 필요한 에너지 추정치로, 식단 하한선처럼 단순 적용하면 안 됩니다.", "/2026/03/2-bmr-1.html"],
+  ["TDEE", "기초대사량에 활동량을 반영한 하루 총 에너지 소비량 추정치입니다.", "/2026/05/blog-post_02.html"],
+  ["WHtR", "허리둘레를 키로 나눈 허리-키 비율입니다. 복부 지방 점검에 참고합니다.", "/2026/03/whtr.html"],
+  ["WHR", "허리둘레를 엉덩이둘레로 나눈 비율입니다. 체지방 분포를 볼 때 참고합니다.", "/2026/03/whr.html"],
+  ["LDL", "저밀도 지단백 콜레스테롤입니다. 심혈관 위험 평가에서 중요한 지표 중 하나입니다.", "/2026/04/ldlhdl.html"],
+  ["HDL", "고밀도 지단백 콜레스테롤입니다. LDL과 중성지방, 전체 위험 요인과 함께 봅니다.", "/2026/04/hdl.html"],
+  ["중성지방", "혈액 속 지방의 한 형태입니다. 식사, 음주, 혈당, 체중 변화와 관련될 수 있습니다.", "/2026/04/blog-post_25.html"],
+  ["공복혈당", "일정 시간 금식 후 측정한 혈당입니다. 공복 여부가 해석에 큰 영향을 줍니다.", "/2026/03/10.html"],
+  ["A1C", "최근 2~3개월 평균 혈당을 반영하는 검사입니다. 단일 혈당과 함께 봅니다.", "/2026/03/10.html"],
+  ["수축기 혈압", "심장이 수축할 때의 압력입니다. 혈압 표기의 위 숫자입니다.", "/2026/03/9.html"],
+  ["이완기 혈압", "심장이 이완할 때의 압력입니다. 혈압 표기의 아래 숫자입니다.", "/2026/03/9.html"],
+  ["HOMA-IR", "공복 인슐린과 공복혈당으로 인슐린 저항성을 추정하는 지표입니다.", "/2026/04/blog-post_29.html"],
+  ["Pack-year", "하루 흡연 갑 수와 흡연 기간을 곱한 누적 흡연력 지표입니다.", "/2026/05/pack-year.html"],
+  ["AMDR", "총열량 중 탄수화물, 단백질, 지방이 차지하는 권장 비율 범위를 뜻합니다.", "/2026/03/blog-post_31.html"]
+];
+const glossaryJson = {
+  "@context": "https://schema.org",
+  "@type": "DefinedTermSet",
+  name: "건강 지표 용어집",
+  url: canonical,
+  inLanguage: "ko-KR",
+  hasDefinedTerm: terms.map(([name, description]) => ({
+    "@type": "DefinedTerm",
+    name,
+    description
+  }))
+};
+---
+
+<BaseLayout title={title} description={description} canonical={canonical}>
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Glossary</p>
+      <h1>건강 지표 용어집</h1>
+      <p>
+        계산기 결과에 자주 나오는 약어와 검진 용어를 짧게 정리했습니다.
+        용어를 먼저 이해하면 결과표와 공식 자료를 읽을 때 훨씬 덜 흔들립니다.
+      </p>
+      <div class="policy-meta" aria-label="용어집 요약">
+        <span>{terms.length}개 핵심 용어</span>
+        <span>관련 계산기 연결</span>
+        <span>검진표 읽기 보조</span>
+      </div>
+    </div>
+  </section>
+
+  <article class="page-content page-content--wide">
+    <p class="lead">
+      이 용어집은 WELLBEEP 계산기에서 반복적으로 등장하는 건강 지표를 설명합니다.
+      용어 설명은 일반적인 정보이며, 질환 진단이나 치료 판단은 검진 결과와 전문가 상담을 우선해야 합니다.
+    </p>
+
+    <section class="resource-section">
+      <h2>용어 빠른 찾기</h2>
+      <div class="glossary-grid">
+        {terms.map(([name, description, href]) => (
+          <article class="glossary-card">
+            <h3>{name}</h3>
+            <p>{description}</p>
+            <a href={href}>관련 계산기 보기</a>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="resource-section">
+      <h2>용어를 읽을 때 주의할 점</h2>
+      <ul class="policy-list">
+        <li>검진 수치는 단위와 검사 조건이 다르면 같은 숫자처럼 보여도 의미가 달라질 수 있습니다.</li>
+        <li>약어 하나만 보고 건강 상태를 단정하지 말고, 관련 지표와 증상, 병력을 함께 봐야 합니다.</li>
+        <li>검진표 해석 흐름은 <a href="/health-checkup-guide">건강검진 수치 해석 허브</a>에서 확인할 수 있습니다.</li>
+      </ul>
+    </section>
+  </article>
+
+  <script type="application/ld+json" set:html={JSON.stringify(glossaryJson)} />
+</BaseLayout>

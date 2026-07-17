@@ -1,0 +1,166 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { SITE } from "../data/site";
+
+const canonical = `${SITE.url}/health-checkup-guide`;
+const title = `건강검진 수치 해석 허브 | ${SITE.name}`;
+const description =
+  "BMI, 허리둘레, 혈압, 혈당, 콜레스테롤 등 건강검진 수치를 계산기와 함께 안전하게 읽는 방법을 정리했습니다.";
+const metrics = [
+  {
+    name: "BMI",
+    meaning: "키와 체중으로 계산하는 체형 지표",
+    calculator: "/2026/03/blog-post.html",
+    checkWith: "허리둘레, 체지방률, 운동량",
+    caution: "근육량과 체지방 분포를 직접 반영하지 못합니다."
+  },
+  {
+    name: "허리둘레·WHtR",
+    meaning: "복부 지방과 대사 위험을 함께 볼 때 참고",
+    calculator: "/2026/03/blog-post_26.html",
+    checkWith: "혈압, 혈당, 지질 수치",
+    caution: "측정 위치가 달라지면 결과가 크게 달라질 수 있습니다."
+  },
+  {
+    name: "혈압",
+    meaning: "심혈관 부담과 생활습관 관리 필요성을 보는 수치",
+    calculator: "/2026/03/9.html",
+    checkWith: "측정 자세, 시간대, 반복 평균",
+    caution: "증상이나 매우 높은 수치가 있으면 온라인 계산보다 진료가 우선입니다."
+  },
+  {
+    name: "공복혈당·A1C",
+    meaning: "혈당 조절 상태와 대사 건강을 보는 수치",
+    calculator: "/2026/03/10.html",
+    checkWith: "공복 여부, 식후 시간, A1C",
+    caution: "진단은 반복 검사와 의료 전문가 판단이 필요합니다."
+  },
+  {
+    name: "LDL·HDL·중성지방",
+    meaning: "심혈관 위험 요인을 함께 볼 때 쓰는 지질 수치",
+    calculator: "/2026/04/ldlhdl.html",
+    checkWith: "총콜레스테롤, 혈압, 흡연, 가족력",
+    caution: "비율 하나만으로 약물 필요 여부를 판단하지 않습니다."
+  },
+  {
+    name: "대사증후군",
+    meaning: "복부비만, 혈압, 혈당, 지질 수치를 묶어 보는 위험 요인",
+    calculator: "/2026/04/blog-post_26.html",
+    checkWith: "검진표 전체와 생활습관",
+    caution: "구성 항목이 여럿이므로 단일 결과보다 전체 맥락이 중요합니다."
+  }
+];
+const checkupJson = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "건강검진 수치 해석 허브",
+  description,
+  url: canonical,
+  inLanguage: "ko-KR"
+};
+---
+
+<BaseLayout title={title} description={description} canonical={canonical}>
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Checkup Guide</p>
+      <h1>건강검진 수치 해석 허브</h1>
+      <p>
+        검진표의 숫자는 서로 연결되어 있습니다. BMI, 허리둘레, 혈압, 혈당, 콜레스테롤을
+        한 번에 묶어 보면 다음에 확인할 계산기와 상담이 필요한 상황을 더 쉽게 정리할 수 있습니다.
+      </p>
+      <div class="policy-meta" aria-label="검진 허브 요약">
+        <span>6개 핵심 검진 지표</span>
+        <span>관련 계산기 연결</span>
+        <span>진단·처방 목적 아님</span>
+      </div>
+    </div>
+  </section>
+
+  <article class="page-content page-content--wide">
+    <p class="lead">
+      이 페이지는 건강검진 수치를 읽는 순서를 정리한 참고 허브입니다. 검진표에 재검, 정밀검사,
+      진료 상담 안내가 적혀 있다면 온라인 계산보다 해당 안내와 의료 전문가 상담을 우선해야 합니다.
+    </p>
+
+    <section class="resource-section">
+      <h2>검진 수치 빠른 비교표</h2>
+      <div class="table-wrap visual-table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th scope="col">지표</th>
+              <th scope="col">무엇을 보나</th>
+              <th scope="col">함께 볼 것</th>
+              <th scope="col">계산기</th>
+            </tr>
+          </thead>
+          <tbody>
+            {metrics.map((metric) => (
+              <tr>
+                <th scope="row">{metric.name}</th>
+                <td>{metric.meaning}<br /><small>{metric.caution}</small></td>
+                <td>{metric.checkWith}</td>
+                <td><a href={metric.calculator}>확인하기</a></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="resource-section">
+      <h2>검진표를 읽는 순서</h2>
+      <div class="flow-steps">
+        <div class="flow-step">
+          <span>01</span>
+          <h3>단위와 조건 확인</h3>
+          <p>mg/dL, mmHg, kg/m2 같은 단위와 공복 여부, 검사일, 복용 약물을 먼저 확인합니다.</p>
+        </div>
+        <div class="flow-step">
+          <span>02</span>
+          <h3>관련 지표 묶기</h3>
+          <p>혈압은 혈당·지질·허리둘레와, 체중은 허리둘레·활동량과 함께 봅니다.</p>
+        </div>
+        <div class="flow-step">
+          <span>03</span>
+          <h3>다음 행동 정리</h3>
+          <p>반복 측정, 생활습관 기록, 공식 자료 확인, 진료 상담 중 무엇이 필요한지 구분합니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="resource-section">
+      <h2>상담을 우선해야 하는 경우</h2>
+      <ul class="policy-list">
+        <li>검진표에 재검, 정밀검사, 진료 상담 권고가 적힌 경우</li>
+        <li>흉통, 호흡곤란, 마비, 의식 저하, 심한 저혈당 의심 증상이 있는 경우</li>
+        <li>혈압, 혈당, 지질 수치가 반복적으로 높거나 여러 위험 요인이 함께 있는 경우</li>
+        <li>임신, 만성질환, 약물 복용, 수술 전후처럼 일반 기준과 다르게 봐야 하는 상황</li>
+      </ul>
+    </section>
+
+    <section class="resource-section">
+      <h2>함께 쓰면 좋은 문서</h2>
+      <div class="hub-card-grid">
+        <a class="hub-card" href="/health-record-template">
+          <span>기록표</span>
+          <h3>검진 전후 기록표</h3>
+          <p>검사 전후 수치와 생활 조건을 표로 정리합니다.</p>
+        </a>
+        <a class="hub-card" href="/health-metric-glossary">
+          <span>용어집</span>
+          <h3>건강 지표 용어집</h3>
+          <p>BMI, A1C, LDL, WHtR 같은 용어를 짧게 확인합니다.</p>
+        </a>
+        <a class="hub-card" href="/health-resources">
+          <span>참고자료</span>
+          <h3>공공 건강 자료</h3>
+          <p>공공·전문기관 자료를 함께 확인합니다.</p>
+        </a>
+      </div>
+    </section>
+  </article>
+
+  <script type="application/ld+json" set:html={JSON.stringify(checkupJson)} />
+</BaseLayout>

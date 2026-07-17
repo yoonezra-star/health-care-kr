@@ -1,0 +1,128 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { SITE } from "../data/site";
+
+const canonical = `${SITE.url}/health-record-template`;
+const title = `검진 전후 기록표 | ${SITE.name}`;
+const description =
+  "건강검진 전후 수치, 측정 조건, 생활습관 변화를 기록하는 표와 사용 방법입니다.";
+const rows = [
+  ["체중", "kg", "아침 공복, 같은 체중계", "2~4주 변화 방향"],
+  ["허리둘레", "cm", "같은 위치, 편안한 호흡", "복부 지표 변화"],
+  ["혈압", "mmHg", "앉아서 안정 후 측정", "반복 평균"],
+  ["공복혈당", "mg/dL", "공복 여부 확인", "재검·A1C 필요성"],
+  ["LDL/HDL/중성지방", "mg/dL", "검사일과 식사 조건", "심혈관 위험 요인"],
+  ["수면", "시간", "취침·기상 시간", "낮 졸림과 피로"],
+  ["운동", "분/주", "강도와 회복 상태", "지속 가능성"]
+];
+const recordJson = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "검진 전후 기록표",
+  description,
+  url: canonical,
+  inLanguage: "ko-KR"
+};
+---
+
+<BaseLayout title={title} description={description} canonical={canonical}>
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Record Template</p>
+      <h1>검진 전후 기록표</h1>
+      <p>
+        계산 결과는 기록으로 이어질 때 더 유용합니다. 검진 전후의 수치와 측정 조건,
+        생활습관 변화를 한 표에 적어 두면 다음 상담이나 재검 때 설명하기 쉽습니다.
+      </p>
+      <div class="policy-meta" aria-label="기록표 요약">
+        <span>검진 전후 비교</span>
+        <span>측정 조건 기록</span>
+        <span>상담 메모용</span>
+      </div>
+    </div>
+  </section>
+
+  <article class="page-content page-content--wide">
+    <p class="lead">
+      아래 표는 개인 기기에 복사하거나 인쇄해서 사용할 수 있는 기록 틀입니다.
+      민감한 건강 정보는 공유 기기에 저장하지 말고, 진료 상담이 필요한 내용은 의료 전문가에게 직접 확인하세요.
+    </p>
+
+    <section class="resource-section">
+      <h2>기록 항목 안내</h2>
+      <div class="table-wrap visual-table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th scope="col">항목</th>
+              <th scope="col">단위</th>
+              <th scope="col">측정 조건</th>
+              <th scope="col">비교 포인트</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map(([item, unit, condition, point]) => (
+              <tr>
+                <th scope="row">{item}</th>
+                <td>{unit}</td>
+                <td>{condition}</td>
+                <td>{point}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="resource-section">
+      <h2>복사용 기록표</h2>
+      <div class="record-sheet">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">날짜</th>
+              <th scope="col">항목</th>
+              <th scope="col">수치</th>
+              <th scope="col">측정 조건</th>
+              <th scope="col">메모</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Array.from({ length: 8 }).map((_, index) => (
+              <tr>
+                <td>{index === 0 ? "예: 2026-07-18" : ""}</td>
+                <td>{index === 0 ? "혈압" : ""}</td>
+                <td>{index === 0 ? "128/78" : ""}</td>
+                <td>{index === 0 ? "아침, 안정 후" : ""}</td>
+                <td>{index === 0 ? "카페인 전" : ""}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="resource-section">
+      <h2>기록 후 확인할 페이지</h2>
+      <div class="hub-card-grid">
+        <a class="hub-card" href="/health-checkup-guide">
+          <span>검진 해석</span>
+          <h3>건강검진 수치 해석 허브</h3>
+          <p>기록한 수치를 어떤 순서로 읽을지 확인합니다.</p>
+        </a>
+        <a class="hub-card" href="/calculator-guide">
+          <span>사용법</span>
+          <h3>건강 계산기 사용 가이드</h3>
+          <p>입력값 확인과 반복 비교 기준을 확인합니다.</p>
+        </a>
+        <a class="hub-card" href="/contact">
+          <span>정정 요청</span>
+          <h3>문의 및 정정 요청</h3>
+          <p>계산식 오류나 링크 오류를 제보할 수 있습니다.</p>
+        </a>
+      </div>
+    </section>
+  </article>
+
+  <script type="application/ld+json" set:html={JSON.stringify(recordJson)} />
+</BaseLayout>
