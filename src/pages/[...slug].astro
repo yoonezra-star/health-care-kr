@@ -32,11 +32,59 @@ const categoryHub = getCategoryHub(post.category);
 const categoryHubUrl = `/calculators/${post.category}`;
 const categoryResources = getResourcesForTags(categoryHub.resourceTags).slice(0, 3);
 const canonical = new URL(`/${post.slug}`, SITE.url).toString();
+const healthClaimReplacements: Array<[string, string]> = [
+  ["기대수명정밀계산기", "생활습관 건강나이 참고 계산기"],
+  ["기대수명형 생활습관 점검", "생활습관 기반 건강나이 점검"],
+  ["기대수명", "건강나이 참고"],
+  ["생활습관 기반 건강 수명 참고 계산기", "생활습관 기반 건강나이 참고 계산기"],
+  ["금연으로 절약할 수 있는 금액과 연장되는 수명을 확인하세요.", "금연으로 절약할 수 있는 금액과 참고용 시간 환산을 확인하세요."],
+  ["연장될 예상 수명", "참고용 시간 환산"],
+  ["연장 수명(시간)", "참고 시간(시간)"],
+  ["수명 연장:", "시간 환산:"],
+  ["수명연장", "시간 환산"],
+  ["10년 기준 수명연장(일)", "10년 기준 시간 환산(일)"],
+  ["오늘부터 대략 <strong id=\"rstRemainStr\">0</strong>년의 시간이 남았습니다.<br>", "현재 생활습관 점검 점수로 환산한 참고 차이는 <strong id=\"rstRemainStr\">0</strong>년입니다.<br>"],
+  ["(예상 연도: <span id=\"rstYearStr\">0000</span>년)", "(통계 환산 참고 연도: <span id=\"rstYearStr\">0000</span>년)"],
+  ["체중 조절이 당장 필요합니다.", "체중 관리 계획을 점검해 보세요."],
+  ["혈관 손상 위험이 커서 즉각적인 치료가 필요합니다.", "혈관 부담이 커질 수 있으므로 의료 상담이 필요합니다."],
+  ["약물로 억제 중이나 근본적인 식습관 개선이 필요합니다.", "복용·생활습관 관리 상태를 정기적으로 점검하는 것이 좋습니다."],
+  ["나트륨 섭취를 줄여 정상 수치로 내려야 합니다.", "나트륨 섭취와 생활습관을 점검해 보세요."],
+  ["심혈관 건강이 아주 훌륭합니다.", "심혈관 지표가 양호한 편으로 볼 수 있습니다."],
+  ["당뇨 합병증은 수명 단축의 주요 원인입니다.", "대사 질환 관리는 장기 건강과 관련이 큽니다."],
+  ["꾸준한 관리 덕분에 악화를 막고 있습니다.", "꾸준한 관리는 지표 악화 가능성을 낮추는 데 도움이 될 수 있습니다."],
+  ["단 음식을 줄이고 운동량을 늘리세요.", "식사와 운동 패턴을 점검해 보세요."],
+  ["질병 예방 차원의 주기적인 정밀 검사가 필수입니다.", "질병 예방 차원의 주기적 검진을 상담해 보세요."],
+  ["소량의 담배도 발암 물질 축적을 일으킵니다.", "소량의 흡연도 건강 부담과 관련될 수 있습니다."],
+  ["성공적인 금연으로 손상된 폐포가 회복 중입니다.", "금연 유지가 호흡기 건강 부담을 낮추는 데 도움이 될 수 있습니다."],
+  ["최고의 폐활량과 깨끗한 혈액을 가졌습니다.", "흡연 관련 노출 부담이 낮은 편입니다."],
+  ["간경화 및 뇌위축 발생 확률이 급증합니다.", "간과 뇌 건강 부담이 커질 수 있습니다."],
+  ["간 해독 능력이 한계에 달할 수 있습니다.", "간 건강 부담이 커질 수 있습니다."],
+  ["활력 저하와 노화가 빠르게 진행됩니다.", "활력 저하와 체력 감소로 이어질 수 있습니다."],
+  ["심폐 기능 향상으로 질병 저항력이 높습니다.", "심폐 기능 유지에 도움이 될 수 있습니다."],
+  ["신체 나이가 매우 젊게 유지되고 있습니다.", "활동량이 높은 편으로 볼 수 있습니다."],
+  ["장내 유익균 감소와 만성 염증이 우려됩니다.", "식이섬유 부족과 대사 부담으로 이어질 수 있습니다."],
+  ["항산화 물질이 노화 세포를 효과적으로 제거합니다.", "다양한 미량 영양소 섭취에 도움이 될 수 있습니다."],
+  ["피로 누적은 뇌 기능 저하를 가져옵니다.", "피로 누적과 집중력 저하로 이어질 수 있습니다."],
+  ["숙면을 통한 호르몬 밸런스가 완벽합니다.", "수면 리듬 유지에 도움이 될 수 있습니다."],
+  ["스트레스 호르몬이 자가 면역계를 공격합니다.", "스트레스 부담이 커질 수 있습니다."],
+  ["정신적 안정이 신체 수명 연장의 핵심입니다.", "정신적 안정은 생활 건강 관리에 중요한 요소입니다."],
+  ["외로움은 건강에 실질적인 악영향을 미칩니다.", "사회적 고립감은 건강 부담과 관련될 수 있습니다."],
+  ["행복 호르몬 분비가 긍정적인 에너지를 줍니다.", "사회적 연결은 정서적 안정에 도움이 될 수 있습니다."],
+  ["금연 후 24시간이 지나면 일산화탄소 수치가 정상으로 돌아오고, 1년 뒤면 심장마비 위험이 흡연자의 절반으로 줄어듭니다.", "금연 후 시간에 따라 몸의 부담이 줄 수 있다는 공공 건강 자료가 있으나, 개인 차이가 큽니다."],
+  ["일반적으로 담배 한 개비당 약 11분의 수명이 단축된다는 통계 수치를 적용했습니다.", "담배 한 개비당 약 11분이라는 널리 알려진 참고 수치를 시간 단위로 환산했습니다."],
+  ["생활습관 기반 예상 참고 결과", "생활습관 기반 참고 환산 결과"],
+  ["document.getElementById('rstAgeStr').innerText = totalLife.toFixed(1) + \"세\";", "document.getElementById('rstAgeStr').innerText = \"참고 \" + totalLife.toFixed(1) + \"세\";"]
+];
+const softenHealthClaims = (value = "") =>
+  healthClaimReplacements.reduce((text, [from, to]) => text.replaceAll(from, to), value);
+const safePostTitle = softenHealthClaims(post.title);
+const safePostDescription = softenHealthClaims(post.description || post.excerpt);
+const safePostHtml = softenHealthClaims(post.html);
 const articleJson = {
   "@context": "https://schema.org",
   "@type": "Article",
-  headline: post.title,
-  description: post.description,
+  headline: safePostTitle,
+  description: safePostDescription,
   url: canonical,
   datePublished: post.publishedAt,
   dateModified: post.modifiedAt,
@@ -72,7 +120,7 @@ const breadcrumbJson = {
     {
       "@type": "ListItem",
       position: 3,
-      name: post.title,
+      name: safePostTitle,
       item: canonical
     }
   ]
@@ -82,18 +130,18 @@ const faqJson = {
   "@type": "FAQPage",
   mainEntity: guide.faq.map((item) => ({
     "@type": "Question",
-    name: item.question,
+    name: softenHealthClaims(item.question),
     acceptedAnswer: {
       "@type": "Answer",
-      text: item.answer
+      text: softenHealthClaims(item.answer)
     }
   }))
 };
 ---
 
 <BaseLayout
-  title={`${post.title} | ${SITE.name}`}
-  description={post.description || post.excerpt}
+  title={`${safePostTitle} | ${SITE.name}`}
+  description={safePostDescription}
   canonical={canonical}
   type="article"
 >
@@ -103,8 +151,8 @@ const faqJson = {
         <span class="badge" data-category={post.category}>{categoryLabel(post.category)}</span>
         <time datetime={post.modifiedAt}>수정 {new Date(post.modifiedAt).toLocaleString("ko-KR")}</time>
       </div>
-      <h1>{post.title}</h1>
-      <p>{post.description || post.excerpt}</p>
+      <h1>{safePostTitle}</h1>
+      <p>{safePostDescription}</p>
     </div>
   </section>
 
@@ -114,30 +162,47 @@ const faqJson = {
         이 페이지의 계산 결과는 건강 관리를 위한 참고 정보입니다. 질환 의심, 복용 중인 약물,
         지속적인 이상 수치가 있다면 의료기관 상담을 우선하세요.
       </div>
-      <div class="tool-body" set:html={post.html} />
+      <section class="tool-context-bar" aria-label="계산기 사용 순서">
+        <div>
+          <span>01</span>
+          <strong>입력값 확인</strong>
+          <p>단위와 측정 조건을 먼저 맞춥니다.</p>
+        </div>
+        <div>
+          <span>02</span>
+          <strong>결과 해석</strong>
+          <p>범위표와 주의사항을 함께 봅니다.</p>
+        </div>
+        <div>
+          <span>03</span>
+          <strong>기록·비교</strong>
+          <p>같은 조건으로 다시 비교합니다.</p>
+        </div>
+      </section>
+      <div class="tool-body" set:html={safePostHtml} />
 
       <section class="calculator-guide" aria-labelledby="calculator-guide-heading">
         <div class="guide-heading">
           <p class="eyebrow">Result interpretation</p>
-          <h2 id="calculator-guide-heading">{guide.heading}</h2>
-          <p>{guide.summary}</p>
+                <h2 id="calculator-guide-heading">{softenHealthClaims(guide.heading)}</h2>
+                <p>{softenHealthClaims(guide.summary)}</p>
         </div>
 
         <div class="guide-grid">
           <section class="guide-panel">
             <h3>이 계산기를 쓰기 좋은 상황</h3>
-            <p>{guide.primaryUse}</p>
+            <p>{softenHealthClaims(guide.primaryUse)}</p>
           </section>
           <section class="guide-panel">
             <h3>결과를 읽는 기준</h3>
             <ul>
-              {guide.interpretation.map((item) => <li>{item}</li>)}
+              {guide.interpretation.map((item) => <li>{softenHealthClaims(item)}</li>)}
             </ul>
           </section>
           <section class="guide-panel guide-panel--wide">
             <h3>주의가 필요한 경우</h3>
             <ul>
-              {guide.cautions.map((item) => <li>{item}</li>)}
+              {guide.cautions.map((item) => <li>{softenHealthClaims(item)}</li>)}
             </ul>
           </section>
         </div>
@@ -294,7 +359,7 @@ const faqJson = {
         <section class="guide-panel guide-panel--wide">
           <h3>기록하고 다시 비교하는 방법</h3>
           <ul>
-            <li>{post.title} 결과를 다시 비교하려면 계산 날짜, 입력값, 측정 조건을 함께 적어 두세요.</li>
+            <li>{safePostTitle} 결과를 다시 비교하려면 계산 날짜, 입력값, 측정 조건을 함께 적어 두세요.</li>
             <li>체중, 혈압, 혈당, 수면, 식사처럼 변동이 큰 값은 하루 결과보다 1~2주 평균과 변화 방향을 보는 편이 더 현실적입니다.</li>
             <li>결과가 좋아졌거나 나빠졌다면 식사, 운동, 수면, 음주, 스트레스처럼 함께 바뀐 생활 요인을 같이 기록해 보세요.</li>
             <li>검진 결과표가 있는 경우 단위와 검사 조건을 확인하고, 온라인 계산 결과와 실제 검사값을 혼동하지 않도록 구분해 두는 것이 좋습니다.</li>
@@ -305,8 +370,8 @@ const faqJson = {
           <h3 id="guide-faq-heading">자주 묻는 질문</h3>
           {guide.faq.map((item) => (
             <details>
-              <summary>{item.question}</summary>
-              <p>{item.answer}</p>
+              <summary>{softenHealthClaims(item.question)}</summary>
+              <p>{softenHealthClaims(item.answer)}</p>
             </details>
           ))}
         </section>
@@ -320,14 +385,36 @@ const faqJson = {
           <ul>
             {guideRelatedPosts.map((item) => (
               <li>
-                <a href={`/${item.slug}`}>{item.title}</a>
-                <span>{item.description || item.excerpt}</span>
+                <a href={`/${item.slug}`}>{softenHealthClaims(item.title)}</a>
+                <span>{softenHealthClaims(item.description || item.excerpt)}</span>
               </li>
             ))}
           </ul>
           <p class="guide-related-inline__more">
             <a href={categoryHubUrl}>{categoryHub.title}에서 같은 주제 계산기 전체 보기</a>
           </p>
+        </section>
+
+        <section class="guide-related-inline" aria-labelledby="original-guides-heading">
+          <h3 id="original-guides-heading">계산 전후에 읽어볼 가이드</h3>
+          <p>
+            계산기 결과를 검진표와 생활습관 맥락으로 이어서 이해하려면 원본 가이드도 함께 확인해 보세요.
+          </p>
+          <ul>
+            <li>
+              <a href="/guides/health-checkup-reading-order">건강검진표 처음 볼 때 확인할 순서</a>
+              <span>BMI, 혈압, 혈당, 지질 수치를 한 흐름으로 정리합니다.</span>
+            </li>
+            <li>
+              <a href="/guides/normal-bmi-abdominal-obesity">BMI는 정상인데 복부비만일 수 있는 경우</a>
+              <span>체형 계산 결과를 허리둘레와 함께 읽는 방법입니다.</span>
+            </li>
+            <li>
+              <a href="/guides/bmr-tdee-calorie-plan">BMR·TDEE로 식단 계획을 시작할 때 피해야 할 실수</a>
+              <span>칼로리 계산 결과를 기록과 조정으로 연결합니다.</span>
+            </li>
+          </ul>
+          <p class="guide-related-inline__more"><a href="/guides">원본 건강 가이드 전체 보기</a></p>
         </section>
 
         <section class="source-box" aria-labelledby="source-heading">
@@ -360,7 +447,7 @@ const faqJson = {
         <h2>같은 주제</h2>
         {
           relatedPosts.map((item) => (
-            <a href={`/${item.slug}`}>{item.title}</a>
+            <a href={`/${item.slug}`}>{softenHealthClaims(item.title)}</a>
           ))
         }
       </section>

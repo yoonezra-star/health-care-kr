@@ -7,6 +7,7 @@ import {
   getCategoryHub,
   getResourcesForTags
 } from "../../data/resourceLinks";
+import { softenHealthClaims } from "../../utils/safetyCopy";
 import type { Post } from "../../types";
 import postsJson from "../../data/posts.json";
 
@@ -27,12 +28,12 @@ const comparisonPosts = categoryPosts.slice(0, 8).map((post) => ({
 }));
 const resources = getResourcesForTags(hub.resourceTags);
 const canonical = `${SITE.url}/calculators/${key}`;
-const title = `${hub.title} | ${SITE.name}`;
-const description = `${hub.summary} WELLBEEP의 ${categoryLabel(key)} 계산기를 한곳에서 확인하세요.`;
+const title = `${softenHealthClaims(hub.title)} | ${SITE.name}`;
+const description = `${softenHealthClaims(hub.summary)} WELLBEEP의 ${categoryLabel(key)} 계산기를 한곳에서 확인하세요.`;
 const collectionJson = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  name: hub.title,
+  name: softenHealthClaims(hub.title),
   description,
   url: canonical,
   inLanguage: "ko-KR",
@@ -43,7 +44,7 @@ const collectionJson = {
   },
   hasPart: categoryPosts.map((post) => ({
     "@type": "Article",
-    headline: post.title,
+    headline: softenHealthClaims(post.title),
     url: `${SITE.url}/${post.slug}`,
     dateModified: post.modifiedAt
   }))
@@ -54,8 +55,8 @@ const collectionJson = {
   <section class="page-hero">
     <div class="wrap">
       <p class="eyebrow">Calculator Hub</p>
-      <h1>{hub.title}</h1>
-      <p>{hub.summary}</p>
+      <h1>{softenHealthClaims(hub.title)}</h1>
+      <p>{softenHealthClaims(hub.summary)}</p>
       <div class="policy-meta" aria-label="허브 요약">
         <span>{categoryPosts.length}개 계산기</span>
         <span>{categoryLabel(key)} 주제</span>
@@ -118,9 +119,9 @@ const collectionJson = {
               <tbody>
                 {comparisonPosts.map(({ post, guide }) => (
                   <tr>
-                    <th scope="row"><a href={`/${post.slug}`}>{post.title}</a></th>
-                    <td>{guide.primaryUse}</td>
-                    <td>{guide.interpretation[0]}</td>
+                    <th scope="row"><a href={`/${post.slug}`}>{softenHealthClaims(post.title)}</a></th>
+                    <td>{softenHealthClaims(guide.primaryUse)}</td>
+                    <td>{softenHealthClaims(guide.interpretation[0])}</td>
                   </tr>
                 ))}
               </tbody>
@@ -141,8 +142,8 @@ const collectionJson = {
                 <span class="tool-card__top">
                   <span class="badge" data-category={post.category}>{categoryLabel(post.category)}</span>
                 </span>
-                <h3>{post.title}</h3>
-                <p>{post.description || post.excerpt}</p>
+                <h3>{softenHealthClaims(post.title)}</h3>
+                <p>{softenHealthClaims(post.description || post.excerpt)}</p>
                 <time datetime={post.modifiedAt}>
                   수정 {new Date(post.modifiedAt).toLocaleDateString("ko-KR")}
                 </time>

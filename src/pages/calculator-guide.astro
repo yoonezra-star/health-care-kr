@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { SITE, categoryLabel } from "../data/site";
 import { categoryHubs, officialResources } from "../data/resourceLinks";
+import { softenHealthClaims } from "../utils/safetyCopy";
 import type { Post } from "../types";
 import postsJson from "../data/posts.json";
 
@@ -92,11 +93,11 @@ const guideJson = {
         {featuredByCategory.map((hub) => (
           <div class="hub-card">
             <span>{categoryLabel(hub.key)}</span>
-            <h3>{hub.title}</h3>
-            <p>{hub.summary}</p>
+            <h3>{softenHealthClaims(hub.title)}</h3>
+            <p>{softenHealthClaims(hub.summary)}</p>
             <ul class="compact-link-list">
               {hub.posts.map((post) => (
-                <li><a href={`/${post.slug}`}>{post.title}</a></li>
+                <li><a href={`/${post.slug}`}>{softenHealthClaims(post.title)}</a></li>
               ))}
             </ul>
             <p class="hub-card__more"><a href={`/calculators/${hub.key}`}>허브 전체 보기</a></p>
@@ -162,6 +163,7 @@ const guideJson = {
         외부 공공 자료는 <a href="/health-resources">참고 기관 및 공공 건강 자료</a>에서 확인할 수 있습니다.
         검진표와 함께 보는 흐름은 <a href="/health-checkup-guide">건강검진 수치 해석 허브</a>,
         반복 기록은 <a href="/health-record-template">검진 전후 기록표</a>를 활용하세요.
+        계산 전후에 더 긴 설명이 필요하면 <a href="/guides">원본 건강 가이드</a>를 이어서 읽을 수 있습니다.
       </p>
       <div class="resource-grid">
         {officialResources.slice(0, 6).map((resource) => (

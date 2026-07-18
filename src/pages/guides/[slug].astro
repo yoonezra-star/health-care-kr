@@ -1,0 +1,162 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { originalGuides } from "../../data/originalGuides";
+import { SITE } from "../../data/site";
+import { softenHealthClaims } from "../../utils/safetyCopy";
+import type { Post } from "../../types";
+import postsJson from "../../data/posts.json";
+
+export function getStaticPaths() {
+  return originalGuides.map((guide) => ({
+    params: { slug: guide.slug },
+    props: { guide }
+  }));
+}
+
+const posts = postsJson as Post[];
+const { guide } = Astro.props;
+const relatedPosts = guide.relatedSlugs
+  .map((slug: string) => posts.find((post) => post.slug === slug))
+  .filter(Boolean) as Post[];
+const canonical = `${SITE.url}/guides/${guide.slug}`;
+const articleJson = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: guide.title,
+  description: guide.description,
+  url: canonical,
+  datePublished: guide.updatedAt,
+  dateModified: guide.updatedAt,
+  inLanguage: "ko-KR",
+  author: {
+    "@type": "Organization",
+    name: SITE.name
+  },
+  publisher: {
+    "@type": "Organization",
+    name: SITE.name
+  },
+  mainEntityOfPage: canonical,
+  isAccessibleForFree: true,
+  citation: guide.sources.map((source: { href: string }) => source.href)
+};
+---
+
+<BaseLayout title={`${guide.title} | ${SITE.name}`} description={guide.description} canonical={canonical} type="article">
+  <section class="article-hero">
+    <div class="wrap">
+      <div class="article-hero__meta">
+        <span class="badge" data-category="health">{guide.category}</span>
+        <time datetime={guide.updatedAt}>수정 {new Date(guide.updatedAt).toLocaleDateString("ko-KR")}</time>
+      </div>
+      <h1>{guide.title}</h1>
+      <p>{guide.hero}</p>
+    </div>
+  </section>
+
+  <div class="wrap article-layout">
+    <article class="article-main">
+      <div class="notice">
+        이 글은 건강 계산기 결과를 이해하기 위한 일반 정보입니다. 증상, 질환, 약물, 임신·소아·고령자 상황은 의료 전문가 상담을 우선하세요.
+      </div>
+
+      <section class="guide-article">
+        <div class="metric-strip" aria-label="핵심 요약">
+          {guide.keyPoints.map((point: string, index: number) => (
+            <div>
+              <span>핵심 {index + 1}</span>
+              <strong>{point}</strong>
+            </div>
+          ))}
+        </div>
+
+        {guide.sections.map((section: { heading: string; body: string }) => (
+          <section class="guide-panel guide-panel--wide">
+            <h2>{section.heading}</h2>
+            <p>{section.body}</p>
+          </section>
+        ))}
+
+        <section class="visual-aid" aria-labelledby="guide-table-heading">
+          <div class="guide-heading guide-heading--compact">
+            <p class="eyebrow">Comparison table</p>
+            <h2 id="guide-table-heading">{guide.table.title}</h2>
+          </div>
+          <div class="table-wrap visual-table-wrap">
+            <table class="comparison-table">
+              <thead>
+                <tr>
+                  {guide.table.columns.map((column: string) => <th scope="col">{column}</th>)}
+                </tr>
+              </thead>
+              <tbody>
+                {guide.table.rows.map((row: string[]) => (
+                  <tr>
+                    {row.map((cell: string, index: number) =>
+                      index === 0 ? <th scope="row">{cell}</th> : <td>{cell}</td>
+                    )}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="calculation-example" aria-labelledby="guide-checklist-heading">
+          <h2 id="guide-checklist-heading">{guide.checklistTitle}</h2>
+          <ul class="policy-list">
+            {guide.checklist.map((item: string) => <li>{item}</li>)}
+          </ul>
+        </section>
+
+        <section class="guide-related-inline" aria-labelledby="guide-related-calculators-heading">
+          <h2 id="guide-related-calculators-heading">함께 열어볼 계산기</h2>
+          <p>가이드에서 다룬 수치를 직접 계산해 볼 수 있는 관련 도구입니다.</p>
+          <ul>
+            {relatedPosts.map((post) => (
+              <li>
+                <a href={`/${post.slug}`}>{softenHealthClaims(post.title)}</a>
+                <span>{softenHealthClaims(post.description || post.excerpt)}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section class="source-box" aria-labelledby="guide-source-heading">
+          <h2 id="guide-source-heading">참고 자료</h2>
+          <p>
+            아래 자료는 내용의 배경을 확인하기 위한 공개 자료입니다. WELLBEEP와 해당 기관의 제휴나 보증을 의미하지 않습니다.
+          </p>
+          <ul>
+            {guide.sources.map((source: { label: string; href: string; note: string }) => (
+              <li>
+                <a href={source.href} target="_blank" rel="noopener noreferrer">{source.label}</a>
+                <span>{source.note}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </section>
+    </article>
+
+    <aside class="article-side" aria-label="가이드 탐색">
+      <section class="side-panel">
+        <h2>원본 가이드</h2>
+        {originalGuides.slice(0, 8).map((item) => (
+          <a href={`/guides/${item.slug}`}>{item.title}</a>
+        ))}
+        <a href="/guides">가이드 전체 보기</a>
+      </section>
+      <section class="side-panel">
+        <h3>운영 정보</h3>
+        <a href="/health-checkup-guide">검진 해석 허브</a>
+        <a href="/health-metric-glossary">건강 지표 용어집</a>
+        <a href="/calculator-guide">계산기 사용법</a>
+        <a href="/health-resources">참고 기관</a>
+        <a href="/disclaimer">면책사항</a>
+      </section>
+    </aside>
+  </div>
+
+  <script type="application/ld+json" set:html={JSON.stringify(articleJson)} />
+</BaseLayout>

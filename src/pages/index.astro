@@ -1,7 +1,9 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { originalGuides } from "../data/originalGuides";
 import { categoryHubs, officialResources } from "../data/resourceLinks";
 import { SITE, categories, categoryLabel } from "../data/site";
+import { softenHealthClaims } from "../utils/safetyCopy";
 import type { Post } from "../types";
 import postsJson from "../data/posts.json";
 
@@ -69,6 +71,28 @@ const expertHubs = [
     </div>
   </section>
 
+  <section class="section section--soft">
+    <div class="wrap">
+      <div class="section__head">
+        <div>
+          <h2>원본 건강 가이드</h2>
+          <p>계산기 결과를 검진표, 혈당, 콜레스테롤, 체형, 영양, 생활습관 맥락에서 읽는 해설 글입니다.</p>
+        </div>
+        <a class="text-link" href="/guides">가이드 전체</a>
+      </div>
+      <div class="guide-card-grid guide-card-grid--home" aria-label="원본 건강 가이드">
+        {originalGuides.slice(0, 6).map((guide) => (
+          <a class="guide-card" href={`/guides/${guide.slug}`}>
+            <span>{guide.category}</span>
+            <h3>{guide.title}</h3>
+            <p>{guide.description}</p>
+            <time datetime={guide.updatedAt}>수정 {new Date(guide.updatedAt).toLocaleDateString("ko-KR")}</time>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <section class="section section--white">
     <div class="wrap">
       <div class="section__head">
@@ -88,8 +112,8 @@ const expertHubs = [
           return (
             <a class="hub-card" href={`/calculators/${hub.key}`}>
               <span>{count}개 계산기</span>
-              <h3>{hub.title}</h3>
-              <p>{hub.summary}</p>
+              <h3>{softenHealthClaims(hub.title)}</h3>
+              <p>{softenHealthClaims(hub.summary)}</p>
             </a>
           );
         })}
@@ -107,24 +131,29 @@ const expertHubs = [
 
       <div class="tool-grid" id="tool-grid">
         {
-          posts.map((post) => (
-            <a
-              class="tool-card"
-              href={`/${post.slug}`}
-              data-card
-              data-category={post.category}
-              data-title={`${post.title} ${post.excerpt}`}
-            >
-              <span class="tool-card__top">
-                <span class="badge" data-category={post.category}>{categoryLabel(post.category)}</span>
-              </span>
-              <h3>{post.title}</h3>
-              <p>{post.description || post.excerpt}</p>
-              <time datetime={post.modifiedAt}>
-                수정 {new Date(post.modifiedAt).toLocaleDateString("ko-KR")}
-              </time>
-            </a>
-          ))
+          posts.map((post) => {
+            const safeTitle = softenHealthClaims(post.title);
+            const safeDescription = softenHealthClaims(post.description || post.excerpt);
+            const safeSearchText = softenHealthClaims(`${post.title} ${post.excerpt}`);
+            return (
+              <a
+                class="tool-card"
+                href={`/${post.slug}`}
+                data-card
+                data-category={post.category}
+                data-title={safeSearchText}
+              >
+                <span class="tool-card__top">
+                  <span class="badge" data-category={post.category}>{categoryLabel(post.category)}</span>
+                </span>
+                <h3>{safeTitle}</h3>
+                <p>{safeDescription}</p>
+                <time datetime={post.modifiedAt}>
+                  수정 {new Date(post.modifiedAt).toLocaleDateString("ko-KR")}
+                </time>
+              </a>
+            );
+          })
         }
       </div>
     </div>

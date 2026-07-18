@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { SITE } from "../data/site";
 import { categoryHubs, officialResources } from "../data/resourceLinks";
+import { softenHealthClaims } from "../utils/safetyCopy";
 
 const canonical = `${SITE.url}/calculator-methodology`;
 const title = `계산기 산출 방식 및 검수 기준 | ${SITE.name}`;
@@ -19,7 +20,7 @@ const methodologyJson = {
     name: SITE.title,
     url: SITE.url
   },
-  about: categoryHubs.map((hub) => hub.title)
+  about: categoryHubs.map((hub) => softenHealthClaims(hub.title))
 };
 ---
 
@@ -96,8 +97,8 @@ const methodologyJson = {
         {categoryHubs.map((hub) => (
           <a class="hub-card" href={`/calculators/${hub.key}`}>
             <span>계산기 허브</span>
-            <h3>{hub.title}</h3>
-            <p>{hub.summary}</p>
+            <h3>{softenHealthClaims(hub.title)}</h3>
+            <p>{softenHealthClaims(hub.summary)}</p>
           </a>
         ))}
       </div>

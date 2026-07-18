@@ -1,0 +1,65 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { originalGuides } from "../../data/originalGuides";
+import { SITE } from "../../data/site";
+
+const canonical = `${SITE.url}/guides`;
+const title = `건강 지표 원본 가이드 | ${SITE.name}`;
+const description =
+  "건강검진표, 혈당, 콜레스테롤, BMI, 혈압, 영양, 흡연력, 수면과 운동 기록을 계산기와 함께 이해하는 원본 가이드입니다.";
+const guideJson = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "건강 지표 원본 가이드",
+  description,
+  url: canonical,
+  inLanguage: "ko-KR",
+  hasPart: originalGuides.map((guide) => ({
+    "@type": "Article",
+    headline: guide.title,
+    url: `${SITE.url}/guides/${guide.slug}`,
+    dateModified: guide.updatedAt
+  }))
+};
+---
+
+<BaseLayout title={title} description={description} canonical={canonical}>
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Original Guides</p>
+      <h1>건강 지표 원본 가이드</h1>
+      <p>
+        계산기 결과를 더 깊게 이해할 수 있도록 검진표, 혈당, 콜레스테롤, BMI, 혈압,
+        영양, 흡연력, 수면과 운동 기록을 별도 해설 글로 정리했습니다.
+      </p>
+      <div class="policy-meta" aria-label="가이드 요약">
+        <span>{originalGuides.length}개 원본 가이드</span>
+        <span>관련 계산기 연결</span>
+        <span>공식 자료 참고</span>
+      </div>
+    </div>
+  </section>
+
+  <article class="page-content page-content--wide">
+    <p class="lead">
+      이 섹션은 계산기를 바로 쓰기 전후에 읽을 수 있는 해설 콘텐츠입니다.
+      모든 글은 일반 건강 정보이며, 질환 진단·처방·치료 결정을 대신하지 않습니다.
+    </p>
+
+    <section class="resource-section">
+      <h2>전체 가이드</h2>
+      <div class="guide-card-grid">
+        {originalGuides.map((guide) => (
+          <a class="guide-card" href={`/guides/${guide.slug}`}>
+            <span>{guide.category}</span>
+            <h3>{guide.title}</h3>
+            <p>{guide.description}</p>
+            <time datetime={guide.updatedAt}>수정 {new Date(guide.updatedAt).toLocaleDateString("ko-KR")}</time>
+          </a>
+        ))}
+      </div>
+    </section>
+  </article>
+
+  <script type="application/ld+json" set:html={JSON.stringify(guideJson)} />
+</BaseLayout>

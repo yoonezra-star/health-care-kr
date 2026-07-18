@@ -2,8 +2,21 @@ import { mkdir, writeFile } from "node:fs/promises";
 import posts from "../src/data/posts.json" with { type: "json" };
 
 const siteUrl = "https://www.wellbeep.com";
+const guideSlugs = [
+  "health-checkup-reading-order",
+  "fasting-glucose-a1c-difference",
+  "ldl-hdl-triglyceride-guide",
+  "normal-bmi-abdominal-obesity",
+  "home-blood-pressure-measurement",
+  "bmr-tdee-calorie-plan",
+  "protein-intake-checklist",
+  "sodium-sugar-caffeine-label",
+  "pack-year-smoking-risk",
+  "sleep-exercise-record"
+];
 const staticPages = [
   "/",
+  "/guides",
   "/about",
   "/contact",
   "/privacy",
@@ -51,6 +64,10 @@ const urls = [
   ...posts.map((post) => ({
     loc: `${siteUrl}/${post.slug}`,
     lastmod: post.modifiedAt
+  })),
+  ...guideSlugs.map((slug) => ({
+    loc: `${siteUrl}/guides/${slug}`,
+    lastmod: latest
   }))
 ];
 

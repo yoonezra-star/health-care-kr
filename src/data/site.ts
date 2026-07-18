@@ -11,6 +11,7 @@ export const SITE = {
 
 export const navLinks = [
   { href: "/", label: "계산기" },
+  { href: "/guides", label: "가이드" },
   { href: "/calculator-guide", label: "사용법" },
   { href: "/health-checkup-guide", label: "검진" },
   { href: "/health-metric-glossary", label: "용어" },
