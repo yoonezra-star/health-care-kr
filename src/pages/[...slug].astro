@@ -33,6 +33,12 @@ const visualAid = getVisualAid(post);
 const categoryHub = getCategoryHub(post.category);
 const categoryHubUrl = `/calculators/${post.category}`;
 const categoryResources = getResourcesForTags(categoryHub.resourceTags).slice(0, 3);
+const jumpLinks = [
+  { href: "#calculator-tool", label: "계산" },
+  { href: "#calculator-guide-heading", label: "해석" },
+  { href: professionalProfile ? "#professional-calculator-heading" : "#calculation-example-heading", label: "사례" },
+  { href: "#source-heading", label: "출처" }
+];
 const canonical = new URL(`/${post.slug}`, SITE.url).toString();
 const healthClaimReplacements: Array<[string, string]> = [
   ["기대수명정밀계산기", "생활습관 건강나이 참고 계산기"],
@@ -181,9 +187,12 @@ const faqJson = {
           <p>같은 조건으로 다시 비교합니다.</p>
         </div>
       </section>
-      <div class="tool-body" set:html={safePostHtml} />
+      <nav class="mobile-jump-bar" aria-label="계산기 빠른 이동">
+        {jumpLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+      </nav>
+      <div id="calculator-tool" class="tool-body" set:html={safePostHtml} />
 
-      <section class="calculator-guide" aria-labelledby="calculator-guide-heading">
+      <section id="calculator-interpretation" class="calculator-guide" aria-labelledby="calculator-guide-heading">
         <div class="guide-heading">
           <p class="eyebrow">Result interpretation</p>
                 <h2 id="calculator-guide-heading">{softenHealthClaims(guide.heading)}</h2>

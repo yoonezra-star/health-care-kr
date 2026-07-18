@@ -54,6 +54,16 @@ a:hover {
   text-decoration-color: var(--teal-dark);
 }
 
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible {
+  outline: 3px solid rgba(15, 139, 126, 0.28);
+  outline-offset: 3px;
+}
+
 img {
   display: block;
   max-width: 100%;
@@ -658,6 +668,37 @@ main {
   margin: 4px 0 0;
 }
 
+.mobile-jump-bar {
+  display: none;
+}
+
+.mobile-jump-bar a {
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--slate);
+  display: inline-flex;
+  flex: 0 0 auto;
+  font-size: 14px;
+  font-weight: 850;
+  justify-content: center;
+  min-height: 40px;
+  padding: 8px 14px;
+  text-decoration: none;
+}
+
+.mobile-jump-bar a:hover,
+.mobile-jump-bar a:focus-visible {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: white;
+}
+
+.article-main :is(#calculator-tool, #calculator-guide-heading, #calculation-example-heading, #professional-calculator-heading, #source-heading) {
+  scroll-margin-top: 94px;
+}
+
 .tool-body {
   background: var(--surface);
   border: 1px solid var(--line);
@@ -763,12 +804,14 @@ main {
   align-items: center;
   display: flex;
   gap: 12px;
+  min-height: 48px;
   margin: 10px 0;
 }
 
 .tool-body .check-item input {
-  min-height: auto;
-  width: auto;
+  flex: 0 0 auto;
+  min-height: 20px;
+  width: 20px;
 }
 
 .tool-body input,
@@ -777,7 +820,8 @@ main {
   background: white !important;
   border: 1px solid #cbd9d5 !important;
   color: var(--ink) !important;
-  min-height: 46px;
+  font-size: 16px;
+  min-height: 48px;
   padding: 10px 12px;
   width: 100%;
 }
@@ -788,13 +832,14 @@ main {
   border: 1px solid #cbd9d5 !important;
   display: flex;
   gap: 8px;
-  padding: 8px 10px !important;
+  min-height: 50px;
+  padding: 0 10px !important;
 }
 
 .tool-body .input-wrap input,
 .tool-body .input-wrap select {
   border: 0 !important;
-  min-height: 34px;
+  min-height: 48px;
   padding: 4px !important;
 }
 
@@ -802,7 +847,7 @@ main {
 .tool-body button {
   border: 0 !important;
   font-weight: 850;
-  min-height: 46px;
+  min-height: 48px;
   padding: 10px 14px !important;
 }
 
@@ -930,6 +975,7 @@ main {
 .calculator-guide {
   display: grid;
   gap: 20px;
+  min-width: 0;
   margin-top: 24px;
 }
 
@@ -949,10 +995,29 @@ main {
   padding: clamp(18px, 3vw, 24px);
 }
 
+.calculator-guide > *,
+.guide-article > *,
+.guide-grid > *,
+.hub-layout > *,
+.hub-main > *,
+.deep-dive-grid > *,
+.professional-calculator > *,
+.case-library__grid > *,
+.professional-bottom-grid > *,
+.flow-steps > *,
+.metric-strip > *,
+.hub-card-grid > *,
+.guide-card-grid > *,
+.resource-grid > *,
+.glossary-grid > * {
+  min-width: 0;
+}
+
 .guide-heading h2 {
   font-size: clamp(24px, 3vw, 32px);
   line-height: 1.25;
   margin: 0;
+  overflow-wrap: anywhere;
 }
 
 .guide-heading--compact {
@@ -1319,7 +1384,25 @@ main {
 }
 
 .visual-table-wrap {
+  max-width: 100%;
   overflow-x: auto;
+  position: relative;
+  scrollbar-color: #9bcac0 #eef7f4;
+  scrollbar-width: thin;
+}
+
+.visual-table-wrap::-webkit-scrollbar {
+  height: 10px;
+}
+
+.visual-table-wrap::-webkit-scrollbar-track {
+  background: #eef7f4;
+  border-radius: 999px;
+}
+
+.visual-table-wrap::-webkit-scrollbar-thumb {
+  background: #9bcac0;
+  border-radius: 999px;
 }
 
 .comparison-table {
@@ -1742,6 +1825,58 @@ main {
     flex-direction: column;
   }
 
+  .site-header__inner {
+    gap: 8px;
+    min-height: auto;
+    padding: 8px 0 9px;
+  }
+
+  .site-nav {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    margin-inline: -4px;
+    overflow-x: auto;
+    padding: 0 4px 2px;
+    scrollbar-width: none;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .site-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .site-nav a {
+    flex: 0 0 auto;
+    min-height: 38px;
+  }
+
+  .article-hero,
+  .page-hero {
+    padding: 38px 0 30px;
+  }
+
+  .article-hero p,
+  .page-hero p {
+    font-size: 16px;
+  }
+
+  .article-hero h1,
+  .page-hero h1,
+  .tool-body :is(h1, h2, h3, h4),
+  .guide-panel h3,
+  .guide-faq h3,
+  .guide-related-inline h3,
+  .source-box h3,
+  .resource-section h2,
+  .hub-panel h2 {
+    overflow-wrap: anywhere;
+  }
+
+  .article-layout {
+    padding: 24px 0 48px;
+  }
+
   .home-hero {
     min-height: auto;
     padding: 78px 0 56px;
@@ -1758,6 +1893,46 @@ main {
     position: static;
   }
 
+  .mobile-jump-bar {
+    background: rgba(247, 249, 248, 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(220, 229, 226, 0.82);
+    border-radius: 999px;
+    display: flex;
+    gap: 8px;
+    margin: 0 0 14px;
+    overflow-x: auto;
+    padding: 8px;
+    position: sticky;
+    scrollbar-width: none;
+    top: 88px;
+    z-index: 10;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .mobile-jump-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .visual-table-wrap {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    margin-inline: -2px;
+  }
+
+  .comparison-table thead th:first-child,
+  .comparison-table tbody th {
+    box-shadow: 8px 0 16px rgba(19, 41, 47, 0.08);
+    left: 0;
+    position: sticky;
+    z-index: 1;
+  }
+
+  .comparison-table thead th:first-child {
+    background: #10282d;
+    z-index: 2;
+  }
+
   .hub-side {
     position: static;
   }
@@ -1765,6 +1940,30 @@ main {
   .tool-context-bar div + div {
     border-left: 0;
     border-top: 1px solid var(--line);
+  }
+
+  .tool-body {
+    overflow-x: hidden;
+  }
+
+  .tool-body .grid,
+  .tool-body .grid.cols,
+  .tool-body .row {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .tool-body .grid > *,
+  .tool-body .row > *,
+  .tool-body main,
+  .tool-body aside,
+  .tool-body .card {
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .tool-body table:not(.comparison-table) {
+    max-width: 100%;
+    min-width: 100% !important;
   }
 
   .policy-grid,
@@ -1786,6 +1985,15 @@ main {
 @media (max-width: 560px) {
   :root {
     --wrap: min(100vw - 24px, 1120px);
+  }
+
+  .brand__mark {
+    height: 32px;
+    width: 32px;
+  }
+
+  .brand__text small {
+    display: none;
   }
 
   .site-nav {
@@ -1810,5 +2018,44 @@ main {
 
   .tool-body {
     padding: 16px;
+  }
+
+  .tool-body .card {
+    padding: 16px !important;
+  }
+
+  .tool-body :is(.btn, button):not(.gender-btn) {
+    width: 100%;
+  }
+
+  .tool-body .row,
+  .tool-body .grid,
+  .tool-body .kpis,
+  .guide-article,
+  .calculator-guide {
+    gap: 12px;
+  }
+
+  .guide-heading,
+  .guide-panel,
+  .guide-faq,
+  .guide-related-inline,
+  .source-box,
+  .visual-aid,
+  .deep-dive,
+  .calculation-example,
+  .professional-calculator,
+  .resource-section,
+  .hub-panel {
+    padding: 16px;
+  }
+
+  .comparison-table {
+    min-width: 640px;
+  }
+
+  .comparison-table th,
+  .comparison-table td {
+    padding: 11px 12px;
   }
 }
