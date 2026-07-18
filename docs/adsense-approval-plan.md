@@ -37,13 +37,14 @@ Primary risks:
 
 ## Current approval readiness score
 
-Score after the original-guide and calculator UI reinforcement: 99 / 100
+Score after the original-guide, calculator UI, and professional interpretation reinforcement: 99 / 100
 
 - Content depth: 30 / 30
   - Every calculator page now has more than 2,000 visible article characters, topic-aware interpretation, FAQ, caution notes, and reference links.
   - A dedicated calculator use guide now explains input checks, result interpretation, record keeping, and when to seek professional advice.
   - Every calculator page now includes a category-specific visual guide, summary metric cards, interpretation table, and three-step result flow.
   - Eight high-value calculators now have manual deep-dive sections with formula context, example calculations, common misconceptions, and consultation triggers.
+  - Ten core calculators now have professional interpretation panels with metric cards, realistic cases, comparison tables, checklists, and official-standard caution boxes.
   - Ten original health guide articles now support calculator use with comparison tables, checklists, official public sources, and related-calculator links.
   - Local build check: 10 original guides, minimum 1,927 visible characters, average 2,015 visible characters.
   - Remaining risk: imported calculator widgets still vary in visual detail, so future work should polish the highest-traffic calculators with custom tables or diagrams when search data is available.
@@ -58,6 +59,7 @@ Score after the original-guide and calculator UI reinforcement: 99 / 100
   - The original guide hub is linked from top navigation, home, footer, calculator guide, and calculator pages.
   - Each topic hub now has a calculator comparison table so users can choose adjacent tools without returning to search.
   - Dedicated hubs now cover health checkup interpretation, health-metric glossary terms, record templates, and standards update history.
+  - The health checkup hub now acts as a reading-order gateway with a four-step roadmap, lab-panel table, and links into BMI, WHtR, blood pressure, blood glucose, cholesterol, nutrition, and lifestyle calculators.
   - Remaining risk: Search Console indexing can still take time after new hub pages are deployed.
 - Technical readiness: 20 / 20
   - AdSense script, google-adsense-account meta tag, ads.txt, sitemap, canonical links, and robots.txt are present.
@@ -128,6 +130,12 @@ Score after the original-guide and calculator UI reinforcement: 99 / 100
    - Confirm reviewed high-risk legacy phrases do not remain in the public build output.
    - Confirm sitemap, canonical, robots, ads.txt, and policy pages are live after deployment.
    - Status: local build verification complete; final live check follows deployment.
+
+11. Professional calculator reinforcement
+   - Add professional interpretation profiles to 10 approval-critical calculators: BMI, BMR/TDEE, blood pressure, blood glucose, LDL/HDL, pack-year, protein, sodium, added sugar, and caffeine.
+   - Add metric cards, realistic interpretation cases, comparison tables, action checklists, and official-standard caution boxes to these pages.
+   - Expand the health checkup hub into a four-step reading flow with lab-panel connections and public-resource routing.
+   - Status: complete locally; deployment verification follows.
 
 ## Ongoing content rule
 

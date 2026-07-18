@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCalculatorGuide } from "../data/calculatorGuides";
 import { getCalculatorExample } from "../data/calculatorExamples";
 import { getCoreDeepDive } from "../data/coreDeepDives";
+import { getProfessionalCalculatorProfile } from "../data/professionalCalculatorProfiles";
 import { getCategoryHub, getResourcesForTags } from "../data/resourceLinks";
 import { getVisualAid } from "../data/visualAids";
 import { SITE, categoryLabel } from "../data/site";
@@ -27,6 +28,7 @@ const guideRelatedPosts = relatedPosts.slice(0, 3);
 const guide = getCalculatorGuide(post);
 const calculatorExample = getCalculatorExample(post);
 const coreDeepDive = getCoreDeepDive(post.slug);
+const professionalProfile = getProfessionalCalculatorProfile(post.slug);
 const visualAid = getVisualAid(post);
 const categoryHub = getCategoryHub(post.category);
 const categoryHubUrl = `/calculators/${post.category}`;
@@ -355,6 +357,85 @@ const faqJson = {
             </div>
           </dl>
         </section>
+
+        {
+          professionalProfile ? (
+            <section class="professional-calculator" aria-labelledby="professional-calculator-heading">
+              <div class="guide-heading guide-heading--compact">
+                <p class="eyebrow">{professionalProfile.label}</p>
+                <h2 id="professional-calculator-heading">{professionalProfile.headline}</h2>
+                <p>{professionalProfile.summary}</p>
+              </div>
+              <div class="professional-metrics" aria-label="전문 점검 요약">
+                {professionalProfile.metricCards.map((card) => (
+                  <div>
+                    <span>{card.label}</span>
+                    <strong>{card.value}</strong>
+                    <p>{card.note}</p>
+                  </div>
+                ))}
+              </div>
+              <section class="case-library" aria-labelledby="case-library-heading">
+                <h3 id="case-library-heading">실전 해석 사례</h3>
+                <div class="case-library__grid">
+                  {professionalProfile.scenarios.map((scenario) => (
+                    <article>
+                      <span>{scenario.situation}</span>
+                      <strong>{scenario.example}</strong>
+                      <p>{scenario.reading}</p>
+                    </article>
+                  ))}
+                </div>
+              </section>
+              <section class="professional-table" aria-labelledby="professional-table-heading">
+                <h3 id="professional-table-heading">{professionalProfile.table.title}</h3>
+                <div class="table-wrap visual-table-wrap">
+                  <table class="comparison-table">
+                    <thead>
+                      <tr>
+                        {professionalProfile.table.columns.map((column) => <th scope="col">{column}</th>)}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {professionalProfile.table.rows.map((row) => (
+                        <tr>
+                          {row.map((cell, index) =>
+                            index === 0 ? <th scope="row">{cell}</th> : <td>{cell}</td>
+                          )}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+              <div class="professional-bottom-grid">
+                <section class="professional-checklist">
+                  <h3>{professionalProfile.checklistTitle}</h3>
+                  <ul>
+                    {professionalProfile.checklist.map((item) => <li>{item}</li>)}
+                  </ul>
+                </section>
+                <section class="standard-card">
+                  <h3>공식 기준 메모</h3>
+                  <dl>
+                    <div>
+                      <dt>기준</dt>
+                      <dd>{professionalProfile.standardBox.basis}</dd>
+                    </div>
+                    <div>
+                      <dt>출처</dt>
+                      <dd>{professionalProfile.standardBox.source}</dd>
+                    </div>
+                    <div>
+                      <dt>주의</dt>
+                      <dd>{professionalProfile.standardBox.caution}</dd>
+                    </div>
+                  </dl>
+                </section>
+              </div>
+            </section>
+          ) : null
+        }
 
         <section class="guide-panel guide-panel--wide">
           <h3>기록하고 다시 비교하는 방법</h3>
