@@ -49,6 +49,25 @@ app/build/outputs/bundle/release/app-release.aab
 
 For Google Play, use Android Studio's signed app bundle flow or configure an upload key before release, then replace the AdMob test IDs with real production IDs.
 
+## Run Test
+
+For a real Android phone:
+
+```powershell
+.\gradlew.bat :app:installDebug
+```
+
+The phone must have Developer options and USB debugging enabled.
+
+For an emulator, install these Android Studio SDK Tools first:
+
+- Android Emulator
+- Android Emulator hypervisor driver
+- Android SDK Platform-Tools
+- Android SDK Platform 36 or newer
+
+Then create an API 36 virtual device in Android Studio Device Manager and run the `app` configuration.
+
 ## AdMob
 
 Development uses Google's official test IDs:
@@ -65,6 +84,7 @@ Before release, replace these with the real AdMob app ID and ad unit ID from you
 - Use test ads only until the app is ready for production review.
 - Google Play requires new apps and updates to target Android 16/API 36 from August 31, 2026.
 - `android.overridePathCheck=true` is enabled because this workspace path contains non-ASCII characters on Windows.
+- CLI emulator testing may require a temporary drive-letter mapping if the emulator cannot read the non-ASCII workspace path.
 
 ## Play Store Preparation
 
