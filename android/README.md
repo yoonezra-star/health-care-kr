@@ -65,3 +65,8 @@ Before release, replace these with the real AdMob app ID and ad unit ID from you
 - Use test ads only until the app is ready for production review.
 - Google Play requires new apps and updates to target Android 16/API 36 from August 31, 2026.
 - `android.overridePathCheck=true` is enabled because this workspace path contains non-ASCII characters on Windows.
+
+## Play Store Preparation
+
+- Release checklist: `../docs/play-store-release-readiness.md`
+- Korean store listing draft: `../docs/play-store-listing-ko.md`
