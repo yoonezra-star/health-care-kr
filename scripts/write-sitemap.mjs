@@ -94,6 +94,7 @@ const sitemapIndex = [
 ].join("\n");
 
 await mkdir("dist", { recursive: true });
+await writeFile("dist/sitemap.xml", sitemapIndex, "utf8");
 await writeFile("dist/sitemap-0.xml", sitemap, "utf8");
 await writeFile("dist/sitemap-index.xml", sitemapIndex, "utf8");
-console.log(`canonical sitemap written (${urls.length} urls)`);
+console.log(`canonical sitemap written (${urls.length} urls, plus sitemap.xml index alias)`);
