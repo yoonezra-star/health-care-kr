@@ -20,6 +20,9 @@ This Android project opens the Cloudflare Pages blood pressure note experience i
 From this folder:
 
 ```powershell
+$env:JAVA_HOME = "C:\Path\To\JDK17"
+$env:ANDROID_HOME = "$env:LOCALAPPDATA\Android\Sdk"
+$env:ANDROID_SDK_ROOT = $env:ANDROID_HOME
 .\gradlew.bat :app:assembleDebug
 ```
 
@@ -29,7 +32,22 @@ The debug APK is created at:
 app/build/outputs/apk/debug/app-debug.apk
 ```
 
-For Google Play, use Android Studio's signed app bundle flow after replacing the AdMob test IDs with real production IDs.
+To generate a release app bundle:
+
+```powershell
+$env:JAVA_HOME = "C:\Path\To\JDK17"
+$env:ANDROID_HOME = "$env:LOCALAPPDATA\Android\Sdk"
+$env:ANDROID_SDK_ROOT = $env:ANDROID_HOME
+.\gradlew.bat :app:bundleRelease
+```
+
+The release AAB is created at:
+
+```text
+app/build/outputs/bundle/release/app-release.aab
+```
+
+For Google Play, use Android Studio's signed app bundle flow or configure an upload key before release, then replace the AdMob test IDs with real production IDs.
 
 ## AdMob
 
