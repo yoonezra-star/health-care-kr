@@ -7,5 +7,6 @@ dist/
 npm-debug.log*
 .dev-server*.log
 .visual-check/
+android/local.properties
 .DS_Store
 Thumbs.db

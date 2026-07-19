@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { SITE } from "../data/site";
 ---
 
-<BaseLayout title={`개인정보처리방침 | ${SITE.name}`} description="Health Care 개인정보처리방침입니다.">
+<BaseLayout title={`개인정보처리방침 | ${SITE.name}`} description="Health Care 개인정보처리방침입니다." enableAds={false}>
   <section class="page-hero">
     <div class="wrap">
       <p class="eyebrow">Privacy Policy</p>
@@ -14,6 +14,7 @@ import { SITE } from "../data/site";
   <article class="page-content">
     <p class="lead">
       Health Care는 계산기 이용 과정에서 민감한 건강 정보를 회원 계정이나 서버 데이터베이스로 수집하지 않습니다.
+      혈압노트 Android 앱도 WebView 기반으로 동작하며, 사용자가 직접 입력한 혈압 기록은 현재 기기 안의 로컬 저장소에 보관됩니다.
       다만 사이트 운영, 문의 응대, 보안, 광고 제공 과정에서 제한적인 정보가 처리될 수 있습니다.
     </p>
 
@@ -28,6 +29,10 @@ import { SITE } from "../data/site";
       <div>
         <dt>계산기 입력값</dt>
         <dd>키, 몸무게, 나이, 수면 시간 같은 입력값은 기본적으로 브라우저 안에서 계산되며 Health Care 서버에 별도 저장하지 않습니다.</dd>
+      </div>
+      <div>
+        <dt>혈압노트 앱 기록</dt>
+        <dd>수축기 혈압, 이완기 혈압, 맥박, 복약 여부, 측정 시간, 자세, 측정 팔, 메모는 사용자의 Android WebView 로컬 저장소에 저장될 수 있습니다. 현재 버전은 이 기록을 Health Care 서버로 전송하거나 계정과 연결하지 않습니다.</dd>
       </div>
       <div>
         <dt>문의 정보</dt>
@@ -48,14 +53,16 @@ import { SITE } from "../data/site";
       <li>콘텐츠 품질 개선을 위한 비식별 이용 흐름 확인</li>
     </ul>
 
-    <h2>3. 쿠키와 Google AdSense</h2>
+    <h2>3. 쿠키, Google AdSense, Google Mobile Ads</h2>
     <p>
-      Health Care는 Google AdSense를 통해 광고를 게재할 수 있습니다. 이 과정에서 Google 및 광고 파트너는
+      Health Care 웹사이트는 Google AdSense를 통해 광고를 게재할 수 있고, 혈압노트 Android 앱은 Google Mobile Ads SDK를 통해 AdMob 광고를 표시할 수 있습니다.
+      이 과정에서 Google 및 광고 파트너는
       쿠키 또는 유사 기술을 사용해 광고 제공, 빈도 제한, 부정 사용 방지, 광고 성과 측정을 수행할 수 있습니다.
       사용자는 브라우저 설정에서 쿠키를 제한하거나 삭제할 수 있으며, Google 광고 설정에서 개인 맞춤 광고 관련 선택을 관리할 수 있습니다.
     </p>
     <ul class="policy-list">
       <li>계산기 입력값은 회원 계정과 연결해 저장하지 않으며, 별도의 건강 기록 데이터베이스를 운영하지 않습니다.</li>
+      <li>혈압노트 앱 기록은 현재 기기 로컬 저장소에 저장되며, CSV 내보내기나 인쇄 기능은 사용자가 직접 실행할 때만 동작합니다.</li>
       <li>광고 파트너가 처리하는 쿠키와 식별자는 광고 제공과 부정 사용 방지를 위한 기술 정보일 수 있습니다.</li>
       <li>사용자는 브라우저의 쿠키 차단, 광고 설정, 추적 방지 기능을 통해 일부 광고 개인화를 제한할 수 있습니다.</li>
     </ul>
@@ -72,7 +79,7 @@ import { SITE } from "../data/site";
 
     <h2>5. 제3자 제공 및 처리 위탁</h2>
     <p>
-      Health Care는 사이트 제공을 위해 Cloudflare, GitHub Pages/저장소, Google AdSense 등 외부 서비스를 사용할 수 있습니다.
+      Health Care는 사이트와 앱 제공을 위해 Cloudflare, GitHub 저장소, Google AdSense, Google Mobile Ads SDK 등 외부 서비스를 사용할 수 있습니다.
       각 서비스는 호스팅, 배포, 보안, 광고 제공 목적 범위에서 필요한 기술 정보를 처리할 수 있습니다.
     </p>
     <dl class="info-list">
@@ -82,7 +89,7 @@ import { SITE } from "../data/site";
       </div>
       <div>
         <dt>광고</dt>
-        <dd>Google AdSense와 광고 파트너가 광고 노출, 빈도 제한, 부정 클릭 방지, 성과 측정에 필요한 정보를 처리할 수 있습니다.</dd>
+        <dd>Google AdSense, Google Mobile Ads SDK, 광고 파트너가 광고 노출, 빈도 제한, 부정 클릭 방지, 성과 측정에 필요한 광고 식별자, 기기 정보, 앱 상호작용 정보, 대략적 위치 등 기술 정보를 처리할 수 있습니다.</dd>
       </div>
       <div>
         <dt>문의 응대</dt>
@@ -94,6 +101,10 @@ import { SITE } from "../data/site";
     <p>
       이용자는 본인이 보낸 문의 메일의 열람, 정정, 삭제, 처리 중지를 요청할 수 있습니다.
       요청은 <a href={`mailto:${SITE.email}`}>{SITE.email}</a>로 보내 주세요. 본인 확인이 필요한 경우 추가 확인을 요청할 수 있습니다.
+    </p>
+    <p>
+      혈압노트 앱에 저장된 로컬 기록은 앱 화면의 기록 삭제 기능, 샘플 복구 기능, CSV 파일 삭제, 또는 Android의 앱 데이터 삭제 기능을 통해 사용자가 직접 관리할 수 있습니다.
+      앱을 삭제하면 기기에 저장된 WebView 로컬 기록도 함께 삭제될 수 있습니다.
     </p>
 
     <h2>7. 보안 조치</h2>

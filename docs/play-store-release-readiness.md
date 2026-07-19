@@ -15,6 +15,8 @@
 - Debug APK 빌드: `android/app/build/outputs/apk/debug/app-debug.apk`
 - Release AAB 빌드: `android/app/build/outputs/bundle/release/app-release.aab`
 - GitHub `main`과 Cloudflare Pages 자동 배포 연결 완료
+- `app-ads.txt` 추가: `https://health-care-kr.pages.dev/app-ads.txt`
+- Android 로컬 빌드용 SDK 경로 설정: `android/local.properties`는 개인 PC 경로라 Git 추적에서 제외
 
 ## 공식 기준 확인
 
@@ -26,6 +28,8 @@
   - https://support.google.com/googleplay/android-developer/answer/13996367
 - Google Play Data safety: Play에 게시되는 모든 앱은 Data safety form을 완료해야 합니다.
   - https://support.google.com/googleplay/android-developer/answer/10787469
+- AdMob app-ads.txt verification: 신규 AdMob 앱은 승인 전 app-ads.txt 검증이 필요합니다.
+  - https://support.google.com/admob/answer/14538460
 - Play App Signing: Play Console 릴리스에는 AAB 업로드 및 앱 서명 설정이 필요합니다.
   - https://support.google.com/googleplay/android-developer/answer/9842756
 
@@ -43,7 +47,7 @@
   - 업로드 키 생성 및 보관 필요
 - 개인정보처리방침 URL
   - 현재 후보: `https://health-care-kr.pages.dev/privacy`
-  - Android 앱의 WebView, 로컬 건강 기록, 광고 SDK 처리 내용을 더 명확히 반영하는 업데이트 권장
+  - Android 앱의 WebView, 로컬 건강 기록, Google Mobile Ads SDK 처리 내용을 반영함
 
 ## Health Apps Declaration 초안
 
@@ -117,4 +121,3 @@ Play Console의 Health apps declaration에서 아래 취지로 입력합니다.
 - Play Console 최종 패키지 ID 결정 필요
 - 실제 AdMob ID 필요
 - Play Console용 이미지 자산 필요
-

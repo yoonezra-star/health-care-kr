@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { SITE } from "../data/site";
 ---
 
-<BaseLayout title={`쿠키 정책 | ${SITE.name}`} description="Health Care의 쿠키, 광고 기술, Google AdSense 관련 고지입니다.">
+<BaseLayout title={`쿠키 정책 | ${SITE.name}`} description="Health Care의 쿠키, 광고 기술, Google AdSense와 Google AdMob 관련 고지입니다." enableAds={false}>
   <section class="page-hero">
     <div class="wrap">
       <p class="eyebrow">Cookie Policy</p>
@@ -39,7 +39,7 @@ import { SITE } from "../data/site";
       </div>
       <div>
         <dt>광고 기술</dt>
-        <dd>Google AdSense와 광고 파트너가 광고 제공, 빈도 제한, 부정 클릭 방지, 성과 측정을 위해 쿠키나 유사 기술을 사용할 수 있습니다.</dd>
+        <dd>Google AdSense, Google Mobile Ads SDK, 광고 파트너가 광고 제공, 빈도 제한, 부정 클릭 방지, 성과 측정을 위해 쿠키나 유사 기술을 사용할 수 있습니다.</dd>
       </div>
       <div>
         <dt>브라우저 저장</dt>
@@ -47,9 +47,9 @@ import { SITE } from "../data/site";
       </div>
     </dl>
 
-    <h2>3. Google AdSense와 맞춤 광고</h2>
+    <h2>3. Google AdSense, Google AdMob과 맞춤 광고</h2>
     <p>
-      Health Care는 Google AdSense 광고 코드를 포함할 수 있습니다. Google 및 제3자 광고 파트너는 사용자의 사이트 방문 정보,
+      Health Care 웹사이트는 Google AdSense 광고 코드를 포함할 수 있고, 혈압노트 Android 앱은 Google AdMob 광고를 표시할 수 있습니다. Google 및 제3자 광고 파트너는 사용자의 사이트 방문 정보,
       광고 노출 정보, 쿠키 또는 유사 기술을 사용해 광고를 제공하거나 광고 품질을 관리할 수 있습니다.
       사용자는 Google 광고 설정에서 개인 맞춤 광고와 관련된 선택을 관리할 수 있습니다.
     </p>
