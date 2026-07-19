@@ -1,0 +1,67 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { SITE } from "../data/site";
+---
+
+<BaseLayout title={`데이터 삭제 안내 | ${SITE.name}`} description="혈압노트 앱과 Health Care 사이트의 로컬 기록, CSV 파일, 문의 메일 삭제 방법을 안내합니다." enableAds={false}>
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Data Deletion</p>
+      <h1>데이터 삭제 안내</h1>
+      <p>혈압노트 앱 기록, CSV 파일, 문의 메일을 사용자가 어떻게 삭제하거나 요청할 수 있는지 안내합니다.</p>
+    </div>
+  </section>
+
+  <article class="page-content">
+    <p class="lead">
+      혈압노트는 현재 계정 생성, 로그인, 서버 동기화 기능을 제공하지 않습니다.
+      사용자가 직접 입력한 혈압 기록은 Android WebView의 기기 로컬 저장소에 보관되며, Health Care 서버 계정과 연결되지 않습니다.
+    </p>
+
+    <div class="policy-meta" aria-label="데이터 삭제 안내 정보">
+      <span>시행일 {SITE.startedAt}</span>
+      <span>최종 수정일 {SITE.lastPolicyUpdate}</span>
+      <span>문의 {SITE.email}</span>
+    </div>
+
+    <h2>1. 앱 계정 삭제</h2>
+    <p>
+      혈압노트는 앱 안에서 계정을 만들거나 로그인하는 기능을 제공하지 않습니다. 따라서 삭제할 앱 계정은 없습니다.
+      나중에 계정, 동기화, 백업 기능이 추가되면 이 페이지와 개인정보처리방침을 함께 갱신하고 계정 삭제 절차를 별도로 제공합니다.
+    </p>
+
+    <h2>2. 혈압노트 로컬 기록 삭제</h2>
+    <ol class="policy-list">
+      <li>개별 기록은 앱의 기록 화면에서 해당 기록의 삭제 버튼으로 지울 수 있습니다.</li>
+      <li>전체 기록은 리포트 화면의 “전체 기록 삭제” 버튼으로 지울 수 있습니다.</li>
+      <li>Android 설정에서 혈압노트 앱의 저장공간 또는 앱 데이터를 삭제하면 WebView 로컬 저장소 기록도 삭제될 수 있습니다.</li>
+      <li>앱을 삭제하면 기기에 저장된 앱 데이터도 함께 삭제될 수 있습니다.</li>
+    </ol>
+
+    <h2>3. CSV 파일 삭제</h2>
+    <p>
+      CSV 내려받기는 사용자가 직접 실행할 때만 생성됩니다. 내려받은 CSV 파일은 Health Care 서버에 저장되지 않으며,
+      사용자의 휴대전화 다운로드 폴더, 파일 앱, 클라우드 백업 앱에 남아 있을 수 있습니다. 파일 삭제는 사용자가 해당 저장 위치에서 직접 처리해야 합니다.
+    </p>
+
+    <h2>4. 문의 메일 삭제 요청</h2>
+    <p>
+      이메일로 문의를 보낸 경우, 회신과 정정 처리에 필요한 범위에서 이메일 주소와 문의 내용이 확인될 수 있습니다.
+      문의 메일 삭제 또는 개인정보 처리 관련 요청은 <a href={`mailto:${SITE.email}`}>{SITE.email}</a>로 보내 주세요.
+      본인 확인이 필요한 경우 추가 확인을 요청할 수 있습니다.
+    </p>
+
+    <h2>5. 삭제되지 않을 수 있는 정보</h2>
+    <p>
+      Google AdSense, Google Mobile Ads SDK, Cloudflare 같은 외부 서비스가 광고, 보안, 부정 사용 방지, 로그 관리 목적으로 처리하는 기술 정보는
+      각 서비스 제공자의 정책과 법령상 보관 기준에 따라 관리될 수 있습니다. Health Care가 보유하지 않는 외부 서비스 데이터는 Health Care 앱 화면에서 직접 삭제할 수 없습니다.
+    </p>
+
+    <h2>6. 관련 문서</h2>
+    <p>
+      개인정보 처리 전반은 <a href="/privacy">개인정보처리방침</a>, 광고와 쿠키 기술은
+      <a href="/advertising-policy">광고 정책</a>과 <a href="/cookie-policy">쿠키 정책</a>,
+      건강 정보의 한계는 <a href="/disclaimer">면책사항</a>에서 확인할 수 있습니다.
+    </p>
+  </article>
+</BaseLayout>

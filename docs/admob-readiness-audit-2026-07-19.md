@@ -7,8 +7,8 @@
 
 ## 현재 점수
 
-- 사전 준비도: 88/100
-- 실제 심사 제출 가능도: 60/100
+- 사전 준비도: 92/100
+- 실제 심사 제출 가능도: 62/100
 
 실제 심사 제출 가능도가 낮은 이유는 앱이 아직 Google Play에 게시되지 않았고, AdMob 앱 생성 및 스토어 연결이 완료되지 않았기 때문입니다. Google AdMob의 app readiness review는 앱이 지원 스토어에 게시되고 AdMob에서 연결된 뒤 진행됩니다.
 
@@ -18,6 +18,8 @@
 - 개인정보처리방침에 Android WebView, 로컬 혈압 기록, Google Mobile Ads SDK 처리 문구 추가
 - 광고 정책에 AdMob 배너 배치 원칙과 `app-ads.txt` 고지 추가
 - 쿠키 정책에 Google AdMob/Google Mobile Ads SDK 문구 추가
+- 데이터 삭제 안내 페이지 추가 및 앱 푸터/정책 문서에 연결
+- 혈압노트 앱 안에 전체 기록 삭제 버튼 추가
 - 개인정보, 광고정책, 쿠키정책, 이용약관, 면책 페이지에서는 광고 스크립트를 로드하지 않도록 변경
 - Android 로컬 빌드용 `local.properties` 생성 및 Git 추적 제외
 
@@ -28,7 +30,7 @@
 - Google Mobile Ads SDK 포함
 - 출시 전 테스트 AdMob App ID와 배너 단위 사용
 - WebView에 `MobileAds.registerWebView(webView)` 호출 존재
-- 공개 정책 페이지 존재: 개인정보처리방침, 광고 정책, 쿠키 정책, 이용약관, 면책사항
+- 공개 정책 페이지 존재: 개인정보처리방침, 데이터 삭제 안내, 광고 정책, 쿠키 정책, 이용약관, 면책사항
 - `ads.txt`와 `app-ads.txt` 제공
 - 건강 기능 표현은 직접 측정, 진단, 치료, 처방을 피하고 기록/참고용으로 정리
 

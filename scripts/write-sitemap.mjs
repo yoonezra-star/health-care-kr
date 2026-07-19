@@ -20,6 +20,7 @@ const staticPages = [
   "/about",
   "/contact",
   "/privacy",
+  "/data-deletion",
   "/disclaimer",
   "/editorial-policy",
   "/advertising-policy",

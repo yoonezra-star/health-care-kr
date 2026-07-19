@@ -16,6 +16,8 @@
 - Release AAB 빌드: `android/app/build/outputs/bundle/release/app-release.aab`
 - GitHub `main`과 Cloudflare Pages 자동 배포 연결 완료
 - `app-ads.txt` 추가: `https://health-care-kr.pages.dev/app-ads.txt`
+- 데이터 삭제 안내 페이지 추가: `https://health-care-kr.pages.dev/data-deletion`
+- 혈압노트 앱 리포트 화면의 전체 기록 삭제 기능 추가
 - Android 로컬 빌드용 SDK 경로 설정: `android/local.properties`는 개인 PC 경로라 Git 추적에서 제외
 
 ## 공식 기준 확인
@@ -48,6 +50,9 @@
 - 개인정보처리방침 URL
   - 현재 후보: `https://health-care-kr.pages.dev/privacy`
   - Android 앱의 WebView, 로컬 건강 기록, Google Mobile Ads SDK 처리 내용을 반영함
+- 데이터 삭제 안내 URL
+  - 현재 후보: `https://health-care-kr.pages.dev/data-deletion`
+  - 현재 앱은 계정 생성이 없지만, 로컬 혈압 기록과 CSV 파일 삭제 절차를 별도로 공개함
 
 ## Health Apps Declaration 초안
 
@@ -70,7 +75,7 @@ Play Console의 Health apps declaration에서 아래 취지로 입력합니다.
 - 수집 여부: 현재 서버로 전송하지 않음
 - 저장 위치: 사용자의 기기 WebView localStorage
 - 공유 여부: 앱 자체 서버 공유 없음
-- 사용자 삭제: 앱 화면의 기록 삭제 또는 브라우저/WebView 앱 데이터 삭제로 가능
+- 사용자 삭제: 앱 화면의 개별 기록 삭제, 리포트 화면의 전체 기록 삭제, 브라우저/WebView 앱 데이터 삭제로 가능
 
 ### 광고 관련 데이터
 
@@ -94,6 +99,7 @@ Play Console의 Health apps declaration에서 아래 취지로 입력합니다.
 - 휴대전화 스크린샷: 최소 2장
   - 권장 화면: 대시보드, 기록 입력, 리포트/CSV 화면
 - 개인정보처리방침 URL
+- 데이터 삭제 안내 URL
 - 앱 카테고리: Health & Fitness 후보
 - 광고 포함 여부: 예, AdMob 사용 시
 - 콘텐츠 등급 설문
@@ -106,12 +112,13 @@ Play Console의 Health apps declaration에서 아래 취지로 입력합니다.
 2. `adb install -r android/app/build/outputs/apk/debug/app-debug.apk`
 3. 앱 실행 후 첫 화면이 혈압노트인지 확인
 4. 혈압 기록 저장 후 앱 재실행 시 기록 유지 확인
-5. 외부 링크가 브라우저로 열리는지 확인
-6. 네트워크 차단 상태에서 오류 패널과 다시 시도 버튼 확인
-7. AdMob 테스트 배너가 하단에서 콘텐츠를 과하게 가리지 않는지 확인
-8. Play Console 업로드 전 실제 AdMob ID 교체
-9. 릴리스 AAB를 업로드 키로 서명
-10. 내부 테스트 트랙에 먼저 배포
+5. 개별 기록 삭제와 전체 기록 삭제 후 로컬 기록이 사라지는지 확인
+6. 외부 링크가 브라우저로 열리는지 확인
+7. 네트워크 차단 상태에서 오류 패널과 다시 시도 버튼 확인
+8. AdMob 테스트 배너가 하단에서 콘텐츠를 과하게 가리지 않는지 확인
+9. Play Console 업로드 전 실제 AdMob ID 교체
+10. 릴리스 AAB를 업로드 키로 서명
+11. 내부 테스트 트랙에 먼저 배포
 
 ## 현재 차단 항목
 
