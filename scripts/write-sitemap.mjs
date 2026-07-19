@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import posts from "../src/data/posts.json" with { type: "json" };
 
-const siteUrl = "https://www.wellbeep.com";
+const siteUrl = "https://health-care-kr.pages.dev";
 const guideSlugs = [
   "health-checkup-reading-order",
   "fasting-glucose-a1c-difference",

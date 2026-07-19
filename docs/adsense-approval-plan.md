@@ -1,10 +1,10 @@
-# WELLBEEP AdSense approval plan
+# Health Care AdSense approval plan
 
 Last updated: 2026-07-18
 
 ## Goal
 
-WELLBEEP should look less like a collection of thin calculator widgets and more like a maintained health-calculator reference site. The approval strategy is to make every calculator page useful even before a user interacts with the tool.
+Health Care should look less like a collection of thin calculator widgets and more like a maintained health-calculator reference site. The approval strategy is to make every calculator page useful even before a user interacts with the tool.
 
 ## Policy signals checked
 
@@ -52,7 +52,7 @@ Score after the original-guide, calculator UI, and professional interpretation r
   - Diagnostic-sounding wording was softened, methodology and editorial standards are visible, and official resources are linked without implying partnership.
   - Privacy, disclaimer, contact, advertising, and editorial pages now explain operational scope, correction workflow, ad separation, and medical-safety limits in more detail.
   - A safety-copy layer now softens legacy imported phrases about life expectancy, treatment urgency, guaranteed effects, and overconfident health claims in public output.
-  - Remaining risk: WELLBEEP is not a medical institution, so the site must keep avoiding diagnosis, treatment, prescription, or guaranteed outcome wording.
+  - Remaining risk: Health Care is not a medical institution, so the site must keep avoiding diagnosis, treatment, prescription, or guaranteed outcome wording.
 - Navigation and site structure: 20 / 20
   - Topic hubs, related calculators, policy pages, and a public reference hub are linked from home, footer, and calculator pages.
   - The calculator use guide is linked from the top navigation, footer, home page, source boxes, topic hubs, and policy pages.

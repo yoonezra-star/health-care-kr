@@ -10,7 +10,7 @@ const posts = postsJson as Post[];
 const canonical = `${SITE.url}/calculator-guide`;
 const title = `건강 계산기 사용 가이드 | ${SITE.name}`;
 const description =
-  "WELLBEEP 건강 계산기를 안전하게 쓰는 순서, 입력값 확인법, 결과 기록법, 상담이 필요한 상황을 정리한 이용 가이드입니다.";
+  "Health Care 건강 계산기를 안전하게 쓰는 순서, 입력값 확인법, 결과 기록법, 상담이 필요한 상황을 정리한 이용 가이드입니다.";
 const featuredByCategory = categoryHubs.map((hub) => ({
   ...hub,
   posts: posts.filter((post) => post.category === hub.key).slice(0, 3)
@@ -38,7 +38,7 @@ const guideJson = {
       <h1>건강 계산기 사용 가이드</h1>
       <p>
         계산기는 빠르게 결과를 보여주지만, 좋은 판단은 입력값의 정확도와 결과 해석의 맥락에서 나옵니다.
-        이 페이지는 WELLBEEP 계산기를 더 안전하고 효율적으로 쓰기 위한 공통 안내서입니다.
+        이 페이지는 Health Care 계산기를 더 안전하고 효율적으로 쓰기 위한 공통 안내서입니다.
       </p>
       <div class="policy-meta" aria-label="사용 가이드 요약">
         <span>{posts.length}개 계산기 적용</span>
@@ -50,7 +50,7 @@ const guideJson = {
 
   <article class="page-content page-content--wide">
     <p class="lead">
-      WELLBEEP의 계산기는 체형, 영양, 혈압·혈당, 생활습관, 건강지표를 빠르게 확인하는 참고 도구입니다.
+      Health Care의 계산기는 체형, 영양, 혈압·혈당, 생활습관, 건강지표를 빠르게 확인하는 참고 도구입니다.
       결과 자체보다 중요한 것은 같은 조건으로 기록하고, 관련 지표를 함께 보고, 위험 신호가 있으면 의료 전문가 상담으로 연결하는 것입니다.
     </p>
 

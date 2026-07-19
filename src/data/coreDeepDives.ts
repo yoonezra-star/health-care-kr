@@ -28,7 +28,7 @@ const deepDives: Record<string, CoreDeepDive> = {
     badge: "Core calculator",
     title: "BMI를 단독 판정이 아니라 체형 점검의 출발점으로 보는 법",
     intro:
-      "BMI는 키와 체중만으로 빠르게 계산할 수 있어 접근성이 좋지만, 근육량·체지방 분포·나이·질환 상태를 직접 반영하지는 못합니다. 그래서 WELLBEEP는 BMI 결과를 허리둘레, 체지방률, 생활습관 기록과 함께 보도록 안내합니다.",
+      "BMI는 키와 체중만으로 빠르게 계산할 수 있어 접근성이 좋지만, 근육량·체지방 분포·나이·질환 상태를 직접 반영하지는 못합니다. 그래서 Health Care는 BMI 결과를 허리둘레, 체지방률, 생활습관 기록과 함께 보도록 안내합니다.",
     formulaRows: [
       { label: "기본 공식", value: "체중(kg) / 키(m)^2", note: "성인 BMI 계산에서 널리 쓰이는 기본 산식입니다." },
       { label: "함께 볼 지표", value: "허리둘레, WHtR, 체지방률", note: "복부 지방과 체성분 차이를 보완합니다." },

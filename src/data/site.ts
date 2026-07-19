@@ -1,7 +1,7 @@
 export const SITE = {
-  name: "WELLBEEP",
-  title: "WELLBEEP 건강 계산기",
-  url: "https://www.wellbeep.com",
+  name: "Health Care",
+  title: "Health Care 건강 계산기",
+  url: "https://health-care-kr.pages.dev",
   description:
     "BMI, 기초대사량, 영양, 혈압, 수면 등 생활 건강 지표를 빠르게 확인하는 한국어 건강 계산기 허브입니다.",
   email: "replyleaders@naver.com",

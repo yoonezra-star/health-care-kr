@@ -1,10 +1,11 @@
-# WELLBEEP Static Migration
+# Health Care Static Site
 
-WELLBEEP를 Blogger/Blogspot 기반 사이트에서 GitHub + Cloudflare Pages로 이전하기 위한 정적 Astro 프로젝트입니다.
+Health Care를 GitHub + Cloudflare Pages로 배포하기 위한 정적 Astro 프로젝트입니다.
+기존 `wellbeep.com` 도메인은 사용하지 않고, Cloudflare Pages가 제공하는 `pages.dev` 주소를 기준으로 운영합니다.
 
 ## 현재 구성
 
-- 기존 Blogger 글 43개를 `src/data/posts.json`으로 가져옵니다.
+- 건강 계산기 글 43개를 `src/data/posts.json`으로 관리합니다.
 - 기존 글 URL인 `/2026/04/blog-post_08.html` 같은 `.html` 경로를 그대로 생성합니다.
 - Blogger 테마, 공유 위젯, 기존 광고 스크립트는 제거했습니다.
 - 소개, 문의, 개인정보처리방침, 면책사항 페이지를 추가했습니다.
@@ -14,21 +15,22 @@ WELLBEEP를 Blogger/Blogspot 기반 사이트에서 GitHub + Cloudflare Pages로
 
 ```bash
 npm ci
-npm run import:blogger
 npm run build
 npm run dev
 ```
 
-`npm run import:blogger`는 기존 Blogger 원본이 살아 있을 때만 실행하세요. 도메인 전환 후에는 새 Cloudflare 사이트를 다시 긁게 될 수 있으므로, 가져온 `src/data/posts.json`을 기준으로 운영합니다.
+`npm run import:blogger`는 과거 콘텐츠 원본을 다시 가져와야 할 때만 실행하세요. 실수로 기존 도메인을 읽지 않도록 기본 실행은 막아두었고, 꼭 필요할 때만 `ALLOW_LEGACY_WELLBEEP_IMPORT=1` 환경 변수를 켠 뒤 사용합니다. 일반 배포와 개발은 가져온 `src/data/posts.json`을 기준으로 진행합니다.
 
 ## Cloudflare Pages 설정
 
 - Build command: `npm run build`
 - Build output directory: `dist`
 - Node version: `.node-version`의 `24`
-- Custom domains: `www.wellbeep.com`, `wellbeep.com`
+- Project name: `health-care-kr`
+- Production URL: `https://health-care-kr.pages.dev`
+- Custom domains: 사용하지 않음
 
-자세한 이전 순서는 [docs/migration-runbook.md](docs/migration-runbook.md)를 보세요.
+GitHub 저장소를 Cloudflare Pages에 연결한 뒤, 위 빌드 설정으로 배포하면 됩니다.
 
 ## AdSense 준비
 

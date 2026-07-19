@@ -1,4 +1,4 @@
-# WELLBEEP AdSense reinforcement audit - 2026-07-18
+# Health Care AdSense reinforcement audit - 2026-07-18
 
 ## Current score
 
@@ -32,13 +32,13 @@ This is not a guarantee of AdSense approval. It means the site now has the major
 ## Recommended post-deployment checks
 
 1. In Search Console
-   - Submit `https://www.wellbeep.com/sitemap.xml`.
+   - Submit `https://health-care-kr.pages.dev/sitemap.xml`.
    - Request indexing for `/`, `/guides`, `/calculator-guide`, `/health-checkup-guide`, `/health-resources`, and the 10 reinforced calculator URLs.
 
 2. In AdSense
-   - Confirm the site is listed as `wellbeep.com` or `www.wellbeep.com` according to the verified property.
+   - Confirm the site is listed as `health-care-kr.pages.dev` according to the verified property.
    - Confirm ad code is detected in the `<head>`.
-   - Confirm `https://www.wellbeep.com/ads.txt` returns the publisher line.
+   - Confirm `https://health-care-kr.pages.dev/ads.txt` returns the publisher line.
 
 3. In content operations
    - Add new calculator pages only when they include a worked example, FAQ, source/caution block, related links, and record-keeping guidance.

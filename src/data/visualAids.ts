@@ -187,7 +187,7 @@ const categoryVisualAids: Record<string, VisualAid> = {
     ],
     flowSteps: [
       { title: "관련 조건 확인", body: "나이, 성별, 주기, 검사일, 질환, 복용 약물처럼 결과에 영향을 주는 조건을 확인합니다." },
-      { title: "공식 자료 대조", body: "WELLBEEP 참고자료 허브와 검진표 기준을 함께 확인합니다." },
+      { title: "공식 자료 대조", body: "Health Care 참고자료 허브와 검진표 기준을 함께 확인합니다." },
       { title: "필요 시 상담", body: "증상, 경계 수치, 임신 가능성, 약물 이슈가 있으면 전문가 상담을 우선합니다." }
     ]
   }

@@ -2,6 +2,13 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { dirname } from "node:path";
 import * as cheerio from "cheerio";
 
+if (process.env.ALLOW_LEGACY_WELLBEEP_IMPORT !== "1") {
+  console.error(
+    "This legacy importer reads the old wellbeep.com source. Set ALLOW_LEGACY_WELLBEEP_IMPORT=1 only when you intentionally need to re-import that historical source."
+  );
+  process.exit(1);
+}
+
 const sources = [
   { url: "https://www.wellbeep.com/2026/04/blog-post_08.html", modifiedAt: "2026-06-12T00:17:00+09:00" },
   { url: "https://www.wellbeep.com/2026/04/blog-post_26.html", modifiedAt: "2026-05-18T21:20:00+09:00" },
@@ -49,7 +56,7 @@ const sources = [
 ];
 
 const userAgent =
-  "Mozilla/5.0 (compatible; WELLBEEP-Migration/1.0; +https://www.wellbeep.com)";
+  "Mozilla/5.0 (compatible; HealthCare-LegacyMigration/1.0; +https://health-care-kr.pages.dev)";
 
 function slugFromUrl(url) {
   return new URL(url).pathname.replace(/^\/+/, "");
