@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCalculatorGuide } from "../data/calculatorGuides";
 import { getCalculatorExample } from "../data/calculatorExamples";
+import { getCalculatorInsightPack } from "../data/calculatorInsightPacks";
 import { getCoreDeepDive } from "../data/coreDeepDives";
 import { getProfessionalCalculatorProfile } from "../data/professionalCalculatorProfiles";
 import { getCategoryHub, getResourcesForTags } from "../data/resourceLinks";
@@ -27,6 +28,7 @@ const relatedPosts = related.length >= 3 ? related : fallbackRelated;
 const guideRelatedPosts = relatedPosts.slice(0, 3);
 const guide = getCalculatorGuide(post);
 const calculatorExample = getCalculatorExample(post);
+const insightPack = getCalculatorInsightPack(post);
 const coreDeepDive = getCoreDeepDive(post.slug);
 const professionalProfile = getProfessionalCalculatorProfile(post.slug);
 const visualAid = getVisualAid(post);
@@ -36,6 +38,7 @@ const categoryResources = getResourcesForTags(categoryHub.resourceTags).slice(0,
 const jumpLinks = [
   { href: "#calculator-tool", label: "계산" },
   { href: "#calculator-guide-heading", label: "해석" },
+  { href: "#insight-pack-heading", label: "점검" },
   { href: professionalProfile ? "#professional-calculator-heading" : "#calculation-example-heading", label: "사례" },
   { href: "#source-heading", label: "출처" }
 ];
@@ -342,6 +345,59 @@ const faqJson = {
                 <p>{step.body}</p>
               </div>
             ))}
+          </div>
+        </section>
+
+        <section class="insight-pack" aria-labelledby="insight-pack-heading">
+          <div class="insight-pack__heading">
+            <p class="eyebrow">Page-specific review</p>
+            <h2 id="insight-pack-heading">{insightPack.headline}</h2>
+            <p>{insightPack.summary}</p>
+          </div>
+          <div class="insight-pack__angle">
+            <strong>{insightPack.angle.label}</strong>
+            <span>{insightPack.angle.text}</span>
+          </div>
+          <div class="table-wrap visual-table-wrap">
+            <table class="comparison-table">
+              <thead>
+                <tr>
+                  <th scope="col">상황</th>
+                  <th scope="col">입력 예시</th>
+                  <th scope="col">해석 포인트</th>
+                  <th scope="col">다음 확인</th>
+                </tr>
+              </thead>
+              <tbody>
+                {insightPack.scenarios.map((scenario) => (
+                  <tr>
+                    <th scope="row">{scenario.context}</th>
+                    <td>{scenario.input}</td>
+                    <td>{scenario.interpretation}</td>
+                    <td>{scenario.nextStep}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div class="professional-bottom-grid">
+            <section class="professional-checklist">
+              <h3>입력·해석 실수 방지</h3>
+              <ul>
+                {insightPack.mistakeChecks.map((item) => <li>{item}</li>)}
+              </ul>
+            </section>
+            <section class="standard-card">
+              <h3>기록하면 좋은 항목</h3>
+              <dl>
+                {insightPack.recordFields.map((field) => (
+                  <div>
+                    <dt>{field.label}</dt>
+                    <dd><strong>{field.value}</strong> · {field.reason}</dd>
+                  </div>
+                ))}
+              </dl>
+            </section>
           </div>
         </section>
 

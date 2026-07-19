@@ -695,7 +695,7 @@ main {
   color: white;
 }
 
-.article-main :is(#calculator-tool, #calculator-guide-heading, #calculation-example-heading, #professional-calculator-heading, #source-heading) {
+.article-main :is(#calculator-tool, #calculator-guide-heading, #insight-pack-heading, #calculation-example-heading, #professional-calculator-heading, #source-heading) {
   scroll-margin-top: 94px;
 }
 
@@ -1001,6 +1001,7 @@ main {
 .hub-layout > *,
 .hub-main > *,
 .deep-dive-grid > *,
+.insight-pack > *,
 .professional-calculator > *,
 .case-library__grid > *,
 .professional-bottom-grid > *,
@@ -1146,11 +1147,50 @@ main {
 
 .deep-dive,
 .calculation-example,
+.insight-pack,
 .professional-calculator {
   background: #fbfdfc;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: clamp(18px, 3vw, 24px);
+}
+
+.insight-pack {
+  background: linear-gradient(180deg, #fffdf8, #fbfdfc);
+  border-color: #e9d9b8;
+  display: grid;
+  gap: 16px;
+}
+
+.insight-pack__heading h2 {
+  font-size: clamp(23px, 3vw, 31px);
+  line-height: 1.25;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.insight-pack__heading p:last-child {
+  color: #334349;
+  margin-bottom: 0;
+}
+
+.insight-pack__angle {
+  background: #fff7e6;
+  border: 1px solid #eed39b;
+  border-radius: var(--radius);
+  display: grid;
+  gap: 6px;
+  padding: 14px 16px;
+}
+
+.insight-pack__angle strong {
+  color: #5e4211;
+  font-size: 13px;
+}
+
+.insight-pack__angle span {
+  color: #60491e;
+  line-height: 1.65;
 }
 
 .deep-dive {
@@ -2043,6 +2083,7 @@ main {
   .source-box,
   .visual-aid,
   .deep-dive,
+  .insight-pack,
   .calculation-example,
   .professional-calculator,
   .resource-section,
