@@ -1,10 +1,10 @@
-# Health Care Android WebView App
+# 혈압노트 Android WebView App
 
-This Android project wraps the Cloudflare Pages site in a native WebView and adds an AdMob banner area.
+This Android project opens the Cloudflare Pages blood pressure note experience in a native WebView and adds an AdMob banner area.
 
 ## Current Site
 
-- WebView start URL: `https://health-care-kr.pages.dev`
+- WebView start URL: `https://health-care-kr.pages.dev/blood-pressure-note`
 - In-app host: `health-care-kr.pages.dev`
 - External links open in the device browser.
 

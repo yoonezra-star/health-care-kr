@@ -29,7 +29,7 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
 public class MainActivity extends Activity {
-    private static final String START_URL = "https://health-care-kr.pages.dev";
+    private static final String START_URL = "https://health-care-kr.pages.dev/blood-pressure-note";
     private static final String ALLOWED_HOST = "health-care-kr.pages.dev";
     private static final String TEST_BANNER_AD_UNIT_ID = "ca-app-pub-3940256099942544/9214589741";
 
@@ -124,6 +124,8 @@ public class MainActivity extends Activity {
         settings.setSupportZoom(false);
         settings.setBuiltInZoomControls(false);
         settings.setDisplayZoomControls(false);
+        settings.setAllowFileAccess(false);
+        settings.setAllowContentAccess(false);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             settings.setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW);
