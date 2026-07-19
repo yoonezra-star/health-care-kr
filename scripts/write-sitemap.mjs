@@ -31,6 +31,7 @@ const staticPages = [
   "/health-metric-glossary",
   "/standards-update-log",
   "/health-record-template",
+  "/blood-pressure-note",
   "/health-resources",
   "/calculator-methodology",
   "/calculators/body",

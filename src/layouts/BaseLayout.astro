@@ -36,7 +36,8 @@ const cleanStaticPath = (pathname: string) => {
     "/health-checkup-guide.html",
     "/health-metric-glossary.html",
     "/standards-update-log.html",
-    "/health-record-template.html"
+    "/health-record-template.html",
+    "/blood-pressure-note.html"
   ]);
 
   return cleanPages.has(pathname) ? pathname.replace(/\.html$/, "") : pathname;

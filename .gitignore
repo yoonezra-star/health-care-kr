@@ -5,5 +5,7 @@ dist/
 .env.*
 !.env.example
 npm-debug.log*
+.dev-server*.log
+.visual-check/
 .DS_Store
 Thumbs.db

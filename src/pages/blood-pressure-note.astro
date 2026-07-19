@@ -1,0 +1,1398 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title = "혈압노트 | 혈압 기록과 상담용 리포트";
+const description =
+  "수축기, 이완기, 맥박, 복약 여부를 빠르게 기록하고 최근 혈압 추세와 상담용 CSV 리포트를 확인하는 혈압 관리 도구입니다.";
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="bp-hero">
+    <div class="bp-wrap bp-hero__grid">
+      <div class="bp-hero__copy">
+        <p class="bp-eyebrow">Blood Pressure Tracker</p>
+        <h1>
+          <span>측정값은 빠르게 남기고,</span>
+          <span>변화는 한눈에 봅니다.</span>
+        </h1>
+        <p>
+          수축기·이완기·맥박·복약 여부를 같은 흐름에서 기록하고 병원 상담용
+          요약까지 준비하는 혈압 관리 앱 초안입니다.
+        </p>
+        <div class="bp-actions">
+          <a class="bp-button bp-button--light" href="#bp-record">오늘 기록</a>
+          <a class="bp-button bp-button--ghost" href="#bp-report">리포트 보기</a>
+        </div>
+      </div>
+      <div class="bp-phone" aria-label="혈압노트 앱 미리보기">
+        <div class="bp-phone__top">
+          <span></span>
+          <strong>07:44</strong>
+        </div>
+        <div class="bp-phone__reading">
+          <span>최근 측정</span>
+          <strong data-latest-phone>124/80</strong>
+          <small data-latest-status>mmHg · 주의 관찰</small>
+        </div>
+        <div class="bp-phone__chart">
+          <svg viewBox="0 0 220 100" aria-hidden="true">
+            <polyline class="bp-mini-line bp-mini-sys" data-mini-sys points=""></polyline>
+            <polyline class="bp-mini-line bp-mini-dia" data-mini-dia points=""></polyline>
+          </svg>
+        </div>
+        <div class="bp-phone__row">
+          <span>복약</span>
+          <strong data-medication-label>확인</strong>
+        </div>
+        <div class="bp-phone__row">
+          <span>보고서</span>
+          <strong>CSV</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bp-app" aria-label="혈압노트 앱">
+    <div class="bp-wrap">
+      <div class="bp-summary" aria-label="혈압 요약">
+        <article class="bp-metric bp-tone-amber">
+          <span>최근 혈압</span>
+          <strong data-metric-latest>124/80</strong>
+          <small>mmHg</small>
+        </article>
+        <article class="bp-metric bp-tone-blue">
+          <span>7회 평균</span>
+          <strong data-metric-average>130/83</strong>
+          <small>mmHg</small>
+        </article>
+        <article class="bp-metric bp-tone-teal">
+          <span>평균 맥박</span>
+          <strong data-metric-pulse>75</strong>
+          <small>bpm</small>
+        </article>
+        <article class="bp-metric bp-tone-coral">
+          <span>오늘 기록</span>
+          <strong data-metric-today>1</strong>
+          <small>회</small>
+        </article>
+      </div>
+
+      <div class="bp-tabs" role="tablist" aria-label="혈압노트 화면">
+        <button type="button" class="is-active" data-bp-tab="dashboard" role="tab" aria-selected="true">
+          대시보드
+        </button>
+        <button type="button" data-bp-tab="records" role="tab" aria-selected="false">
+          기록
+        </button>
+        <button type="button" data-bp-tab="report" role="tab" aria-selected="false">
+          리포트
+        </button>
+      </div>
+
+      <div class="bp-panel-grid" data-bp-view="dashboard">
+        <section class="bp-panel bp-panel--wide">
+          <div class="bp-panel__head">
+            <div>
+              <p class="bp-eyebrow">Trend</p>
+              <h2>최근 혈압 추세</h2>
+            </div>
+            <span class="bp-status" data-status-pill>주의 관찰</span>
+          </div>
+          <div class="bp-chart" aria-label="최근 10개 혈압 추세">
+            <svg viewBox="0 0 640 260" role="img">
+              <title>수축기와 이완기 추세</title>
+              <g class="bp-grid-lines">
+                <line x1="28" x2="612" y1="40" y2="40"></line>
+                <line x1="28" x2="612" y1="105" y2="105"></line>
+                <line x1="28" x2="612" y1="170" y2="170"></line>
+                <line x1="28" x2="612" y1="235" y2="235"></line>
+              </g>
+              <polyline class="bp-line bp-sys" data-chart-sys points=""></polyline>
+              <polyline class="bp-line bp-dia" data-chart-dia points=""></polyline>
+              <g data-chart-dots></g>
+            </svg>
+            <div class="bp-legend">
+              <span class="bp-legend-sys">수축기</span>
+              <span class="bp-legend-dia">이완기</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="bp-panel">
+          <div class="bp-panel__head">
+            <div>
+              <p class="bp-eyebrow">Insight</p>
+              <h2>오늘의 요약</h2>
+            </div>
+          </div>
+          <div class="bp-big-reading">
+            <span>최근</span>
+            <strong data-insight-latest>124/80</strong>
+            <small>mmHg</small>
+          </div>
+          <p class="bp-insight" data-insight-copy>
+            저녁 수축기 평균이 아침보다 높습니다.
+          </p>
+          <div class="bp-mini-stats">
+            <span><strong data-morning-average>122</strong>아침 평균</span>
+            <span><strong data-evening-average>136</strong>저녁 평균</span>
+            <span><strong data-warning-count>5</strong>주의 기록</span>
+          </div>
+        </section>
+
+        <section class="bp-panel bp-panel--full">
+          <div class="bp-panel__head">
+            <div>
+              <p class="bp-eyebrow">Log</p>
+              <h2>최근 기록</h2>
+            </div>
+          </div>
+          <div class="bp-timeline" data-recent-list></div>
+        </section>
+      </div>
+
+      <div class="bp-panel-grid is-hidden" data-bp-view="records" id="bp-record">
+        <section class="bp-panel">
+          <div class="bp-panel__head">
+            <div>
+              <p class="bp-eyebrow">Measure</p>
+              <h2>측정값 입력</h2>
+            </div>
+            <span class="bp-save-state" data-save-state>샘플 데이터로 시작했습니다.</span>
+          </div>
+          <form class="bp-form" data-bp-form>
+            <label>
+              <span>수축기</span>
+              <input type="number" min="70" max="240" inputmode="numeric" name="systolic" value="124" required />
+            </label>
+            <label>
+              <span>이완기</span>
+              <input type="number" min="40" max="160" inputmode="numeric" name="diastolic" value="80" required />
+            </label>
+            <label>
+              <span>맥박</span>
+              <input type="number" min="35" max="200" inputmode="numeric" name="pulse" value="72" required />
+            </label>
+            <label>
+              <span>측정 시간</span>
+              <input type="datetime-local" name="measuredAt" required />
+            </label>
+            <label>
+              <span>시간대</span>
+              <select name="timing">
+                <option>아침</option>
+                <option>점심</option>
+                <option>저녁</option>
+                <option>취침 전</option>
+              </select>
+            </label>
+            <label>
+              <span>자세</span>
+              <select name="posture">
+                <option>앉음</option>
+                <option>누움</option>
+                <option>서 있음</option>
+              </select>
+            </label>
+            <label>
+              <span>측정 팔</span>
+              <select name="arm">
+                <option>왼팔</option>
+                <option>오른팔</option>
+              </select>
+            </label>
+            <label class="bp-check">
+              <input type="checkbox" name="medication" checked />
+              <span>복약 완료</span>
+            </label>
+            <label class="bp-form__wide">
+              <span>메모</span>
+              <textarea name="note" rows="3" placeholder="운동, 식사, 수면, 컨디션"></textarea>
+            </label>
+            <button class="bp-button bp-button--dark bp-form__wide" type="submit">저장</button>
+          </form>
+        </section>
+
+        <section class="bp-panel">
+          <div class="bp-panel__head">
+            <div>
+              <p class="bp-eyebrow">History</p>
+              <h2>전체 기록</h2>
+            </div>
+            <span class="bp-count" data-record-count>7회</span>
+          </div>
+          <div class="bp-history" data-history-list></div>
+        </section>
+      </div>
+
+      <div class="bp-panel-grid is-hidden" data-bp-view="report" id="bp-report">
+        <section class="bp-panel">
+          <div class="bp-panel__head">
+            <div>
+              <p class="bp-eyebrow">Report</p>
+              <h2>상담용 요약</h2>
+            </div>
+            <span class="bp-count" data-report-count>7개 기록</span>
+          </div>
+          <div class="bp-report-summary">
+            <span><strong data-report-average>130/83</strong>최근 7회 평균</span>
+            <span><strong data-report-warning>5</strong>주의 기록</span>
+            <span><strong data-report-pulse>75</strong>평균 맥박</span>
+          </div>
+          <div class="bp-actions bp-actions--dark">
+            <button class="bp-button bp-button--dark" type="button" data-export-csv>CSV 내려받기</button>
+            <button class="bp-button bp-button--outline" type="button" data-print-report>인쇄</button>
+            <button class="bp-button bp-button--outline" type="button" data-reset-samples>샘플 복구</button>
+          </div>
+        </section>
+        <section class="bp-panel">
+          <div class="bp-panel__head">
+            <div>
+              <p class="bp-eyebrow">Roadmap</p>
+              <h2>앱 확장 계획</h2>
+            </div>
+          </div>
+          <div class="bp-roadmap">
+            <article>
+              <strong>블루투스 혈압계</strong>
+              <span>표준 Blood Pressure Service 기기부터 연결</span>
+            </article>
+            <article>
+              <strong>Android Health Connect</strong>
+              <span>BloodPressureRecord 읽기·쓰기 권한 흐름</span>
+            </article>
+            <article>
+              <strong>파트너 공유</strong>
+              <span>가족·의료진에게 기간별 요약 공유</span>
+            </article>
+          </div>
+        </section>
+      </div>
+
+      <div class="bp-trust" aria-label="주의 및 개인정보 안내">
+        <article>
+          <strong>로컬 우선 저장</strong>
+          <span>현재 버전은 브라우저에 기록을 저장합니다.</span>
+        </article>
+        <article>
+          <strong>진료용 요약</strong>
+          <span>CSV와 인쇄 화면으로 상담 자료를 정리합니다.</span>
+        </article>
+        <article>
+          <strong>참고용 안내</strong>
+          <span>진단·치료 판단은 의료진 상담이 필요합니다.</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .bp-wrap {
+      margin: 0 auto;
+      max-width: min(1120px, calc(100vw - 32px));
+    }
+
+    .bp-hero {
+      background:
+        linear-gradient(135deg, rgba(15, 139, 126, 0.95), rgba(37, 99, 235, 0.82)),
+        linear-gradient(180deg, #14b8a6, #2563eb);
+      color: #fff;
+      padding: 46px 0;
+    }
+
+    .bp-hero__grid {
+      align-items: center;
+      display: grid;
+      gap: 28px;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 330px), 1fr));
+      min-width: 0;
+    }
+
+    .bp-hero__copy {
+      min-width: 0;
+    }
+
+    .bp-hero__copy h1 {
+      color: #fff;
+      font-size: clamp(36px, 5vw, 58px);
+      line-height: 1.08;
+      margin: 14px 0 16px;
+      max-width: 720px;
+      word-break: keep-all;
+    }
+
+    .bp-hero__copy h1 span {
+      display: block;
+    }
+
+    .bp-hero__copy p:not(.bp-eyebrow) {
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 18px;
+      font-weight: 700;
+      margin: 0;
+      max-width: 620px;
+    }
+
+    .bp-eyebrow {
+      color: currentColor;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0;
+      margin: 0;
+      opacity: 0.72;
+      text-transform: uppercase;
+    }
+
+    .bp-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 24px;
+    }
+
+    .bp-button {
+      align-items: center;
+      border: 1px solid transparent;
+      border-radius: 7px;
+      display: inline-flex;
+      font-weight: 900;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 15px;
+      text-decoration: none;
+    }
+
+    .bp-button--light {
+      background: #fff;
+      color: #10202e;
+    }
+
+    .bp-button--ghost {
+      background: rgba(255, 255, 255, 0.14);
+      border-color: rgba(255, 255, 255, 0.28);
+      color: #fff;
+    }
+
+    .bp-button--dark {
+      background: #10202e;
+      color: #fff;
+    }
+
+    .bp-button--outline {
+      background: #fff;
+      border-color: #dce5ec;
+      color: #10202e;
+    }
+
+    .bp-phone {
+      background: #f8fafc;
+      border: 10px solid rgba(255, 255, 255, 0.78);
+      border-radius: 8px;
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.28);
+      color: #10202e;
+      margin: 0 auto;
+      min-height: 480px;
+      padding: 18px;
+      width: min(100%, 330px);
+    }
+
+    .bp-phone__top,
+    .bp-phone__row {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .bp-phone__top {
+      color: #64748b;
+      font-size: 12px;
+      margin-bottom: 16px;
+    }
+
+    .bp-phone__top span {
+      background: #cbd5e1;
+      border-radius: 5px;
+      height: 6px;
+      width: 58px;
+    }
+
+    .bp-phone__reading {
+      background: linear-gradient(135deg, #14b8a6, #0f766e);
+      border-radius: 8px;
+      color: #fff;
+      padding: 18px;
+    }
+
+    .bp-phone__reading span,
+    .bp-phone__reading small {
+      display: block;
+      font-weight: 800;
+    }
+
+    .bp-phone__reading strong {
+      display: block;
+      font-size: 42px;
+      line-height: 1;
+      margin: 6px 0;
+    }
+
+    .bp-phone__chart {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+      height: 156px;
+      margin: 14px 0;
+      padding: 14px;
+    }
+
+    .bp-phone__chart svg {
+      height: 100%;
+      width: 100%;
+    }
+
+    .bp-phone__row {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      color: #64748b;
+      font-size: 14px;
+      font-weight: 900;
+      margin-top: 10px;
+      min-height: 48px;
+      padding: 0 14px;
+    }
+
+    .bp-phone__row strong {
+      color: #0f766e;
+    }
+
+    .bp-app {
+      background: #f4f7f9;
+      padding: 18px 0 54px;
+    }
+
+    .bp-summary,
+    .bp-panel-grid,
+    .bp-trust {
+      display: grid;
+      gap: 12px;
+    }
+
+    .bp-summary {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin-bottom: 16px;
+    }
+
+    .bp-metric,
+    .bp-panel,
+    .bp-trust article {
+      background: #fff;
+      border: 1px solid #dce5ec;
+      border-radius: 8px;
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+    }
+
+    .bp-metric {
+      min-height: 118px;
+      padding: 18px;
+    }
+
+    .bp-metric span,
+    .bp-metric small {
+      color: #64748b;
+      display: block;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .bp-metric strong {
+      color: #10202e;
+      display: block;
+      font-size: 32px;
+      line-height: 1;
+      margin: 14px 0 8px;
+    }
+
+    .bp-tone-teal {
+      border-top: 4px solid #14b8a6;
+    }
+
+    .bp-tone-blue {
+      border-top: 4px solid #2563eb;
+    }
+
+    .bp-tone-amber {
+      border-top: 4px solid #f59e0b;
+    }
+
+    .bp-tone-coral {
+      border-top: 4px solid #ef5a63;
+    }
+
+    .bp-tabs {
+      background: #e6edf3;
+      border-radius: 8px;
+      display: grid;
+      gap: 6px;
+      grid-template-columns: repeat(3, 1fr);
+      margin-bottom: 16px;
+      padding: 5px;
+      width: min(100%, 520px);
+    }
+
+    .bp-tabs button {
+      background: transparent;
+      border: 0;
+      border-radius: 6px;
+      color: #64748b;
+      font-weight: 900;
+      min-height: 38px;
+    }
+
+    .bp-tabs button.is-active {
+      background: #fff;
+      color: #10202e;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.09);
+    }
+
+    .bp-panel-grid {
+      grid-template-columns: minmax(0, 1.16fr) minmax(320px, 0.84fr);
+    }
+
+    .bp-panel {
+      min-width: 0;
+      padding: 20px;
+    }
+
+    .bp-panel--full {
+      grid-column: 1 / -1;
+    }
+
+    .bp-panel__head {
+      align-items: flex-start;
+      display: flex;
+      gap: 16px;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .bp-panel__head h2 {
+      color: #10202e;
+      font-size: 22px;
+      line-height: 1.2;
+      margin: 7px 0 0;
+    }
+
+    .bp-status,
+    .bp-save-state,
+    .bp-count {
+      align-items: center;
+      background: #f1f5f9;
+      border-radius: 7px;
+      color: #64748b;
+      display: inline-flex;
+      font-size: 12px;
+      font-weight: 900;
+      min-height: 30px;
+      padding: 0 10px;
+      white-space: nowrap;
+    }
+
+    .bp-status[data-tone="green"] {
+      background: #d1fae5;
+      color: #047857;
+    }
+
+    .bp-status[data-tone="amber"] {
+      background: #fef3c7;
+      color: #a16207;
+    }
+
+    .bp-status[data-tone="coral"] {
+      background: #ffe4e6;
+      color: #be123c;
+    }
+
+    .bp-chart svg {
+      display: block;
+      min-height: 260px;
+      width: 100%;
+    }
+
+    .bp-grid-lines line {
+      stroke: #dbe4ea;
+      stroke-width: 1;
+    }
+
+    .bp-line,
+    .bp-mini-line {
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .bp-line {
+      stroke-width: 5;
+    }
+
+    .bp-sys,
+    .bp-mini-sys {
+      stroke: #ef5a63;
+    }
+
+    .bp-dia,
+    .bp-mini-dia {
+      stroke: #2563eb;
+    }
+
+    .bp-mini-line {
+      stroke-width: 8;
+    }
+
+    .bp-dot {
+      stroke: #fff;
+      stroke-width: 3;
+    }
+
+    .bp-dot-sys {
+      fill: #ef5a63;
+    }
+
+    .bp-dot-dia {
+      fill: #2563eb;
+    }
+
+    .bp-legend {
+      color: #64748b;
+      display: flex;
+      font-size: 13px;
+      font-weight: 900;
+      gap: 16px;
+    }
+
+    .bp-legend span::before {
+      border-radius: 4px;
+      content: "";
+      display: inline-block;
+      height: 10px;
+      margin-right: 6px;
+      width: 10px;
+    }
+
+    .bp-legend-sys::before {
+      background: #ef5a63;
+    }
+
+    .bp-legend-dia::before {
+      background: #2563eb;
+    }
+
+    .bp-big-reading {
+      background: linear-gradient(135deg, #10202e, #334155);
+      border-radius: 8px;
+      color: #fff;
+      display: grid;
+      gap: 4px;
+      padding: 18px;
+    }
+
+    .bp-big-reading span,
+    .bp-big-reading small {
+      color: rgba(255, 255, 255, 0.72);
+      font-weight: 800;
+    }
+
+    .bp-big-reading strong {
+      font-size: 44px;
+      line-height: 1;
+    }
+
+    .bp-insight {
+      color: #435466;
+      font-weight: 800;
+      margin: 16px 0;
+    }
+
+    .bp-mini-stats,
+    .bp-report-summary {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .bp-mini-stats span,
+    .bp-report-summary span {
+      background: #f1f5f9;
+      border-radius: 8px;
+      color: #64748b;
+      display: grid;
+      font-size: 12px;
+      font-weight: 900;
+      gap: 7px;
+      padding: 14px;
+    }
+
+    .bp-mini-stats strong,
+    .bp-report-summary strong {
+      color: #10202e;
+      font-size: 22px;
+      line-height: 1;
+    }
+
+    .bp-timeline,
+    .bp-history,
+    .bp-roadmap {
+      display: grid;
+      gap: 10px;
+    }
+
+    .bp-row,
+    .bp-roadmap article {
+      align-items: center;
+      background: #f1f5f9;
+      border: 1px solid #dce5ec;
+      border-radius: 8px;
+      display: flex;
+      gap: 12px;
+      min-height: 66px;
+      padding: 12px;
+    }
+
+    .bp-row__dot {
+      border-radius: 6px;
+      flex: 0 0 auto;
+      height: 12px;
+      width: 12px;
+    }
+
+    .bp-row__dot[data-tone="green"] {
+      background: #bbf7d0;
+    }
+
+    .bp-row__dot[data-tone="amber"] {
+      background: #fde68a;
+    }
+
+    .bp-row__dot[data-tone="coral"] {
+      background: #fecdd3;
+    }
+
+    .bp-row strong {
+      color: #10202e;
+      display: block;
+      font-size: 18px;
+    }
+
+    .bp-row span {
+      color: #64748b;
+      display: block;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .bp-row em {
+      color: #0f766e;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 900;
+      margin-left: auto;
+    }
+
+    .bp-row button {
+      background: #fff;
+      border: 1px solid #dce5ec;
+      border-radius: 7px;
+      color: #be123c;
+      font-weight: 900;
+      margin-left: auto;
+      min-height: 36px;
+      padding: 0 10px;
+    }
+
+    .bp-form {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .bp-form label {
+      color: #64748b;
+      display: grid;
+      font-size: 12px;
+      font-weight: 900;
+      gap: 7px;
+      min-width: 0;
+    }
+
+    .bp-form input,
+    .bp-form select,
+    .bp-form textarea {
+      background: #fff;
+      border: 1px solid #dce5ec;
+      border-radius: 7px;
+      color: #10202e;
+      font: inherit;
+      font-size: 15px;
+      font-weight: 700;
+      min-width: 0;
+      width: 100%;
+    }
+
+    .bp-form input,
+    .bp-form select {
+      height: 42px;
+      padding: 0 11px;
+    }
+
+    .bp-form textarea {
+      padding: 11px;
+      resize: vertical;
+    }
+
+    .bp-form__wide {
+      grid-column: 1 / -1;
+    }
+
+    .bp-check {
+      align-items: center;
+      background: #f1f5f9;
+      border: 1px solid #dce5ec;
+      border-radius: 7px;
+      color: #10202e !important;
+      grid-template-columns: auto 1fr;
+      min-height: 42px;
+      padding: 0 11px;
+    }
+
+    .bp-check input {
+      accent-color: #14b8a6;
+      height: 18px;
+      width: 18px;
+    }
+
+    .bp-history {
+      max-height: 590px;
+      overflow: auto;
+      padding-right: 4px;
+    }
+
+    .bp-report-summary {
+      margin-bottom: 18px;
+    }
+
+    .bp-actions--dark {
+      align-items: stretch;
+    }
+
+    .bp-roadmap article {
+      align-items: flex-start;
+      display: grid;
+      gap: 4px;
+    }
+
+    .bp-roadmap strong {
+      color: #10202e;
+    }
+
+    .bp-roadmap span {
+      color: #64748b;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .bp-trust {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 16px;
+    }
+
+    .bp-trust article {
+      display: grid;
+      gap: 7px;
+      min-height: 112px;
+      padding: 16px;
+    }
+
+    .bp-trust strong {
+      color: #10202e;
+    }
+
+    .bp-trust span {
+      color: #64748b;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .is-hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 920px) {
+      .bp-hero__grid,
+      .bp-panel-grid,
+      .bp-trust {
+        grid-template-columns: 1fr;
+      }
+
+      .bp-summary {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 620px) {
+      .bp-wrap {
+        max-width: min(100vw - 24px, 1120px);
+      }
+
+      .bp-hero {
+        padding: 30px 0;
+      }
+
+      .bp-hero__copy h1 {
+        font-size: 34px;
+        line-height: 1.12;
+        word-break: normal;
+      }
+
+      .bp-hero__copy p:not(.bp-eyebrow) {
+        font-size: 16px;
+        overflow-wrap: anywhere;
+      }
+
+      .bp-summary,
+      .bp-form,
+      .bp-mini-stats,
+      .bp-report-summary {
+        grid-template-columns: 1fr;
+      }
+
+      .bp-panel {
+        padding: 15px;
+      }
+
+      .bp-panel__head {
+        display: grid;
+      }
+
+      .bp-tabs {
+        width: 100%;
+      }
+
+      .bp-phone {
+        min-height: auto;
+        padding: 12px;
+        width: min(100%, 300px);
+      }
+    }
+  </style>
+
+  <script is:inline>
+    const BP_STORAGE_KEY = "health-care-kr-blood-pressure-note";
+    const bpSampleReadings = [
+      {
+        id: "sample-1",
+        systolic: 128,
+        diastolic: 82,
+        pulse: 74,
+        measuredAt: "2026-07-13T07:42",
+        timing: "아침",
+        posture: "앉음",
+        arm: "왼팔",
+        medication: true,
+        note: "기상 후 20분, 커피 전"
+      },
+      {
+        id: "sample-2",
+        systolic: 134,
+        diastolic: 86,
+        pulse: 78,
+        measuredAt: "2026-07-14T21:05",
+        timing: "저녁",
+        posture: "앉음",
+        arm: "왼팔",
+        medication: false,
+        note: "저녁 산책 후"
+      },
+      {
+        id: "sample-3",
+        systolic: 121,
+        diastolic: 79,
+        pulse: 71,
+        measuredAt: "2026-07-15T07:35",
+        timing: "아침",
+        posture: "앉음",
+        arm: "오른팔",
+        medication: true,
+        note: "수면 7시간"
+      },
+      {
+        id: "sample-4",
+        systolic: 142,
+        diastolic: 91,
+        pulse: 82,
+        measuredAt: "2026-07-16T20:48",
+        timing: "저녁",
+        posture: "앉음",
+        arm: "왼팔",
+        medication: false,
+        note: "업무 스트레스 높음"
+      },
+      {
+        id: "sample-5",
+        systolic: 126,
+        diastolic: 81,
+        pulse: 73,
+        measuredAt: "2026-07-17T07:50",
+        timing: "아침",
+        posture: "앉음",
+        arm: "왼팔",
+        medication: true,
+        note: "컨디션 양호"
+      },
+      {
+        id: "sample-6",
+        systolic: 132,
+        diastolic: 84,
+        pulse: 76,
+        measuredAt: "2026-07-18T21:12",
+        timing: "저녁",
+        posture: "앉음",
+        arm: "오른팔",
+        medication: false,
+        note: "짠 음식 섭취"
+      },
+      {
+        id: "sample-7",
+        systolic: 124,
+        diastolic: 80,
+        pulse: 72,
+        measuredAt: "2026-07-19T07:44",
+        timing: "아침",
+        posture: "앉음",
+        arm: "왼팔",
+        medication: true,
+        note: "재측정 평균값"
+      }
+    ];
+
+    let bpReadings = loadBpReadings();
+
+    const bpForm = document.querySelector("[data-bp-form]");
+    const measuredAtInput = bpForm?.querySelector("[name='measuredAt']");
+
+    if (measuredAtInput) {
+      measuredAtInput.value = toDateTimeInputValue(new Date());
+    }
+
+    document.querySelectorAll("[data-bp-tab]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const target = button.getAttribute("data-bp-tab");
+        document.querySelectorAll("[data-bp-tab]").forEach((item) => {
+          const isActive = item === button;
+          item.classList.toggle("is-active", isActive);
+          item.setAttribute("aria-selected", String(isActive));
+        });
+        document.querySelectorAll("[data-bp-view]").forEach((view) => {
+          view.classList.toggle("is-hidden", view.getAttribute("data-bp-view") !== target);
+        });
+      });
+    });
+
+    bpForm?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const formData = new FormData(bpForm);
+      const reading = {
+        id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
+        systolic: clampNumber(Number(formData.get("systolic")), 70, 240),
+        diastolic: clampNumber(Number(formData.get("diastolic")), 40, 160),
+        pulse: clampNumber(Number(formData.get("pulse")), 35, 200),
+        measuredAt: String(formData.get("measuredAt")),
+        timing: String(formData.get("timing")),
+        posture: String(formData.get("posture")),
+        arm: String(formData.get("arm")),
+        medication: formData.get("medication") === "on",
+        note: String(formData.get("note") || "")
+      };
+
+      bpReadings = [reading, ...bpReadings];
+      saveBpReadings();
+      bpForm.reset();
+      measuredAtInput.value = toDateTimeInputValue(new Date());
+      setText("[data-save-state]", "새 측정값을 저장했습니다.");
+      renderBpApp();
+      clickTab("dashboard");
+    });
+
+    document.querySelector("[data-export-csv]")?.addEventListener("click", exportBpCsv);
+    document.querySelector("[data-print-report]")?.addEventListener("click", () => window.print());
+    document.querySelector("[data-reset-samples]")?.addEventListener("click", () => {
+      bpReadings = [...bpSampleReadings];
+      saveBpReadings();
+      setText("[data-save-state]", "샘플 데이터로 되돌렸습니다.");
+      renderBpApp();
+    });
+
+    document.addEventListener("click", (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) return;
+      const deleteId = target.getAttribute("data-delete-reading");
+      if (!deleteId) return;
+      bpReadings = bpReadings.filter((reading) => reading.id !== deleteId);
+      saveBpReadings();
+      setText("[data-save-state]", "기록을 삭제했습니다.");
+      renderBpApp();
+    });
+
+    renderBpApp();
+
+    function renderBpApp() {
+      const sorted = [...bpReadings].sort(
+        (a, b) => new Date(b.measuredAt).getTime() - new Date(a.measuredAt).getTime()
+      );
+      const recent = sorted.slice(0, 7);
+      const chart = [...sorted].reverse().slice(-10);
+      const latest = sorted[0];
+      const latestStatus = getPressureStatus(latest);
+      const systolicAvg = average(recent.map((reading) => reading.systolic));
+      const diastolicAvg = average(recent.map((reading) => reading.diastolic));
+      const pulseAvg = average(recent.map((reading) => reading.pulse));
+      const elevatedCount = recent.filter(
+        (reading) => reading.systolic >= 130 || reading.diastolic >= 80
+      ).length;
+      const morningAvg = average(
+        recent.filter((reading) => reading.timing === "아침").map((reading) => reading.systolic)
+      );
+      const eveningAvg = average(
+        recent.filter((reading) => reading.timing === "저녁").map((reading) => reading.systolic)
+      );
+      const todayCount = sorted.filter((reading) => reading.measuredAt.slice(0, 10) === todayKey()).length;
+      const latestValue = latest ? `${latest.systolic}/${latest.diastolic}` : "0/0";
+      const averageValue = `${systolicAvg}/${diastolicAvg}`;
+
+      setText("[data-latest-phone]", latestValue);
+      setText("[data-latest-status]", `mmHg · ${latestStatus.label}`);
+      setText("[data-medication-label]", latest?.medication ? "확인" : "미확인");
+      setText("[data-metric-latest]", latestValue);
+      setText("[data-metric-average]", averageValue);
+      setText("[data-metric-pulse]", String(pulseAvg));
+      setText("[data-metric-today]", String(todayCount));
+      setText("[data-insight-latest]", latestValue);
+      setText("[data-morning-average]", String(morningAvg));
+      setText("[data-evening-average]", String(eveningAvg));
+      setText("[data-warning-count]", String(elevatedCount));
+      setText("[data-record-count]", `${sorted.length}회`);
+      setText("[data-report-count]", `${sorted.length}개 기록`);
+      setText("[data-report-average]", averageValue);
+      setText("[data-report-warning]", String(elevatedCount));
+      setText("[data-report-pulse]", String(pulseAvg));
+      setText(
+        "[data-insight-copy]",
+        eveningAvg > morningAvg
+          ? "저녁 수축기 평균이 아침보다 높습니다."
+          : "아침과 저녁 평균이 안정적으로 기록되고 있습니다."
+      );
+
+      const pill = document.querySelector("[data-status-pill]");
+      if (pill) {
+        pill.textContent = latestStatus.label;
+        pill.setAttribute("data-tone", latestStatus.tone);
+      }
+
+      setAttribute("[data-chart-sys]", "points", createChartPath(chart, "systolic", 640, 260));
+      setAttribute("[data-chart-dia]", "points", createChartPath(chart, "diastolic", 640, 260));
+      setAttribute("[data-mini-sys]", "points", createChartPath(chart, "systolic", 220, 100));
+      setAttribute("[data-mini-dia]", "points", createChartPath(chart, "diastolic", 220, 100));
+      renderChartDots(chart);
+      renderRecentList(sorted.slice(0, 5));
+      renderHistoryList(sorted);
+    }
+
+    function renderChartDots(readings) {
+      const target = document.querySelector("[data-chart-dots]");
+      if (!target) return;
+      target.innerHTML = readings
+        .map((reading, index) => {
+          const x = pointX(index, readings.length, 640);
+          const sy = pointY(reading.systolic, 260);
+          const dy = pointY(reading.diastolic, 260);
+          return `<circle class="bp-dot bp-dot-sys" cx="${x}" cy="${sy}" r="5"></circle><circle class="bp-dot bp-dot-dia" cx="${x}" cy="${dy}" r="5"></circle>`;
+        })
+        .join("");
+    }
+
+    function renderRecentList(readings) {
+      const target = document.querySelector("[data-recent-list]");
+      if (!target) return;
+      target.innerHTML = readings
+        .map((reading) => {
+          const status = getPressureStatus(reading);
+          return `<article class="bp-row">
+            <span class="bp-row__dot" data-tone="${status.tone}"></span>
+            <div>
+              <strong>${reading.systolic}/${reading.diastolic}<small> mmHg</small></strong>
+              <span>${formatReadingDate(reading.measuredAt)} · 맥박 ${reading.pulse}</span>
+            </div>
+            <em>${reading.timing}</em>
+          </article>`;
+        })
+        .join("");
+    }
+
+    function renderHistoryList(readings) {
+      const target = document.querySelector("[data-history-list]");
+      if (!target) return;
+      target.innerHTML = readings
+        .map((reading) => {
+          const status = getPressureStatus(reading);
+          const note = reading.note ? `<span>${escapeHtml(reading.note)}</span>` : "";
+          return `<article class="bp-row">
+            <span class="bp-row__dot" data-tone="${status.tone}"></span>
+            <div>
+              <strong>${reading.systolic}/${reading.diastolic}<small> mmHg</small></strong>
+              <span>${formatReadingDate(reading.measuredAt)} · 맥박 ${reading.pulse} · ${reading.arm} · ${reading.posture}</span>
+              ${note}
+            </div>
+            <button type="button" data-delete-reading="${reading.id}">삭제</button>
+          </article>`;
+        })
+        .join("");
+    }
+
+    function exportBpCsv() {
+      const sorted = [...bpReadings].sort(
+        (a, b) => new Date(b.measuredAt).getTime() - new Date(a.measuredAt).getTime()
+      );
+      const headers = [
+        "measuredAt",
+        "timing",
+        "systolic",
+        "diastolic",
+        "pulse",
+        "posture",
+        "arm",
+        "medication",
+        "note"
+      ];
+      const rows = sorted.map((reading) =>
+        [
+          reading.measuredAt,
+          reading.timing,
+          reading.systolic,
+          reading.diastolic,
+          reading.pulse,
+          reading.posture,
+          reading.arm,
+          reading.medication ? "yes" : "no",
+          `"${String(reading.note).replaceAll('"', '""')}"`
+        ].join(",")
+      );
+      const blob = new Blob([[headers.join(","), ...rows].join("\n")], {
+        type: "text/csv;charset=utf-8"
+      });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "blood-pressure-report.csv";
+      link.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function loadBpReadings() {
+      const saved = window.localStorage.getItem(BP_STORAGE_KEY);
+      if (!saved) return [...bpSampleReadings];
+      try {
+        const parsed = JSON.parse(saved);
+        return Array.isArray(parsed) && parsed.length ? parsed : [...bpSampleReadings];
+      } catch {
+        return [...bpSampleReadings];
+      }
+    }
+
+    function saveBpReadings() {
+      window.localStorage.setItem(BP_STORAGE_KEY, JSON.stringify(bpReadings));
+    }
+
+    function clickTab(name) {
+      const button = document.querySelector(`[data-bp-tab="${name}"]`);
+      if (button instanceof HTMLButtonElement) button.click();
+    }
+
+    function setText(selector, text) {
+      const target = document.querySelector(selector);
+      if (target) target.textContent = text;
+    }
+
+    function setAttribute(selector, attribute, value) {
+      const target = document.querySelector(selector);
+      if (target) target.setAttribute(attribute, value);
+    }
+
+    function toDateTimeInputValue(date) {
+      const offsetDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+      return offsetDate.toISOString().slice(0, 16);
+    }
+
+    function todayKey() {
+      return toDateTimeInputValue(new Date()).slice(0, 10);
+    }
+
+    function average(values) {
+      if (!values.length) return 0;
+      return Math.round(values.reduce((sum, value) => sum + value, 0) / values.length);
+    }
+
+    function clampNumber(value, min, max) {
+      if (Number.isNaN(value)) return min;
+      return Math.min(Math.max(Math.round(value), min), max);
+    }
+
+    function getPressureStatus(reading) {
+      if (!reading) return { label: "기록 대기", tone: "blue" };
+      if (reading.systolic >= 140 || reading.diastolic >= 90) {
+        return { label: "상담 권장", tone: "coral" };
+      }
+      if (reading.systolic >= 130 || reading.diastolic >= 80) {
+        return { label: "주의 관찰", tone: "amber" };
+      }
+      return { label: "안정 범위", tone: "green" };
+    }
+
+    function pointX(index, length, width) {
+      if (length <= 1) return width / 2;
+      const padding = width === 640 ? 42 : 8;
+      return padding + (index * (width - padding * 2)) / (length - 1);
+    }
+
+    function pointY(value, height) {
+      const min = 55;
+      const max = 175;
+      const top = height === 260 ? 34 : 8;
+      const bottom = height === 260 ? 232 : 92;
+      const ratio = (Math.min(Math.max(value, min), max) - min) / (max - min);
+      return bottom - ratio * (bottom - top);
+    }
+
+    function createChartPath(readings, key, width, height) {
+      return readings
+        .map((reading, index) => `${pointX(index, readings.length, width)},${pointY(reading[key], height)}`)
+        .join(" ");
+    }
+
+    function formatReadingDate(value) {
+      return new Intl.DateTimeFormat("ko-KR", {
+        month: "short",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+      }).format(new Date(value));
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+  </script>
+</BaseLayout>
