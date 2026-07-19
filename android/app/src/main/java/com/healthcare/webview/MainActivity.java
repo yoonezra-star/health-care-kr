@@ -179,8 +179,7 @@ public class MainActivity extends Activity {
         String scheme = uri.getScheme();
         String host = uri.getHost();
 
-        if (("https".equalsIgnoreCase(scheme) || "http".equalsIgnoreCase(scheme))
-            && ALLOWED_HOST.equalsIgnoreCase(host)) {
+        if ("https".equalsIgnoreCase(scheme) && ALLOWED_HOST.equalsIgnoreCase(host)) {
             return false;
         }
 
@@ -222,6 +221,7 @@ public class MainActivity extends Activity {
         return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onBackPressed() {
         if (webView != null && webView.canGoBack()) {

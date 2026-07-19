@@ -1,4 +1,7 @@
 .gradle/
+.gradle-cache/
+.gradle-runtime/
+.android-home/
 build/
 local.properties
 captures/
